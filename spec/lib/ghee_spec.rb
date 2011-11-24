@@ -7,10 +7,20 @@ describe Ghee do
   end
 
   describe "#initialize" do
-    it "should set up a connection" do
-      gh = Ghee.new('abcd1234')
-      gh.connection.should be_instance_of(Ghee::Connection)
-      gh.connection.access_token.should == 'abcd1234'
+    context "with an access_token" do
+      it "should set up a connection" do
+        gh = Ghee.new(ACCESS_TOKEN)
+        gh.connection.should be_instance_of(Ghee::Connection)
+        gh.connection.access_token.should == ACCESS_TOKEN
+      end
+    end
+
+    context "without an access_token" do
+      it "should set up a connection" do
+        gh = Ghee.new
+        gh.connection.should be_instance_of(Ghee::Connection)
+        gh.connection.access_token.should be_nil
+      end
     end
   end
 end

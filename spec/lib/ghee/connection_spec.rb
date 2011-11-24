@@ -1,29 +1,54 @@
 require 'spec_helper'
 
 describe Ghee::Connection do
-  subject { Ghee::Connection.new('abcd1234') }
+  context "with an access_token" do
+    subject { Ghee::Connection.new(ACCESS_TOKEN) }
 
-  describe "#initialize" do
-    it "should set an instance variable for access token" do
-      subject.access_token.should == 'abcd1234'
+    describe "#initialize" do
+      it "should set an instance variable for access token" do
+        subject.access_token.should == ACCESS_TOKEN
+      end
+    end
+
+    describe "any request" do
+      let(:response) do
+        VCR.use_cassette('authorized_request') do
+          subject.get('/')
+        end
+      end
+
+      it "should return 204" do
+        response.status.should == 204
+      end
+
+      it "should parse the json response" do
+        response.body.should == ""
+      end
     end
   end
 
-  describe "any request" do
-    before(:each) do
-      stub_request(:any, "https://api.github.com").
-        with(:headers => {"Authorization" => "token abcd1234"}).
-        to_return(:body => '{}', :headers => {"Content-Type" => 'application/json'})
+  context "without an access token" do
+    subject { Ghee::Connection.new }
+
+    describe "#initialize" do
+      it "should set an instance variable for access token" do
+        subject.access_token.should == nil
+      end
     end
 
-    let(:response) { subject.get('/') }
+    describe "any request" do
+      let(:response) do
+        VCR.use_cassette('unauthorized_request') do
+          subject.get('/')
+        end
+      end
+      it "should return 204" do
+        response.status.should == 204
+      end
 
-    it "should return 200" do
-      response.status.should == 200
-    end
-
-    it "should parse the json response" do
-      response.body.should == {}
+      it "should parse the json response" do
+        response.body.should == ""
+      end
     end
   end
 end

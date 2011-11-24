@@ -1,0 +1,30 @@
+--- 
+- !ruby/struct:VCR::HTTPInteraction 
+  request: !ruby/struct:VCR::Request 
+    method: :get
+    uri: https://api.github.com:443/
+    body: 
+    headers: 
+      accept: 
+      - application/json
+  response: !ruby/struct:VCR::Response 
+    status: !ruby/struct:VCR::ResponseStatus 
+      code: 204
+      message: No Content
+    headers: 
+      etag: 
+      - "\"d41d8cd98f00b204e9800998ecf8427e\""
+      x-ratelimit-limit: 
+      - "5000"
+      connection: 
+      - keep-alive
+      server: 
+      - nginx/1.0.4
+      date: 
+      - Thu, 24 Nov 2011 00:29:31 GMT
+      x-ratelimit-remaining: 
+      - "4994"
+      status: 
+      - 204 No Content
+    body: 
+    http_version: "1.1"
