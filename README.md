@@ -11,6 +11,12 @@ Instantiate the client:
     access_token = "abcd1234"
     gh = Ghee.new(access_token)
 
+### Gists
+
+List authenticated users gists:
+
+    gh.gists
+
 Testing
 -------
 
