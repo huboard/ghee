@@ -15,34 +15,34 @@ Instantiate the client:
 
 List a user's gists:
 
-	gh.user('jonmagic').gists
+    gh.user('jonmagic').gists
 
 Get a single gist:
 
-	gist_id = "1393990"
-	gh.gists(gist_id)
+    gist_id = "1393990"
+    gh.gists(gist_id)
 
 Create a gist ([see docs for all possible params](http://developer.github.com/v3/gists/#create-a-gist)):
 
-	gh.gists.create({
-	  :description => 'Ghee'
-	  :public => true,
-	  :files => {
-	    'file1.txt' => {
-	      :content => 'buttah yo bread'
-	    }
-	  }
-	})
+    gh.gists.create({
+      :description => 'Ghee'
+      :public => true,
+      :files => {
+        'file1.txt' => {
+          :content => 'buttah yo bread'
+        }
+      }
+    })
 
 Edit a gist:
 
     gh.gists("1393990").patch({
-	  :files => {
-	    'gistfile1.md' => {
-	      :content => 'clarified I say'
-	    }
-	  }
-	})
+      :files => {
+        'gistfile1.md' => {
+          :content => 'clarified I say'
+        }
+      }
+    })
 
 List authenticated users gists:
 
