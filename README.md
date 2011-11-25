@@ -27,6 +27,11 @@ List the authenticated user's starred gists:
 
 ### Users
 
+Get a single user:
+
+    gh.users('jonmagic')
+
+
 Get the authenticated user:
 
     gh.user

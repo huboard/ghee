@@ -17,6 +17,16 @@ class Ghee
       def user
         connection.get('/user').body
       end
+
+      # Get a single user
+      #
+      # user - String of user login
+      #
+      # Returns json
+      #
+      def users(user)
+        connection.get("/users/#{user}").body
+      end
     end
   end
 end

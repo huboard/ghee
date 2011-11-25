@@ -16,4 +16,14 @@ describe Ghee::API::Users do
       end
     end
   end
+
+  describe "#users" do
+    it "should return given user" do
+      VCR.use_cassette('users') do
+        user = subject.users('jonmagic')
+        user['type'].should == 'User'
+        user['login'].should == 'jonmagic'
+      end
+    end
+  end
 end
