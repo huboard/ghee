@@ -65,16 +65,23 @@ describe Ghee::API::Gists do
             }
           })
           should_be_a_gist(gist)
+          subject.gists(gist['id']).destroy
         end
       end
     end
 
     context "with gist id" do
+      before(:all) do
+        VCR.use_cassette('gists.test') do
+          @test_gist = subject.gists.create({:public => false, :files => {'file.txt' => {:content => 'ready to destroy'}}})
+        end
+      end
+      let(:test_gist) { @test_gist }
+
       it "should return single gist" do
         VCR.use_cassette('gists(id)') do
-          gist_id = "1393990"
-          gist = subject.gists(gist_id)
-          gist['id'].should == gist_id
+          gist = subject.gists(test_gist['id'])
+          gist['id'].should == test_gist['id']
           should_be_a_gist(gist)
         end
       end
@@ -82,7 +89,7 @@ describe Ghee::API::Gists do
       describe "#patch" do
         it "should patch the gist" do
           VCR.use_cassette('gists(id).patch') do
-            gist = subject.gists("1393990").patch({
+            gist = subject.gists(test_gist['id']).patch({
               :files => {
                 'test.md' => {
                   :content => 'clarified butter'
@@ -98,7 +105,7 @@ describe Ghee::API::Gists do
       describe "#star" do
         it "should star the gist" do
           VCR.use_cassette('gists(id).star') do
-            subject.gists('1393990').star.should be_true
+            subject.gists(test_gist['id']).star.should be_true
           end
         end
       end
@@ -106,7 +113,7 @@ describe Ghee::API::Gists do
       describe "#unstar" do
         it "should star the gist" do
           VCR.use_cassette('gists(id).unstar') do
-            subject.gists('1393990').unstar.should be_true
+            subject.gists(test_gist['id']).unstar.should be_true
           end
         end
       end
@@ -114,15 +121,15 @@ describe Ghee::API::Gists do
       describe "#starred?" do
         it "should return true if gist is starred" do
           VCR.use_cassette('gists(id).starred? is true') do
-            subject.gists('1393990').star
-            subject.gists('1393990').starred?.should be_true
+            subject.gists(test_gist['id']).star
+            subject.gists(test_gist['id']).starred?.should be_true
           end
         end
 
         it "should return false if gist is unstarred" do
           VCR.use_cassette('gists(id).starred? is false') do
-            subject.gists('1393990').unstar
-            subject.gists('1393990').starred?.should be_false
+            subject.gists(test_gist['id']).unstar
+            subject.gists(test_gist['id']).starred?.should be_false
           end
         end
       end
