@@ -12,6 +12,18 @@ describe Ghee::API::Gists do
     gist['files'].size.should > 0
   end
 
+  describe "#users" do
+    describe "#gists" do
+      it "should return users gists" do
+        VCR.use_cassette('users.gists') do
+          gists = subject.users('jonmagic').gists
+          gists.size.should > 0
+          should_be_a_gist(gists.first)
+        end
+      end
+    end
+  end
+
   describe "#gists" do
     it "should return gists for authenticated user" do
       VCR.use_cassette('gists') do

@@ -24,6 +24,14 @@ class Ghee
         def patch(attributes)
           connection.patch('/user', attributes).body
         end
+
+        # Gists for a user
+        #
+        # Returns json
+        #
+        def gists
+          connection.get("#{path_prefix}/gists").body
+        end
       end
 
       # Get authenticated user
@@ -41,7 +49,7 @@ class Ghee
       # Returns json
       #
       def users(user)
-        connection.get("/users/#{user}").body
+        Proxy.new(connection, "/users/#{user}")
       end
     end
   end

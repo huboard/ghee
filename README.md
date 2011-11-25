@@ -13,6 +13,10 @@ Instantiate the client:
 
 ### Gists
 
+List a user's gists:
+
+	gh.user('jonmagic').gists
+
 List authenticated users gists:
 
     gh.gists
