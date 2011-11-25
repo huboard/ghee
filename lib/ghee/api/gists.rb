@@ -25,6 +25,16 @@ class Ghee
           connection.post(path_prefix, attributes).body
         end
 
+        # Patches gist
+        #
+        # attributes - Hash of attributes
+        #
+        # Returns json
+        #
+        def patch(attributes)
+          connection.patch(path_prefix, attributes).body
+        end
+
         # Get public gists
         #
         # Returns json

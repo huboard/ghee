@@ -34,6 +34,16 @@ Create a gist ([see docs for all possible params](http://developer.github.com/v3
 	  }
 	})
 
+Edit a gist:
+
+    gh.gists("1393990").patch({
+	  :files => {
+	    'gistfile1.md' => {
+	      :content => 'clarified I say'
+	    }
+	  }
+	})
+
 List authenticated users gists:
 
     gh.gists

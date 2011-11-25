@@ -4,7 +4,6 @@ describe Ghee::API::Gists do
   subject { Ghee.new(ACCESS_TOKEN) }
 
   def should_be_a_gist(gist)
-    gist['description'].should be_instance_of(String)
     gist['url'].should include('https://api.github.com/gists/')
     gist['user']['url'].should include('https://api.github.com/users/')
     gist['created_at'].should_not be_nil
@@ -32,6 +31,22 @@ describe Ghee::API::Gists do
           gist = subject.gists(gist_id)
           gist['id'].should == gist_id
           should_be_a_gist(gist)
+        end
+      end
+
+      describe "#patch" do
+        it "should patch the gist" do
+          VCR.use_cassette('gists(id).patch') do
+            gist = subject.gists("1393990").patch({
+              :files => {
+                'test.md' => {
+                  :content => 'clarified butter'
+                }
+              }
+            })
+            should_be_a_gist(gist)
+            gist['files']['test.md']['content'].should == 'clarified butter'
+          end
         end
       end
     end
