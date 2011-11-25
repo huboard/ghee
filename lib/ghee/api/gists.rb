@@ -15,6 +15,21 @@ class Ghee
       #
       class Proxy < ::Ghee::ResourceProxy
 
+        # Get public gists
+        #
+        # Returns json
+        #
+        def public
+          connection.get("#{path_prefix}/public").body
+        end
+
+        # Get starred gists
+        #
+        # Returns json
+        #
+        def starred
+          connection.get("#{path_prefix}/starred").body
+        end
       end
 
       # Get gists
@@ -22,7 +37,7 @@ class Ghee
       # Returns json
       #
       def gists
-        ResourceProxy.new(connection, '/gists')
+        Proxy.new(connection, '/gists')
       end
     end
   end

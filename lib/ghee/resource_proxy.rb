@@ -7,8 +7,11 @@ class Ghee
   #
   class ResourceProxy
 
-    # undefine methods that might get in the way
+    # Undefine methods that might get in the way
     instance_methods.each { |m| undef_method m unless m =~ /^__|instance_eval|instance_variable_get|object_id/ }
+
+    # Make connection and path_prefix readable
+    attr_reader :connection, :path_prefix
 
     # Instantiates proxy with the connection
     # and path_prefix
@@ -37,7 +40,7 @@ class Ghee
     # Returns json
     #
     def subject
-      @subject ||= @connection.get(@path_prefix).body
+      @subject ||= connection.get(path_prefix).body
     end
   end
 end

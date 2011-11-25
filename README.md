@@ -17,6 +17,14 @@ List authenticated users gists:
 
     gh.gists
 
+List all public gists:
+
+    gh.gists.public
+
+List the authenticated user's starred gists:
+
+    gh.gists.starred
+
 Testing
 -------
 
