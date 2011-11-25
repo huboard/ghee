@@ -68,6 +68,10 @@ Check if a gist is starred:
 
     gh.gists("1393990").starred?
 
+Delete a gist:
+
+    gh.gists("1393990").destroy
+
 ### Users
 
 Get a single user:

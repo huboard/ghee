@@ -74,6 +74,14 @@ class Ghee
         def starred
           connection.get("#{path_prefix}/starred").body
         end
+
+        # Deletes a gist
+        #
+        # Returns true/false
+        #
+        def destroy
+          connection.delete(path_prefix).status == 204
+        end
       end
 
       # Get gists

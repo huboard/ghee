@@ -126,6 +126,21 @@ describe Ghee::API::Gists do
           end
         end
       end
+
+      describe "#destroy" do
+        it "should delete the gist and return true" do
+          VCR.use_cassette('gists(id).destroy true') do
+            gist = subject.gists.create({:public => false, :files => {'file.txt' => {:content => 'ready to destroy'}}})
+            subject.gists(gist['id']).destroy.should be_true
+          end
+        end
+
+        it "should return false if gist doesn't exist" do
+          VCR.use_cassette('gists(id).destroy false') do
+            subject.gists("12345678901234567890").destroy.should be_false
+          end
+        end
+      end
     end
   end
 end
