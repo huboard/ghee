@@ -48,6 +48,10 @@ Star a gist:
 
     gh.gists("1393990").star
 
+Unstar a gist:
+
+    gh.gists("1393990").unstar
+
 List authenticated users gists:
 
     gh.gists

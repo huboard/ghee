@@ -43,6 +43,14 @@ class Ghee
           connection.put("#{path_prefix}/star").status == 204
         end
 
+        # Unstar a gist
+        #
+        # Returns true/false
+        #
+        def unstar
+          connection.delete("#{path_prefix}/star").status == 204
+        end
+
         # Get public gists
         #
         # Returns json

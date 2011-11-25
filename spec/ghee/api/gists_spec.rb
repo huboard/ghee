@@ -57,6 +57,14 @@ describe Ghee::API::Gists do
           end
         end
       end
+
+      describe "#unstar" do
+        it "should star the gist" do
+          VCR.use_cassette('gists(id).unstar') do
+            subject.gists('1393990').unstar.should be_true
+          end
+        end
+      end
     end
 
     describe "#create" do
