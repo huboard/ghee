@@ -52,6 +52,10 @@ Unstar a gist:
 
     gh.gists("1393990").unstar
 
+Check if a gist is starred:
+
+    gh.gists("1393990").starred?
+
 List authenticated users gists:
 
     gh.gists

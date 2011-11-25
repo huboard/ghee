@@ -65,6 +65,22 @@ describe Ghee::API::Gists do
           end
         end
       end
+
+      describe "#starred?" do
+        it "should return true if gist is starred" do
+          VCR.use_cassette('gists(id).starred? is true') do
+            subject.gists('1393990').star
+            subject.gists('1393990').starred?.should be_true
+          end
+        end
+
+        it "should return false if gist is unstarred" do
+          VCR.use_cassette('gists(id).starred? is false') do
+            subject.gists('1393990').unstar
+            subject.gists('1393990').starred?.should be_false
+          end
+        end
+      end
     end
 
     describe "#create" do

@@ -51,6 +51,14 @@ class Ghee
           connection.delete("#{path_prefix}/star").status == 204
         end
 
+        # Returns whether gist is starred
+        #
+        # Returns true/false
+        #
+        def starred?
+          connection.get("#{path_prefix}/star").status == 204
+        end
+
         # Get public gists
         #
         # Returns json
