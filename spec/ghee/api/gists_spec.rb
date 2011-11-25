@@ -36,6 +36,23 @@ describe Ghee::API::Gists do
       end
     end
 
+    describe "#create" do
+      it "should create a gist" do
+        VCR.use_cassette('gists.create') do
+          gist = subject.gists.create({
+            :description => "I'm gonna buttah yo bread.",
+            :public => true,
+            :files => {
+              'ghee_test.txt' => {
+                :content => "Booya!"
+              }
+            }
+          })
+          should_be_a_gist(gist)
+        end
+      end
+    end
+
     it "should return gists for authenticated user" do
       VCR.use_cassette('gists') do
         gists = subject.gists

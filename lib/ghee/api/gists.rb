@@ -15,6 +15,16 @@ class Ghee
       #
       class Proxy < ::Ghee::ResourceProxy
 
+        # Creates gist
+        #
+        # attributes - Hash of attributes
+        #
+        # Returns json
+        #
+        def create(attributes)
+          connection.post(path_prefix, attributes).body
+        end
+
         # Get public gists
         #
         # Returns json

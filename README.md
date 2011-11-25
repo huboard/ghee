@@ -22,6 +22,18 @@ Get a single gist:
 	gist_id = "1393990"
 	gh.gists(gist_id)
 
+Create a gist ([see docs for all possible params](http://developer.github.com/v3/gists/#create-a-gist)):
+
+	gh.gists.create({
+	  :description => 'Ghee'
+	  :public => true,
+	  :files => {
+	    'file1.txt' => {
+	      :content => 'buttah yo bread'
+	    }
+	  }
+	})
+
 List authenticated users gists:
 
     gh.gists
