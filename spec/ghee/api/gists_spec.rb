@@ -24,6 +24,51 @@ describe Ghee::API::Gists do
   end
 
   describe "#gists" do
+    it "should return gists for authenticated user" do
+      VCR.use_cassette('gists') do
+        gists = subject.gists
+        gists.size.should > 0
+        should_be_a_gist(gists.first)
+      end
+    end
+
+    describe "#public" do
+      it "should return public gists" do
+        VCR.use_cassette('gists.public') do
+          gists = subject.gists.public
+          gists.size.should > 0
+          should_be_a_gist(gists.first)
+        end
+      end
+    end
+
+    describe "#starred" do
+      it "should return starred gists" do
+        VCR.use_cassette('gists.starred') do
+          gists = subject.gists.starred
+          gists.size.should > 0
+          should_be_a_gist(gists.first)
+        end
+      end
+    end
+
+    describe "#create" do
+      it "should create a gist" do
+        VCR.use_cassette('gists.create') do
+          gist = subject.gists.create({
+            :description => "I'm gonna buttah yo bread.",
+            :public => true,
+            :files => {
+              'ghee_test.txt' => {
+                :content => "Booya!"
+              }
+            }
+          })
+          should_be_a_gist(gist)
+        end
+      end
+    end
+
     context "with gist id" do
       it "should return single gist" do
         VCR.use_cassette('gists(id)') do
@@ -79,51 +124,6 @@ describe Ghee::API::Gists do
             subject.gists('1393990').unstar
             subject.gists('1393990').starred?.should be_false
           end
-        end
-      end
-    end
-
-    describe "#create" do
-      it "should create a gist" do
-        VCR.use_cassette('gists.create') do
-          gist = subject.gists.create({
-            :description => "I'm gonna buttah yo bread.",
-            :public => true,
-            :files => {
-              'ghee_test.txt' => {
-                :content => "Booya!"
-              }
-            }
-          })
-          should_be_a_gist(gist)
-        end
-      end
-    end
-
-    it "should return gists for authenticated user" do
-      VCR.use_cassette('gists') do
-        gists = subject.gists
-        gists.size.should > 0
-        should_be_a_gist(gists.first)
-      end
-    end
-
-    describe "#public" do
-      it "should return public gists" do
-        VCR.use_cassette('gists.public') do
-          gists = subject.gists.public
-          gists.size.should > 0
-          should_be_a_gist(gists.first)
-        end
-      end
-    end
-
-    describe "#starred" do
-      it "should return starred gists" do
-        VCR.use_cassette('gists.starred') do
-          gists = subject.gists.starred
-          gists.size.should > 0
-          should_be_a_gist(gists.first)
         end
       end
     end

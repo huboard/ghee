@@ -17,6 +17,18 @@ List a user's gists:
 
     gh.user('jonmagic').gists
 
+List authenticated users gists:
+
+    gh.gists
+
+List all public gists:
+
+    gh.gists.public
+
+List the authenticated user's starred gists:
+
+    gh.gists.starred
+
 Get a single gist:
 
     gist_id = "1393990"
@@ -55,18 +67,6 @@ Unstar a gist:
 Check if a gist is starred:
 
     gh.gists("1393990").starred?
-
-List authenticated users gists:
-
-    gh.gists
-
-List all public gists:
-
-    gh.gists.public
-
-List the authenticated user's starred gists:
-
-    gh.gists.starred
 
 ### Users
 
