@@ -5,7 +5,7 @@ class Ghee
   #
   module API
 
-    # The Gists module handles all of the Github Gist
+    # The Gists class handles all of the Github Gist
     # API endpoints
     #
     module Gists
