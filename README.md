@@ -25,6 +25,12 @@ List the authenticated user's starred gists:
 
     gh.gists.starred
 
+### Users
+
+Get the authenticated user:
+
+    gh.user
+
 Testing
 -------
 
