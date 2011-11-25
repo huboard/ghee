@@ -35,6 +35,14 @@ class Ghee
           connection.patch(path_prefix, attributes).body
         end
 
+        # Star a gist
+        #
+        # Returns true/false
+        #
+        def star
+          connection.put("#{path_prefix}/star").status == 204
+        end
+
         # Get public gists
         #
         # Returns json

@@ -44,6 +44,10 @@ Edit a gist:
       }
     })
 
+Star a gist:
+
+    gh.gists("1393990").star
+
 List authenticated users gists:
 
     gh.gists
