@@ -15,7 +15,7 @@ describe Ghee::API::Gists do
   describe "#users" do
     describe "#gists" do
       it "should return users gists" do
-        VCR.use_cassette('users.gists') do
+        VCR.use_cassette('users(login).gists') do
           gists = subject.users('jonmagic').gists
           gists.size.should > 0
           should_be_a_gist(gists.first)
@@ -25,6 +25,17 @@ describe Ghee::API::Gists do
   end
 
   describe "#gists" do
+    context "with gist id" do
+      it "should return single gist" do
+        VCR.use_cassette('gists(id)') do
+          gist_id = "1393990"
+          gist = subject.gists(gist_id)
+          gist['id'].should == gist_id
+          should_be_a_gist(gist)
+        end
+      end
+    end
+
     it "should return gists for authenticated user" do
       VCR.use_cassette('gists') do
         gists = subject.gists

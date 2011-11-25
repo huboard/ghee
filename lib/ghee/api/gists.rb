@@ -34,10 +34,13 @@ class Ghee
 
       # Get gists
       #
+      # id - String of gist id
+      #
       # Returns json
       #
-      def gists
-        Proxy.new(connection, '/gists')
+      def gists(id=nil)
+        path_prefix = id ? "/gists/#{id}" : '/gists'
+        Proxy.new(connection, path_prefix)
       end
     end
   end

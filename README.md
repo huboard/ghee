@@ -17,6 +17,11 @@ List a user's gists:
 
 	gh.user('jonmagic').gists
 
+Get a single gist:
+
+	gist_id = "1393990"
+	gh.gists(gist_id)
+
 List authenticated users gists:
 
     gh.gists
