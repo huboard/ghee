@@ -36,6 +36,14 @@ Get the authenticated user:
 
     gh.user
 
+Update authenticated user ([see docs for all possible params](http://developer.github.com/v3/users/)):
+
+    gh.user.patch({
+      :name => 'Jon Hoyt',
+      :email => 'jonmagic@gmail.com',
+      # …etc
+    })
+
 Testing
 -------
 

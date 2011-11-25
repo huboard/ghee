@@ -15,6 +15,21 @@ describe Ghee::API::Users do
         user['login'].size.should > 0
       end
     end
+
+    # not sure how to write this test so that it doesn't mess
+    # up users info, so I'm just going to take the bio and add
+    # a space to the end of it
+    describe "#patch" do
+      it "should patch the user" do
+        VCR.use_cassette('user.patch') do
+          before_user = subject.user
+          after_user = subject.user.patch({
+            :bio => "#{before_user['bio']} "
+          })
+          after_user['bio'].should == "#{before_user['bio']} "
+        end
+      end
+    end
   end
 
   describe "#users" do
