@@ -91,6 +91,12 @@ Update authenticated user ([see docs for all possible params](http://developer.g
       # …etc
     })
 
+### Events
+
+List public events:
+
+    gh.events
+
 Testing
 -------
 

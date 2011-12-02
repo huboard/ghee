@@ -4,12 +4,14 @@ require 'ghee/connection'
 require 'ghee/resource_proxy'
 require 'ghee/api/gists'
 require 'ghee/api/users'
+require 'ghee/api/events'
 
 class Ghee
   attr_reader :connection
 
   include Ghee::API::Gists
   include Ghee::API::Users
+  include Ghee::API::Events
 
   # Instantiates Ghee, accepts an access_token
   # for authenticated access
