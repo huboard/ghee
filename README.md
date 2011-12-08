@@ -1,7 +1,7 @@
 Ghee
 ==================
 
-This is an unofficial ruby client for the [Github API](http://developer.github.com/v3/). The end goal is a complete, simple, and intuitive ruby API for all things Github.
+This is an unofficial ruby client for the [GitHub API](http://developer.github.com/v3/). The end goal is a complete, simple, and intuitive ruby API for all things Github.
 
 Usage
 -----
