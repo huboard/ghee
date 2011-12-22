@@ -6,7 +6,7 @@ describe Ghee::Connection do
 
     describe "#initialize" do
       it "should set an instance variable for access token" do
-        subject.access_token.should == ACCESS_TOKEN
+        subject.hash.should == ACCESS_TOKEN
       end
     end
 
@@ -32,7 +32,7 @@ describe Ghee::Connection do
 
     describe "#initialize" do
       it "should set an instance variable for access token" do
-        subject.access_token.should == nil
+        subject.hash.should == {}
       end
     end
 

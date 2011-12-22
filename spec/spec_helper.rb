@@ -12,4 +12,4 @@ VCR.config do |c|
 end
 
 token_file = File.expand_path('../.access_token', __FILE__)
-ACCESS_TOKEN = File.exists?(token_file) ? File.read(token_file).strip : 'faketoken'
+ACCESS_TOKEN = File.exists?(token_file) ? {:access_token => File.read(token_file).strip } : {:access_token => 'faketoken'}

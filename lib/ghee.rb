@@ -18,7 +18,7 @@ class Ghee
   #
   # Access_token - String of the access_token
   #
-  def initialize(access_token=nil)
-    @connection = Ghee::Connection.new(access_token)
+  def initialize(options = {})
+    @connection = Ghee::Connection.new(options)
   end
 end
