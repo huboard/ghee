@@ -32,6 +32,15 @@ class Ghee
         def gists
           connection.get("#{path_prefix}/gists").body
         end
+
+        # Repos for a user
+        #
+        # Returns json
+        #
+        def repos
+          connection.get("#{path_prefix}/repos").body
+        end
+
       end
 
       # Get authenticated user
