@@ -41,6 +41,10 @@ class Ghee
           connection.get("#{path_prefix}/repos").body
         end
 
+        def repo(name)
+          Ghee::API::Repos::Proxy.new(connection,"/repos/#{self["login"]}/#{name}")
+        end
+
       end
 
       # Get authenticated user

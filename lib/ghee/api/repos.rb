@@ -14,7 +14,9 @@ class Ghee
       # enables defining methods on the proxy object
       #
       class Proxy < ::Ghee::ResourceProxy
-
+        def issues
+          connection.get("#{path_prefix}/issues").body
+        end
       end
 
       # Get repos
