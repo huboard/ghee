@@ -8,6 +8,14 @@ describe Ghee::API::Repos do
     repo['ssh_url'].should include('git@github.com:rauhryan')
     repo['owner']['login'].should == "rauhryan"
   end
+  describe "#repos(login,name)" do
+    it "should be a repo" do
+      VCR.use_cassette("repos(rauhryan,ghee)") do 
+        repo = subject.repos("rauhryan","ghee")
+        should_be_a_repo(repo)
+      end
+    end
+  end
 
   describe "#user" do
     describe "#repos" do

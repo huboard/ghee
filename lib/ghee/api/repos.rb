@@ -14,8 +14,14 @@ class Ghee
       # enables defining methods on the proxy object
       #
       class Proxy < ::Ghee::ResourceProxy
-        def issues
-          connection.get("#{path_prefix}/issues").body
+
+        # Get issues
+        #
+        # Returns json
+        #
+        def issues(number=nil)
+          prefix = number ? "#{path_prefix}/issues/#{number}" : "#{path_prefix}/issues"
+          Ghee::API::Issues::Proxy.new(connection, prefix)
         end
       end
 
@@ -25,8 +31,8 @@ class Ghee
       #
       # Returns json
       #
-      def repos(name = nil)
-        path_prefix = login ? "/users/#{login}/repos" : "user/repos"
+      def repos(login,name)
+        path_prefix = "/repos/#{login}/#{name}"
         Proxy.new(connection, path_prefix)
       end
 
