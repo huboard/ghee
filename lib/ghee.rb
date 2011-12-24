@@ -7,6 +7,7 @@ require 'ghee/api/users'
 require 'ghee/api/events'
 require 'ghee/api/repos'
 require 'ghee/api/issues'
+require 'ghee/api/milestones'
 
 class Ghee
   attr_reader :connection
@@ -16,6 +17,7 @@ class Ghee
   include Ghee::API::Events
   include Ghee::API::Repos
   include Ghee::API::Issues
+  include Ghee::API::Milestones
 
   # Instantiates Ghee, accepts an access_token
   # for authenticated access

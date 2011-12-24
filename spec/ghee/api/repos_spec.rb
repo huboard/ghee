@@ -15,6 +15,24 @@ describe Ghee::API::Repos do
         should_be_a_repo(repo)
       end
     end
+    describe "#issues" do 
+      it "should return issues for repo" do
+        VCR.use_cassette("repo(rauhryan,ghee_test).issues") do
+          issues = subject.repos("rauhryan","ghee_test").issues
+          issues.size.should > 0
+          issues.first["title"].should_not be_nil
+        end
+      end
+    end
+    describe "#milestones" do 
+      it "should return milestones for repo" do
+        VCR.use_cassette("repo(rauhryan,ghee_test).milestones") do
+          milestones = subject.repos("rauhryan","ghee_test").milestones
+          milestones.size.should > 0
+          milestones.first["title"].should_not be_nil
+        end
+      end
+    end
   end
 
   describe "#user" do
@@ -36,10 +54,19 @@ describe Ghee::API::Repos do
           should_be_a_repo(repo)
         end
       end
+      describe "#milestones" do 
+        it "should return milestones for repo" do
+          VCR.use_cassette("user.repo(ghee_test).milestones") do
+            milestones = subject.user.repo("ghee_test").milestones
+            milestones.size.should > 0
+            milestones.first["title"].should_not be_nil
+          end
+        end
+      end
       describe "#issues" do 
         it "should return issues for repo" do
-          VCR.use_cassette("user.repo(skipping_stones_repo).issues") do
-            issues = subject.user.repo("skipping_stones_repo").issues
+          VCR.use_cassette("user.repo(ghee_test).issues") do
+            issues = subject.user.repo("ghee_test").issues
             issues.size.should > 0
           end
         end

@@ -23,6 +23,16 @@ class Ghee
           prefix = number ? "#{path_prefix}/issues/#{number}" : "#{path_prefix}/issues"
           Ghee::API::Issues::Proxy.new(connection, prefix)
         end
+
+        # Get milestones
+        #
+        # Returns json
+        #
+        def milestones(number=nil)
+          prefix = number ? "#{path_prefix}/milestones/#{number}" : "#{path_prefix}/milestones"
+          Ghee::API::Milestones::Proxy.new(connection, prefix)
+        end
+
       end
 
       # Get repos
