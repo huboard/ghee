@@ -35,6 +35,18 @@ describe Ghee::API::Milestones do
           should_be_an_milestone(milestone)
         end
       end
+      describe "#destroy" do
+          it "should delete milestone" do
+            VCR.use_cassette "milestones(id).destroy" do
+              repo = subject.repos("rauhryan","ghee_test")
+              test_milestone = repo.milestones.create({
+                :title => "Destroy test milestone"
+              })
+              should_be_an_milestone(test_milestone)
+              subject.repos("rauhryan","ghee_test").milestones(test_milestone["number"]).destroy.should be_true
+            end
+          end
+      end
 
       # Testing milestone proxy
       context "with milestone number" do

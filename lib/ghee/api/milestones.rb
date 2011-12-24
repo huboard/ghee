@@ -58,6 +58,14 @@ class Ghee
           response.body
         end
 
+        # Destroys milestone by id
+        #
+        # Returns boolean
+        #
+        def destroy
+          connection.delete(path_prefix).status == 204
+        end
+
       end
     end
   end
