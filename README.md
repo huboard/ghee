@@ -147,7 +147,7 @@ Create a comment for an issue:
 Update a single comment for an issue
 
     gh.repos("rauhryan", "ghee").issues.comments(482910).patch({:body =>
-"nevermind I can't figure it out"})
+          "nevermind I can't figure it out"})
 
 Destroy a comment for an issue
 
@@ -175,19 +175,19 @@ Update authenticated user  ([see docs for all possible params](http://developer.
 
 Get a list of repos for the current user:
 
-  gh.user.repos
+    gh.user.repos
 
 Get a list of repos for a specific user:
 
-  gh.users("rauhryan").repos
+    gh.users("rauhryan").repos
 
 Get a single repos for the current user:
 
-  gh.user.repos("ghee")
+    gh.user.repos("ghee")
 
 Get a single repos for a specific user:
 
-  gh.users("rauhryan").repos("ghee")
+    gh.users("rauhryan").repos("ghee")
 
 > Notes: see above for all the available api methods for repos
 
