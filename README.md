@@ -173,6 +173,24 @@ Update authenticated user  ([see docs for all possible params](http://developer.
       # …etc
     })
 
+Get a list of repos for the current user:
+
+  gh.user.repos
+
+Get a list of repos for a specific user:
+
+  gh.users("rauhryan").repos
+
+Get a single repos for the current user:
+
+  gh.user.repos("ghee")
+
+Get a single repos for a specific user:
+
+  gh.users("rauhryan").repos("ghee")
+
+> Notes: see above for all the available api methods for repos
+
 ### Events
 
 List public events:

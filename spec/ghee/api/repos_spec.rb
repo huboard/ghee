@@ -47,8 +47,8 @@ describe Ghee::API::Repos do
     end
     describe "#repo" do
       it "should return a repo" do
-        VCR.use_cassette("user.repo(ghee)") do
-          repo = subject.user.repo("ghee")
+        VCR.use_cassette("user.repos(ghee)") do
+          repo = subject.user.repos("ghee")
           repo.connection.should_not be_nil
           repo.path_prefix.should == "/repos/rauhryan/ghee"
           should_be_a_repo(repo)
@@ -56,8 +56,8 @@ describe Ghee::API::Repos do
       end
       describe "#milestones" do 
         it "should return milestones for repo" do
-          VCR.use_cassette("user.repo(ghee_test).milestones") do
-            milestones = subject.user.repo("ghee_test").milestones
+          VCR.use_cassette("user.repos(ghee_test).milestones") do
+            milestones = subject.user.repos("ghee_test").milestones
             milestones.size.should > 0
             milestones.first["title"].should_not be_nil
           end
@@ -65,8 +65,8 @@ describe Ghee::API::Repos do
       end
       describe "#issues" do 
         it "should return issues for repo" do
-          VCR.use_cassette("user.repo(ghee_test).issues") do
-            issues = subject.user.repo("ghee_test").issues
+          VCR.use_cassette("user.repos(ghee_test).issues") do
+            issues = subject.user.repos("ghee_test").issues
             issues.size.should > 0
           end
         end

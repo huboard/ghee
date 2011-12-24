@@ -37,14 +37,10 @@ class Ghee
         #
         # Returns json
         #
-        def repos
-          connection.get("#{path_prefix}/repos").body
-        end
-
-        def repo(name)
+        def repos(name=nil)
+          return connection.get("#{path_prefix}/repos").body if name.nil?
           Ghee::API::Repos::Proxy.new(connection,"/repos/#{self["login"]}/#{name}")
         end
-
       end
 
       # Get authenticated user
