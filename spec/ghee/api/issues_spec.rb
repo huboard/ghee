@@ -16,6 +16,30 @@ describe Ghee::API::Issues do
         should_be_an_issue(issues.first)
       end
     end
+    describe "#repos(login,name)#issues#closed" do
+      it "should return repos closed issues" do
+        VCR.use_cassette("repos(rauhryan,skipping_stones_repo).issues.closed") do
+          issues = subject.repos("rauhryan","skipping_stones_repo").issues.closed
+          issues.size.should > 0
+          should_be_an_issue(issues.first)
+          issues.each do |i|
+            i["state"].should == "closed"
+          end
+        end
+      end
+      it "should return repos closed issues with block" do
+        VCR.use_cassette("repos(rauhryan,skipping_stones_repo).issues.closed&block") do
+          issues = subject.repos("rauhryan","skipping_stones_repo").issues.closed do |req|
+            req.params["state"] = "closed"
+          end
+          issues.size.should > 0
+          should_be_an_issue(issues.first)
+          issues.each do |i|
+            i["state"].should == "closed"
+          end
+        end
+      end
+    end
     describe "#repos(login,name)#issues(1)" do
       it "should return an issue by id" do 
         VCR.use_cassette("repos(rauhryan,skipping_stones_repo).issues(1)") do
@@ -45,6 +69,15 @@ describe Ghee::API::Issues do
               })
               should_be_an_issue(issue)
               issue["body"].should == "awesome description"
+            end
+          end
+        end
+
+        describe "#close" do
+          it "should close the issue" do 
+            VCR.use_cassette "issues(id).close" do
+              closed = test_repo.issues(test_issue["number"]).close
+              closed.should be_true
             end
           end
         end

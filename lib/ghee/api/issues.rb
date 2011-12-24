@@ -35,6 +35,27 @@ class Ghee
           connection.patch(path_prefix,attributes).body
         end
 
+        # Close issue - closed issue by id
+        #
+        # usage - ghee.repos("my_repo").issues(1).close
+        #
+        # returns boolean
+        #
+        def close
+          connection.patch(path_prefix,:state => "closed").body["state"] == "closed"
+        end
+
+        # Returns closed issues
+        #
+        # Returns json
+        #
+        def closed
+          response = connection.get path_prefix do |req|
+            req.params["state"] = "closed"
+          end
+          response.body
+        end
+
       end
     end
   end
