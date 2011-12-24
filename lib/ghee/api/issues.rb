@@ -5,10 +5,43 @@ class Ghee
   #
   module API
 
-    # The Issues module handles all of the Github Repo
+
+    # The Issues module handles all of the Github Repo Issues
     # API endpoints
     #
     module Issues
+
+      # API Comments module handles all of the Github Issues 
+      # API endpoints
+      #
+      module Comments
+        class Proxy < ::Ghee::ResourceProxy
+
+          # Creates comment for an issue using the authenicated user
+          #
+          # return json
+          #
+          def create(attributes)
+            connection.post(path_prefix,attributes).body
+          end
+
+          # Patchs and existing comment
+          #
+          # return json
+          #
+          def patch(attributes)
+            connection.patch(path_prefix, attributes).body
+          end
+
+          # Destroys comment by id
+          #
+          # return boolean
+          #
+          def destroy
+            connection.delete(path_prefix).status == 204
+          end
+        end
+      end
 
       # Gists::Proxy inherits from Ghee::Proxy and
       # enables defining methods on the proxy object
@@ -54,6 +87,11 @@ class Ghee
             req.params["state"] = "closed"
           end
           response.body
+        end
+
+        def comments(id=nil)
+          prefix = id ? "#{path_prefix}/comments/#{id}" : "#{path_prefix}/comments"
+          Ghee::API::Issues::Comments::Proxy.new(connection,prefix)
         end
 
       end

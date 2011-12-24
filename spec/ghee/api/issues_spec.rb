@@ -10,28 +10,16 @@ describe Ghee::API::Issues do
 
   describe "#repos(login,name)#issues" do
     it "should return repos issues" do
-      VCR.use_cassette("repos(rauhryan,skipping_stones_repo).issues") do
-        issues = subject.repos("rauhryan","skipping_stones_repo").issues
+      VCR.use_cassette("repos(rauhryan,ghee_test).issues") do
+        issues = subject.repos("rauhryan","ghee_test").issues
         issues.size.should > 0
         should_be_an_issue(issues.first)
       end
     end
     describe "#repos(login,name)#issues#closed" do
       it "should return repos closed issues" do
-        VCR.use_cassette("repos(rauhryan,skipping_stones_repo).issues.closed") do
-          issues = subject.repos("rauhryan","skipping_stones_repo").issues.closed
-          issues.size.should > 0
-          should_be_an_issue(issues.first)
-          issues.each do |i|
-            i["state"].should == "closed"
-          end
-        end
-      end
-      it "should return repos closed issues with block" do
-        VCR.use_cassette("repos(rauhryan,skipping_stones_repo).issues.closed&block") do
-          issues = subject.repos("rauhryan","skipping_stones_repo").issues.closed do |req|
-            req.params["state"] = "closed"
-          end
+        VCR.use_cassette("repos(rauhryan,ghee_test).issues.closed") do
+          issues = subject.repos("rauhryan","ghee_test").issues.closed
           issues.size.should > 0
           should_be_an_issue(issues.first)
           issues.each do |i|
@@ -42,8 +30,8 @@ describe Ghee::API::Issues do
     end
     describe "#repos(login,name)#issues(1)" do
       it "should return an issue by id" do 
-        VCR.use_cassette("repos(rauhryan,skipping_stones_repo).issues(1)") do
-          issue = subject.repos("rauhryan","skipping_stones_repo").issues(1)
+        VCR.use_cassette("repos(rauhryan,ghee_test).issues(1)") do
+          issue = subject.repos("rauhryan","ghee_test").issues(1)
           should_be_an_issue(issue)
         end
       end
@@ -52,7 +40,7 @@ describe Ghee::API::Issues do
       context "with issue number" do
         before(:all) do
           VCR.use_cassette "issues.test" do
-            @repo = subject.repos("rauhryan","skipping_stones_repo")
+            @repo = subject.repos("rauhryan","ghee_test")
             @test_issue = @repo.issues.create({
               :title => "Test issue"
             })
@@ -82,9 +70,53 @@ describe Ghee::API::Issues do
           end
         end
 
+        describe "#comments" do
+          context "issue with comments " do
+            before :all do
+              VCR.use_cassette "issues(id).comments.create.test" do
+                @comment = test_repo.issues(test_issue["number"]).comments.create :body => "test comment"
+                @comment.should_not be_nil
+              end
+            end 
+            let(:test_comment) { @comment }
 
+            it "should create comment" do 
+              VCR.use_cassette "issues(id).comments.create" do
+                comment = test_repo.issues(test_issue["number"]).comments.create :body => "test comment"
+                comment.should_not be_nil
+              end
+            end
+
+            it "should return comment by id" do
+              VCR.use_cassette "issues.comments(id)" do
+                comment = test_repo.issues.comments(test_comment["id"])
+                comment.should_not be_nil
+                comment["body"].should == "test comment"
+              end
+            end
+
+            it "should patch comment" do
+              VCR.use_cassette "issues.comments(id).patch" do
+                body = "some other description"
+                comment = test_repo.issues.comments(test_comment["id"]).patch(:body => body)
+                comment.should_not be_nil
+                comment["body"].should == body
+              end
+            end
+
+            it "should destroy comment" do
+              VCR.use_cassette "issues.comments(id).destroy" do
+                comment = test_repo.issues(test_issue["number"]).comments.create :body => "test comment"
+                comment.should_not be_nil
+                comment["body"].should == "test comment"
+                test_repo.issues.comments(comment["id"]).destroy.should be_true
+              end
+            end
+
+          end
+
+        end
       end
-
     end
   end
 end
