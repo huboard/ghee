@@ -4,9 +4,9 @@ describe Ghee::API::Repos do
   subject { Ghee.new(ACCESS_TOKEN) }
 
   def should_be_a_repo(repo)
-    repo['url'].should include('https://api.github.com/repos/rauhryan')
-    repo['ssh_url'].should include('git@github.com:rauhryan')
-    repo['owner']['login'].should == "rauhryan"
+    repo['url'].should include('https://api.github.com/repos/')
+    repo['ssh_url'].should include('git@github.com:')
+    repo['owner']['login'].should_not be_nil
   end
   describe "#repos(login,name)" do
     it "should be a repo" do
@@ -35,6 +35,17 @@ describe Ghee::API::Repos do
     end
   end
 
+  describe "#orgs" do
+    describe "#repos" do 
+      it "should return orgs repos" do
+        VCR.use_cassette('orgs(DarthFubuMVC).repos') do
+          repos = subject.orgs("DarthFubuMVC").repos
+          repos.size.should > 0
+          should_be_a_repo(repos.first)
+        end
+      end
+    end
+  end
   describe "#user" do
     describe "#repos" do
       it "should return users repos" do

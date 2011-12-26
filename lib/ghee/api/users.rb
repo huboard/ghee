@@ -41,6 +41,20 @@ class Ghee
           return connection.get("#{path_prefix}/repos").body if name.nil?
           Ghee::API::Repos::Proxy.new(connection,"/repos/#{self["login"]}/#{name}")
         end
+
+        # Returns list of the provided users organizations or 
+        # an organization by name
+        #
+        # org - String name of the organization (optional)
+        #
+        # Returns json
+        #
+        def orgs(org=nil)
+          return connection.get("#{path_prefix}/orgs").body if org.nil?
+          Ghee::API::Orgs::Proxy.new(connection, "/orgs/#{org}")
+        end
+
+       
       end
 
       # Get authenticated user
