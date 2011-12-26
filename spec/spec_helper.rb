@@ -4,6 +4,7 @@ Bundler.require :default, :test
 require 'webmock/rspec'
 require 'vcr'
 require 'ghee'
+require 'yajl'
 
 VCR.config do |c|
   c.cassette_library_dir = File.expand_path('../responses', __FILE__)
@@ -12,4 +13,4 @@ VCR.config do |c|
 end
 
 token_file = File.expand_path('../.access_token', __FILE__)
-ACCESS_TOKEN = File.exists?(token_file) ? File.read(token_file).strip : 'faketoken'
+ACCESS_TOKEN = File.exists?(token_file) ? Yajl::Parser.new(:symbolize_keys => true).parse(File.read(token_file).strip) : {:access_token => 'faketoken'}

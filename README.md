@@ -72,6 +72,107 @@ Delete a gist:
 
     gh.gists("1393990").destroy
 
+### Repos
+
+Get a single repo:
+
+    gh.repos("rauhryan", "ghee")
+
+Get the milestones for a repo:
+
+    gh.repos("rauhryan", "ghee").milestones
+
+Get a single milestone for a repo:
+
+    gh.repos("rauhryan", "ghee").milestones(12)
+
+Create a milestone for a repo: ([see docs for all possible params](http://developer.github.com/v3/milestones/#create-an-milestone)):
+
+    gh.repos("rauhryan", "ghee").milestones.create({
+      :title => "Remove the suck!",
+      :description => "I found this suck, remove it please"
+    })
+
+Update a milestone for a repo: ([see docs for all possible params](http://developer.github.com/v3/milestones/#edit-an-milestone)):
+
+    gh.repos("rauhryan", "ghee").milestones.patch({
+      :description => "I found this suck, remove it please"
+    })
+
+Destroy a milestone for a repo:
+
+    gh.repos("rauhryan", "ghee").milestones(1).destory
+
+Get the issues for a repo:
+
+    gh.repos("rauhryan", "ghee").issues
+
+Get a single issue for a repo:
+
+    gh.repos("rauhryan", "ghee").issues(12)
+
+Create an issue for a repo: ([see docs for all possible params](http://developer.github.com/v3/issues/#create-an-issue)):
+
+    gh.repos("rauhryan", "ghee").issues.create({
+      :title => "Remove the suck!",
+      :body => "I found this suck, remove it please"
+    })
+
+Update an issue for a repo: ([see docs for all possible params](http://developer.github.com/v3/issues/#edit-an-issue)):
+
+    gh.repos("rauhryan", "ghee").issues.patch({
+      :body => "I found this suck, remove it please"
+    })
+
+Close an issue for a repo:
+
+    gh.repos("rauhryan", "ghee").issues(12).close
+
+Get the closed issues for a repo:
+
+    gh.repos("rauhryan", "ghee").issues(12).closed
+
+Get the comments for an issue:
+
+    gh.repos("rauhryan", "ghee").issues(12).comments
+
+Get a single comment for an issue
+
+    gh.repos("rauhryan", "ghee").issues.comments(482910)
+
+Create a comment for an issue:
+
+    gh.repos("rauhryan", "ghee").issues(12).comments.create({:body => "hey i'll help fix that suck"})
+
+Update a single comment for an issue
+
+    gh.repos("rauhryan", "ghee").issues.comments(482910).patch({:body =>
+          "nevermind I can't figure it out"})
+
+Destroy a comment for an issue
+
+    gh.repos("rauhryan", "ghee").issues.comments(482910).destroy
+
+### Orgs
+
+Get a list of orgs for the current user:
+
+    gh.orgs
+
+Get a specific org:
+
+    gh.orgs("huboard")
+
+Patch an organization:([see docs for all possible params](http://developer.github.com/v3/orgs#edit)):
+
+    gh.orgs("huboard").patch({ :company => "awesome company" })
+
+Get a list of repos for an org: 
+
+    gh.orgs("huboard").repos
+
+> Notes: see above for all the available api methods for repos
+
 ### Users
 
 Get a single user:
@@ -83,13 +184,41 @@ Get the authenticated user:
 
     gh.user
 
-Update authenticated user ([see docs for all possible params](http://developer.github.com/v3/users/#update-the-authenticated-user)):
+Update authenticated user ([see docs for all possible params](http://developer.github.com/v3/users/#update-the-authenticated-user)): 
 
     gh.user.patch({
       :name => 'Jon Hoyt',
       :email => 'jonmagic@gmail.com',
       # …etc
     })
+
+Get a list of repos for the current user:
+
+    gh.user.repos
+
+Get a list of repos for a specific user:
+
+    gh.users("rauhryan").repos
+
+Get a single repos for the current user:
+
+    gh.user.repos("ghee")
+
+Get a single repos for a specific user:
+
+    gh.users("rauhryan").repos("ghee")
+
+> Notes: see above for all the available api methods for repos
+
+Get a list of orgs for the current user: 
+
+    gh.user.orgs
+
+Get a list of orgs for a specific user:
+
+    gh.users("rauhryan").orgs
+
+> Notes: see above for all the available api methods for orgs
 
 ### Events
 

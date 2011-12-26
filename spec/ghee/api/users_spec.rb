@@ -30,6 +30,17 @@ describe Ghee::API::Users do
         end
       end
     end
+
+    # clearly this test is going to fail if the authenticated user isn't part of any organizations
+    describe "#orgs" do 
+      it "should return list of orgs" do
+        VCR.use_cassette "user.orgs" do
+          orgs = subject.user.orgs
+          orgs.size.should > 0
+          orgs.first["url"].should include("https://api.github.com/orgs")
+        end
+      end
+    end
   end
 
   describe "#users" do

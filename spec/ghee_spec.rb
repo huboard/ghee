@@ -11,7 +11,7 @@ describe Ghee do
       it "should set up a connection" do
         gh = Ghee.new(ACCESS_TOKEN)
         gh.connection.should be_instance_of(Ghee::Connection)
-        gh.connection.access_token.should == ACCESS_TOKEN
+        gh.connection.hash.should == ACCESS_TOKEN
       end
     end
 
@@ -19,7 +19,7 @@ describe Ghee do
       it "should set up a connection" do
         gh = Ghee.new
         gh.connection.should be_instance_of(Ghee::Connection)
-        gh.connection.access_token.should be_nil
+        gh.connection.hash.should == {}
       end
     end
   end
