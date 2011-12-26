@@ -10,6 +10,35 @@ class Ghee
     #
     module Repos
 
+      module Labels
+        class Proxy < ::Ghee::ResourceProxy
+
+          # Creates label for an issue using the authenicated user
+          #
+          # return json
+          #
+          def create(attributes)
+            connection.post(path_prefix,attributes).body
+          end
+
+          # Patchs and existing label
+          #
+          # return json
+          #
+          def patch(attributes)
+            connection.patch(path_prefix, attributes).body
+          end
+
+          # Destroys label by id
+          #
+          # return boolean
+          #
+          def destroy
+            connection.delete(path_prefix).status == 204
+          end
+        end
+      end
+
       # Gists::Proxy inherits from Ghee::Proxy and
       # enables defining methods on the proxy object
       #
@@ -22,6 +51,17 @@ class Ghee
         def issues(number=nil)
           prefix = number ? "#{path_prefix}/issues/#{number}" : "#{path_prefix}/issues"
           Ghee::API::Issues::Proxy.new(connection, prefix)
+        end
+
+        # Get labels for a repo
+        #
+        # id - Number get a specific label (optional)
+        #
+        # Returns json
+        #
+        def labels(id=nil)
+          prefix = id ? "#{path_prefix}/labels/#{id}" : "#{path_prefix}/labels"
+          Ghee::API::Repos::Labels::Proxy.new(connection,prefix)
         end
 
         # Get milestones

@@ -24,6 +24,47 @@ describe Ghee::API::Repos do
         end
       end
     end
+    describe "#labels" do
+      it "should return all the labels" do
+        VCR.use_cassette("repo(rauhryan,ghee_test).labels") do
+          labels = subject.repos("rauhryan","ghee_test").labels
+          labels.size.should > 0
+          labels.first["color"].should_not be_nil
+        end
+      end
+      it "should get a single label" do
+        VCR.use_cassette("repo(rauhryan,ghee_test).labels(id)") do
+          labels = subject.repos("rauhryan","ghee_test").labels
+          first_label = labels.first
+          label = subject.repos("rauhryan","ghee_test").labels(first_label["name"])
+          first_label["color"].should == label["color"]
+          first_label["url"].should == label["url"]
+          first_label["name"].should == label["name"]
+        end
+      end
+      it "should patch a label" do
+        VCR.use_cassette("repo(rauhryan,ghee_test).labels.patched") do
+          label = subject.repos("rauhryan","ghee_test").labels.create :color => "efefef", :name => "patch label"
+          label["color"].should == "efefef"
+          label["url"].should include "labels/patch"
+          label["name"].should == "patch label"
+          patched = subject.repos("rauhryan","ghee_test").labels(label["name"]).patch :color => "000000", :name => "patched label"
+          patched["color"].should == "000000"
+          patched["url"].should include "labels/patched"
+          patched["name"].should == "patched label"
+          subject.repos("rauhryan","ghee_test").labels(patched["name"]).destroy.should be_true
+        end
+      end
+      it "should create a label" do
+        VCR.use_cassette("repo(rauhryan,ghee_test).labels.create") do
+          label = subject.repos("rauhryan","ghee_test").labels.create :color => "efefef", :name => "created label"
+          label["color"].should == "efefef"
+          label["url"].should include "labels/created"
+          label["name"].should == "created label"
+          subject.repos("rauhryan","ghee_test").labels(label["name"]).destroy.should be_true
+        end
+      end
+    end
     describe "#milestones" do 
       it "should return milestones for repo" do
         VCR.use_cassette("repo(rauhryan,ghee_test).milestones") do
