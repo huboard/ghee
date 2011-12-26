@@ -153,6 +153,25 @@ Destroy a comment for an issue
 
     gh.repos("rauhryan", "ghee").issues.comments(482910).destroy
 
+### Orgs
+
+Get a list of orgs for the current user:
+
+    gh.orgs
+
+Get a specific org:
+
+    gh.orgs("huboard")
+
+Patch an organization:([see docs for all possible params](http://developer.github.com/v3/orgs#edit)):
+
+    gh.orgs("huboard").patch({ :company => "awesome company" })
+
+Get a list of repos for an org: 
+
+    gh.orgs("huboard").repos
+
+> Notes: see above for all the available api methods for repos
 
 ### Users
 
@@ -165,7 +184,7 @@ Get the authenticated user:
 
     gh.user
 
-Update authenticated user  ([see docs for all possible params](http://developer.github.com/v3/users/#update-the-authenticated-user)):
+Update authenticated user ([see docs for all possible params](http://developer.github.com/v3/users/#update-the-authenticated-user)): 
 
     gh.user.patch({
       :name => 'Jon Hoyt',
@@ -190,6 +209,16 @@ Get a single repos for a specific user:
     gh.users("rauhryan").repos("ghee")
 
 > Notes: see above for all the available api methods for repos
+
+Get a list of orgs for the current user: 
+
+    gh.user.orgs
+
+Get a list of orgs for a specific user:
+
+    gh.users("rauhryan").orgs
+
+> Notes: see above for all the available api methods for orgs
 
 ### Events
 
