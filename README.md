@@ -258,3 +258,8 @@ The best way to get your changes merged back into core is as follows:
 1. If necessary, rebase your commits into logical chunks, without errors
 1. Push the branch up to GitHub
 1. Send a pull request for your branch
+
+Contributors
+------------
+* Jonathan Hoyt
+* [Ryan Rauh](https://github.com/rauhryan)
