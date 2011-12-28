@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe Ghee::API::Issues do 
-  subject { Ghee.new(ACCESS_TOKEN) }
+describe Ghee::API::Issues do
+  subject { Ghee.new(GH_AUTH) }
 
   def should_be_an_issue(issue)
     issue["user"]["login"].should_not be_nil
@@ -10,16 +10,17 @@ describe Ghee::API::Issues do
 
   describe "#repos(login,name)#issues" do
     it "should return repos issues" do
-      VCR.use_cassette("repos(rauhryan,ghee_test).issues") do
-        issues = subject.repos("rauhryan","ghee_test").issues
+      VCR.use_cassette("repos(#{GH_USER},#{GH_REPO}).issues") do
+        issues = subject.repos(GH_USER, GH_REPO).issues
         issues.size.should > 0
         should_be_an_issue(issues.first)
       end
     end
+
     describe "#repos(login,name)#issues#closed" do
       it "should return repos closed issues" do
-        VCR.use_cassette("repos(rauhryan,ghee_test).issues.closed") do
-          issues = subject.repos("rauhryan","ghee_test").issues.closed
+        VCR.use_cassette("repos(#{GH_USER},#{GH_REPO}).issues.closed") do
+          issues = subject.repos(GH_USER, GH_REPO).issues.closed
           issues.size.should > 0
           should_be_an_issue(issues.first)
           issues.each do |i|
@@ -28,10 +29,11 @@ describe Ghee::API::Issues do
         end
       end
     end
+
     describe "#repos(login,name)#issues(1)" do
-      it "should return an issue by id" do 
-        VCR.use_cassette("repos(rauhryan,ghee_test).issues(1)") do
-          issue = subject.repos("rauhryan","ghee_test").issues(1)
+      it "should return an issue by id" do
+        VCR.use_cassette("repos(#{GH_USER},#{GH_REPO}).issues(1)") do
+          issue = subject.repos(GH_USER, GH_REPO).issues(1)
           should_be_an_issue(issue)
         end
       end
@@ -40,7 +42,7 @@ describe Ghee::API::Issues do
       context "with issue number" do
         before(:all) do
           VCR.use_cassette "issues.test" do
-            @repo = subject.repos("rauhryan","ghee_test")
+            @repo = subject.repos(GH_USER, GH_REPO)
             @test_issue = @repo.issues.create({
               :title => "Test issue"
             })
@@ -49,7 +51,7 @@ describe Ghee::API::Issues do
         let(:test_issue) { @test_issue }
         let(:test_repo) { @repo }
 
-        describe "#patch" do 
+        describe "#patch" do
           it "should patch the issue" do
             VCR.use_cassette "issues(id).patch" do
               issue = test_repo.issues(test_issue["number"]).patch({
@@ -62,7 +64,7 @@ describe Ghee::API::Issues do
         end
 
         describe "#close" do
-          it "should close the issue" do 
+          it "should close the issue" do
             VCR.use_cassette "issues(id).close" do
               closed = test_repo.issues(test_issue["number"]).close
               closed.should be_true
@@ -77,10 +79,10 @@ describe Ghee::API::Issues do
                 @comment = test_repo.issues(test_issue["number"]).comments.create :body => "test comment"
                 @comment.should_not be_nil
               end
-            end 
+            end
             let(:test_comment) { @comment }
 
-            it "should create comment" do 
+            it "should create comment" do
               VCR.use_cassette "issues(id).comments.create" do
                 comment = test_repo.issues(test_issue["number"]).comments.create :body => "test comment"
                 comment.should_not be_nil
@@ -112,9 +114,7 @@ describe Ghee::API::Issues do
                 test_repo.issues.comments(comment["id"]).destroy.should be_true
               end
             end
-
           end
-
         end
       end
     end

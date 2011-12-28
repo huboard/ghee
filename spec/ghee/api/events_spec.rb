@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Ghee::API::Events do
-  subject { Ghee.new(ACCESS_TOKEN) }
+  subject { Ghee.new(GH_AUTH) }
 
   EventTypes = ["CommitComment","CreateEvent","DeleteEvent","DownloadEvent","FollowEvent",
   "ForkEvent","ForkApplyEvent","GistEvent","GollumEvent","IssueCommentEvent",

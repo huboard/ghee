@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Ghee::API::Users do
-  subject { Ghee.new(ACCESS_TOKEN) }
+  subject { Ghee.new(GH_AUTH) }
 
   describe "#user" do
     it "should return authenticated user" do

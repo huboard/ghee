@@ -167,7 +167,7 @@ Patch an organization:([see docs for all possible params](http://developer.githu
 
     gh.orgs("huboard").patch({ :company => "awesome company" })
 
-Get a list of repos for an org: 
+Get a list of repos for an org:
 
     gh.orgs("huboard").repos
 
@@ -184,7 +184,7 @@ Get the authenticated user:
 
     gh.user
 
-Update authenticated user ([see docs for all possible params](http://developer.github.com/v3/users/#update-the-authenticated-user)): 
+Update authenticated user ([see docs for all possible params](http://developer.github.com/v3/users/#update-the-authenticated-user)):
 
     gh.user.patch({
       :name => 'Jon Hoyt',
@@ -210,7 +210,7 @@ Get a single repos for a specific user:
 
 > Notes: see above for all the available api methods for repos
 
-Get a list of orgs for the current user: 
+Get a list of orgs for the current user:
 
     gh.user.orgs
 
@@ -229,9 +229,11 @@ List public events:
 Testing
 -------
 
-The test suite uses [VCR](https://github.com/myronmarston/vcr) to cache actual requests to the Github API in a directory called responses in the spec directory. In order for VCR to make and cache the actual calls to the Github API you will need to provide your Github access_token by placing it in a file named .access_token in the spec directory.
+The test suite uses [VCR](https://github.com/myronmarston/vcr) to cache actual requests to the Github API in a directory called responses in the spec directory.
 
-This file is ignored by git (see .gitignore) so you can commit any changes you make to the gem without having to worry about your token being released into the wild.
+In order for VCR to make and cache the actual calls to the Github API you will need to copy spec/settings.yml.sample to spec/settings.yml and configure it with your GitHub username, either a GitHub access token or your GitHub password, a test repo for it to hit against (which you should setup ahead of time), and finally an organization you belong to (for the entire suite of tests to pass you have to belong to an org).
+
+This file is ignored by git (see .gitignore) so you can commit any changes you make to the gem without having to worry about your user/token/pass/org being released into the wild.
 
 Now run the test suite:
 

@@ -9,9 +9,9 @@ describe Ghee do
   describe "#initialize" do
     context "with an access_token" do
       it "should set up a connection" do
-        gh = Ghee.new(ACCESS_TOKEN)
+        gh = Ghee.new(GH_AUTH)
         gh.connection.should be_instance_of(Ghee::Connection)
-        gh.connection.hash.should == ACCESS_TOKEN
+        gh.connection.hash.should == GH_AUTH
       end
     end
 

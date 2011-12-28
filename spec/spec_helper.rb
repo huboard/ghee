@@ -4,7 +4,6 @@ Bundler.require :default, :test
 require 'webmock/rspec'
 require 'vcr'
 require 'ghee'
-require 'yajl'
 
 VCR.config do |c|
   c.cassette_library_dir = File.expand_path('../responses', __FILE__)
@@ -12,5 +11,6 @@ VCR.config do |c|
   c.default_cassette_options = {:record => :once}
 end
 
-token_file = File.expand_path('../.access_token', __FILE__)
-ACCESS_TOKEN = File.exists?(token_file) ? Yajl::Parser.new(:symbolize_keys => true).parse(File.read(token_file).strip) : {:access_token => 'faketoken'}
+settings = YAML.load_file(File.expand_path('../settings.yml', __FILE__))
+GH_AUTH = settings['access_token'] ? {:access_token => settings['access_token']} : {:basic_auth => {:user_name => settings['username'], :password => settings['password']}}
+GH_USER, GH_REPO, GH_ORG = settings['username'], settings['repo'], settings['org']

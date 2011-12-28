@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Ghee::API::Gists do
-  subject { Ghee.new(ACCESS_TOKEN) }
+  subject { Ghee.new(GH_AUTH) }
 
   def should_be_a_gist(gist)
     gist['url'].should include('https://api.github.com/gists/')

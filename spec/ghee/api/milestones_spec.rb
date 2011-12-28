@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe Ghee::API::Milestones do 
-  subject { Ghee.new(ACCESS_TOKEN) }
+describe Ghee::API::Milestones do
+  subject { Ghee.new(GH_AUTH) }
 
   def should_be_an_milestone(milestone)
     milestone["creator"]["login"].should_not be_nil
@@ -10,58 +10,74 @@ describe Ghee::API::Milestones do
 
   describe "#repos(login,name)#milestones" do
     it "should return repos milestones" do
-      VCR.use_cassette("repos(rauhryan,ghee_test).milestones") do
-        milestones = subject.repos("rauhryan","ghee_test").milestones
+      VCR.use_cassette("repos(#{GH_USER},#{GH_REPO}).milestones") do
+        temp_milestone = subject.repos(GH_USER, GH_REPO).milestones.create({ :title => "Destroy test milestone" })
+
+        milestones = subject.repos(GH_USER, GH_REPO).milestones
         milestones.size.should > 0
         should_be_an_milestone(milestones.first)
+
+        subject.repos(GH_USER, GH_REPO).milestones(temp_milestone["number"]).destroy
       end
     end
+
     describe "#repos(login,name)#milestones#closed" do
       it "should return repos closed milestones" do
-        VCR.use_cassette("repos(rauhryan,ghee_test).milestones.closed") do
-          milestones = subject.repos("rauhryan","ghee_test").milestones.closed
+        VCR.use_cassette("repos(#{GH_USER},#{GH_REPO}).milestones.closed") do
+          temp_milestone = subject.repos(GH_USER, GH_REPO).milestones.create({ :title => "Destroy test milestone" })
+          subject.repos(GH_USER, GH_REPO).milestones(temp_milestone["number"]).close
+
+          milestones = subject.repos(GH_USER, GH_REPO).milestones.closed
           milestones.size.should > 0
           should_be_an_milestone(milestones.first)
           milestones.each do |i|
             i["state"].should == "closed"
           end
+
+          subject.repos(GH_USER, GH_REPO).milestones(temp_milestone["number"]).destroy
         end
       end
     end
+
     describe "#repos(login,name)#milestones(1)" do
-      it "should return an milestone by id" do 
-        VCR.use_cassette("repos(rauhryan,ghee_test).milestones(1)") do
-          milestone = subject.repos("rauhryan","ghee_test").milestones(1)
+      it "should return an milestone by id" do
+        VCR.use_cassette("repos(#{GH_USER},#{GH_REPO}).milestones(1)") do
+          temp_milestone = subject.repos(GH_USER, GH_REPO).milestones.create({ :title => "Destroy test milestone" })
+
+          milestone = subject.repos(GH_USER, GH_REPO).milestones(1)
           should_be_an_milestone(milestone)
+
+          subject.repos(GH_USER, GH_REPO).milestones(temp_milestone["number"]).destroy
         end
       end
+
       describe "#destroy" do
-          it "should delete milestone" do
-            VCR.use_cassette "milestones(id).destroy" do
-              repo = subject.repos("rauhryan","ghee_test")
-              test_milestone = repo.milestones.create({
-                :title => "Destroy test milestone"
-              })
-              should_be_an_milestone(test_milestone)
-              subject.repos("rauhryan","ghee_test").milestones(test_milestone["number"]).destroy.should be_true
-            end
+        it "should delete milestone" do
+          VCR.use_cassette "milestones(id).destroy" do
+            repo = subject.repos(GH_USER, GH_REPO)
+            test_milestone = repo.milestones.create({
+              :title => "Destroy test milestone"
+            })
+            should_be_an_milestone(test_milestone)
+            subject.repos(GH_USER, GH_REPO).milestones(test_milestone["number"]).destroy.should be_true
           end
+        end
       end
 
       # Testing milestone proxy
       context "with milestone number" do
         before(:all) do
           VCR.use_cassette "milestones.test" do
-            @repo = subject.repos("rauhryan","ghee_test")
+            @repo = subject.repos(GH_USER, GH_REPO)
             @test_milestone = @repo.milestones.create({
-              :title => "Test milestone"
+              :title => "Test milestone #{rand(100)}"
             })
           end
         end
         let(:test_milestone) { @test_milestone }
         let(:test_repo) { @repo }
 
-        describe "#patch" do 
+        describe "#patch" do
           it "should patch the milestone" do
             VCR.use_cassette "milestones(id).patch" do
               milestone = test_repo.milestones(test_milestone["number"]).patch({
@@ -74,7 +90,7 @@ describe Ghee::API::Milestones do
         end
 
         describe "#close" do
-          it "should close the milestone" do 
+          it "should close the milestone" do
             VCR.use_cassette "milestones(id).close" do
               closed = test_repo.milestones(test_milestone["number"]).close
               closed.should be_true
@@ -85,4 +101,3 @@ describe Ghee::API::Milestones do
     end
   end
 end
-

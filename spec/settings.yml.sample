@@ -1,0 +1,5 @@
+access_token: your_access_token
+username: your_username
+password: your_password (optional)
+repo: test_repo_that_you_setup
+org: an_organization_you_belong_to

@@ -2,11 +2,11 @@ require 'spec_helper'
 
 describe Ghee::Connection do
   context "with an access_token" do
-    subject { Ghee::Connection.new(ACCESS_TOKEN) }
+    subject { Ghee::Connection.new(GH_AUTH) }
 
     describe "#initialize" do
       it "should set an instance variable for access token" do
-        subject.hash.should == ACCESS_TOKEN
+        subject.hash.should == GH_AUTH
       end
     end
 
