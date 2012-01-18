@@ -11,7 +11,7 @@ class Ghee
     instance_methods.each { |m| undef_method m unless m =~ /^__|instance_eval|instance_variable_get|object_id/ }
 
     # Make connection and path_prefix readable
-    attr_reader :connection, :path_prefix
+    attr_reader :connection, :path_prefix, :options
 
     # Instantiates proxy with the connection
     # and path_prefix
@@ -19,8 +19,8 @@ class Ghee
     # connection - Ghee::Connection object
     # path_prefix - String
     #
-    def initialize(connection, path_prefix)
-      @connection, @path_prefix = connection, path_prefix
+    def initialize(connection, path_prefix, options = nil)
+      @connection, @path_prefix, @options = connection, path_prefix, options
     end
 
     # Method_missing takes any message passed
