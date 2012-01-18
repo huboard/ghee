@@ -43,6 +43,15 @@ class Ghee
       @subject ||= connection.get(path_prefix){|req| req.params.merge!params }.body
     end
 
+    # Paginate is a helper method to handle
+    # request pagination to the github api
+    #
+    # options - Hash containing pagination params
+    # eg; 
+    #     :per_page => 100, :page => 1
+    #
+    # Returns self
+    #
     def paginate(options)
       @current_page = options.fetch(:page) {raise ArgumentError, ":page parameter required"}
       per_page = options.delete(:per_page) || 30
@@ -53,7 +62,7 @@ class Ghee
 
       @subject = request.body
 
-      return self
+      return self      
     end
 
   end
