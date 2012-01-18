@@ -38,8 +38,8 @@ class Ghee
         # Returns json
         #
         def repos(name=nil)
-          return connection.get("#{path_prefix}/repos").body if name.nil?
-          Ghee::API::Repos::Proxy.new(connection,"/repos/#{self["login"]}/#{name}")
+          prefix = name ? "/repos/#{self["login"]}/#{name}" : "#{path_prefix}/repos" 
+          Ghee::API::Repos::Proxy.new(connection,prefix)
         end
 
         # Returns list of the provided users organizations or 

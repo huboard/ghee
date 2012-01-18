@@ -41,6 +41,25 @@ describe Ghee::API::Users do
         end
       end
     end
+
+    describe "#repos" do
+      it "should return list of repos" do
+        VCR.use_cassette "user.repos" do
+          repos = subject.user.repos
+          repos.size.should > 0
+        end
+      end
+      describe "#paginate" do
+        it "should limit the count to 10" do
+          VCR.use_cassette "user.repos.paginate" do
+            repos = subject.user.repos.paginate :page => 1, :per_page => 10
+            repos.size.should == 10
+            repos.current_page.should == 1
+          end
+        end
+      end
+
+    end
   end
 
   describe "#users" do

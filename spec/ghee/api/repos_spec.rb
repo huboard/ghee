@@ -9,6 +9,14 @@ describe Ghee::API::Repos do
     repo['owner']['login'].should_not be_nil
   end
 
+  describe "#repos(login, name, :per_page => 10)" do
+    it "should have count of 10" do
+      VCR.use_cassette "repos :per_page => 10 " do
+        
+      end
+    end
+  end
+
   describe "#repos(login,name)" do
     it "should be a repo" do
       VCR.use_cassette("repos(#{GH_USER},#{GH_REPO})") do
