@@ -45,7 +45,7 @@ class Ghee
 
     def paginate(options)
       @current_page = options.fetch(:page) {raise ArgumentError, ":page parameter required"}
-      per_page = options.delete(:per_page) || 25
+      per_page = options.delete(:per_page) || 30
       request = connection.get do |req|
         req.url path_prefix, :per_page => per_page, :page => current_page
         req.params.merge! params

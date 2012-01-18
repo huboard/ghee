@@ -37,9 +37,10 @@ class Ghee
         #
         # Returns json
         #
-        def repos(name=nil)
-          prefix = name ? "/repos/#{self["login"]}/#{name}" : "#{path_prefix}/repos" 
-          Ghee::API::Repos::Proxy.new(connection,prefix)
+        def repos(name=nil, params={})
+          params = name if name.is_a?Hash
+          prefix = name.is_a?(String) ? "/repos/#{self["login"]}/#{name}" : "#{path_prefix}/repos" 
+          Ghee::API::Repos::Proxy.new(connection,prefix, params)
         end
 
         # Returns list of the provided users organizations or 

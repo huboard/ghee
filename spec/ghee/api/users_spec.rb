@@ -42,6 +42,20 @@ describe Ghee::API::Users do
       end
     end
 
+    describe "#repos :type => 'public'" do
+      it "should only return public repos" do
+        VCR.use_cassette "user.repos.public" do
+          repos = subject.user.repos :type => "public"
+          repos.size.should > 0
+          repos.path_prefix.should == "/user/repos"
+          repos.should be_instance_of(Array)
+          repos.each do |r|
+            r["private"].should be_false
+          end
+        end
+      end
+    end
+
     describe "#repos" do
       it "should return list of repos" do
         VCR.use_cassette "user.repos" do
@@ -49,6 +63,7 @@ describe Ghee::API::Users do
           repos.size.should > 0
         end
       end
+
       describe "#paginate" do
         it "should limit the count to 10" do
           VCR.use_cassette "user.repos.paginate" do
