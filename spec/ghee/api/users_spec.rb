@@ -72,6 +72,14 @@ describe Ghee::API::Users do
             repos.current_page.should == 1
           end
         end
+        it "remove" do
+          VCR.use_cassette "testing_pagination" do
+            repos = subject.user.repos.paginate :page => 1, :per_page => 100
+
+            repos.total.should > 30
+            
+          end
+        end
       end
 
     end
