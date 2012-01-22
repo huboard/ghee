@@ -20,7 +20,54 @@ class PaginationResponse
 end
 
 describe "Pagination" do
-  describe "All the things" do 
+  describe "past first page" do 
+
+    before(:each) do
+      @connection = mock('connection')
+      header = {
+        "link" => '<https://api.github.com/users/rauhryan/repos?page=3&per_page=5&type=private>; rel="next", <https://api.github.com/users/rauhryan/repos?page=10&per_page=5&type=private>; rel="last", <https://api.github.com/users/rauhryan/repos?page=1&per_page=5&type=private>; rel="first", <https://api.github.com/users/rauhryan/repos?page=1&per_page=5&type=private>; rel="prev"'
+      }
+      @connection.stub!(:get).and_return(PaginationResponse.new header)
+    end
+
+    subject do 
+      Ghee::ResourceProxy.new(@connection, '/foo')
+    end
+
+    describe "#paginate" do
+      before :each do
+        @proxy = subject.paginate :page => 2, :per_page => 5
+      end
+
+      it "should set per_page from the link header" do
+        @proxy.pagination[:next][:per_page].should == 5
+      end
+      
+      it "should set next page to 3" do
+        @proxy.pagination[:next][:page].should == 3
+      end
+
+      it "should set prev page to 1" do
+        @proxy.pagination[:prev][:page].should == 1
+      end
+
+      it "should set first page to 1" do
+        @proxy.pagination[:first][:page].should == 1
+      end
+
+      it "should set last page to 10" do
+        @proxy.pagination[:last][:page].should == 10
+      end
+
+      it "should generate all the xxx_page methods" do
+        @proxy.next_page.should == 3
+        @proxy.prev_page.should == 1
+        @proxy.first_page.should == 1
+        @proxy.last_page.should == 10
+      end
+    end
+  end
+  describe "per_page is provided" do 
 
     before(:each) do
       @connection = mock('connection')
@@ -30,16 +77,26 @@ describe "Pagination" do
       }
       @connection.stub!(:get).and_return(PaginationResponse.new header)
     end
+
     subject do 
       Ghee::ResourceProxy.new(@connection, '/foo')
     end
 
     describe "#paginate" do
+      before :each do
+        @proxy = subject.paginate :page => 1, :per_page => 10
+      end
 
-      it "adf" do
-        proxy = subject.paginate :page => 1
-        proxy.total.should be_nil
+      it "should set per_page from the link header" do
+        @proxy.pagination[:next][:per_page].should == 10
+      end
+      
+      it "should set next page to 2" do
+        @proxy.pagination[:next][:page].should == 2
+      end
 
+      it "should set last page to 6" do
+        @proxy.pagination[:last][:page].should == 6
       end
     end
   end
@@ -66,6 +123,10 @@ describe "Pagination" do
       it "should set total" do
         proxy = subject.paginate :page => 1
         proxy.total.should == 1
+      end
+      it "next page should be nil" do
+        proxy = subject.paginate :page => 1
+        proxy.next_page.should be_nil
       end
 
     end

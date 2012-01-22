@@ -66,18 +66,23 @@ describe Ghee::API::Users do
 
       describe "#paginate" do
         it "should limit the count to 10" do
-          VCR.use_cassette "user.repos.paginate" do
-            repos = subject.user.repos.paginate :page => 1, :per_page => 10
+          VCR.use_cassette "users(github).repos.paginate" do
+            repos = subject.users("github").repos.paginate :page => 1, :per_page => 10
             repos.size.should == 10
             repos.current_page.should == 1
+            repos.next_page.should == 2
           end
         end
-        it "remove" do
-          VCR.use_cassette "testing_pagination" do
-            repos = subject.user.repos.paginate :page => 1, :per_page => 100
-
-            repos.total.should > 30
-            
+        it "should return page 3" do
+          VCR.use_cassette "users(github).repos.paginate:page=>3" do
+            repos = subject.users("github").repos.paginate :page => 3, :per_page => 10
+            repos.size.should == 10
+            repos.current_page.should == 3
+            repos.next_page.should == 4
+            repos.prev_page.should == 2
+            repos.first_page.should == 1
+            # no consistent way to check last page
+            repos.last_page.should >= 4
           end
         end
       end
