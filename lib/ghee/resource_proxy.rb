@@ -70,6 +70,7 @@ class Ghee
       return self      
     end
 
+    # Generate first_page, last_page, next_page, prev_page convienence methods
     %w{ next prev first last }.each do |term|
       define_method "#{term}_page" do
         pagination ? pagination[term.to_sym] ? pagination[term.to_sym][:page] : nil : nil
