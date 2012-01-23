@@ -29,8 +29,8 @@ class Ghee
         #
         # Returns json
         #
-        def gists
-          connection.get("#{path_prefix}/gists").body
+        def gists(params={})
+          Ghee::API::Gists::Proxy.new(connection,"#{path_prefix}/gists",params)
         end
 
         # Repos for a user
@@ -50,9 +50,10 @@ class Ghee
         #
         # Returns json
         #
-        def orgs(org=nil)
-          return connection.get("#{path_prefix}/orgs").body if org.nil?
-          Ghee::API::Orgs::Proxy.new(connection, "/orgs/#{org}")
+        def orgs(org=nil, params={})
+          params = org if org.is_a?Hash
+          prefix = org.is_a?(String) ? "/orgs/#{org}" : "#{path_prefix}/orgs"
+          Ghee::API::Orgs::Proxy.new(connection, prefix, params)
         end
 
        
