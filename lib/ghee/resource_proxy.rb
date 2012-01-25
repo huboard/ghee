@@ -33,8 +33,8 @@ class Ghee
     # message - Message object
     # args* - Arguements passed
     #
-    def method_missing(message, *args)
-      subject.send(message, *args)
+    def method_missing(message, *args, &block)
+      subject.send(message, *args, &block)
     end
 
     # Subject is the response body parsed
