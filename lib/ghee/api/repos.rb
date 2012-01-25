@@ -48,9 +48,10 @@ class Ghee
         #
         # Returns json
         #
-        def issues(number=nil)
-          prefix = number ? "#{path_prefix}/issues/#{number}" : "#{path_prefix}/issues"
-          Ghee::API::Issues::Proxy.new(connection, prefix)
+        def issues(number=nil, params={})
+          params = number if number.is_a?Hash
+          prefix = (!number.is_a?(Hash) and number) ? "#{path_prefix}/issues/#{number}" : "#{path_prefix}/issues"
+          Ghee::API::Issues::Proxy.new(connection, prefix, params)
         end
 
         # Get labels for a repo
