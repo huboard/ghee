@@ -63,11 +63,23 @@ class Ghee
         req.params.merge! params
       end
 
-      @subject = response.body
+      if @subject.nil?
+        @subject = response.body
+      else
+        @subject = @subject.concat response.body
+      end
 
       parse_link_header response.headers.delete("link")
 
       return self      
+    end
+
+    def all
+      return self if pagination && next_page.nil?
+
+      self.paginate :per_page => 100, :page => next_page || 1
+
+      self.all
     end
 
     # Generate first_page, last_page, next_page, prev_page convienence methods

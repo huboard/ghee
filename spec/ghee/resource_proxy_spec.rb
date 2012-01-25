@@ -18,8 +18,54 @@ class PaginationResponse
   end
 
 end
+class IncrementPager
+  def initialize(times=2)
+    @times = times
+    @executed = 1
+  end
+  def headers
+    
+    return {} if @executed == @times
+    @executed += 1
+    {"link" => "<https://api.github.com/users/rauhryan/repos?page=#{@executed}>; rel=\"next\""}
+  end
+  def body
+    [@executed]
+  end
+
+end
 
 describe "Pagination" do
+  describe "#all with many pages" do
+    before(:each) do
+      @connection = mock('connection')
+      @connection.stub!(:get).and_return(IncrementPager.new 2)
+    end
+
+    subject do 
+      Ghee::ResourceProxy.new(@connection, '/foo')
+    end
+
+    it "should return count of 2" do 
+      subject.all.size.should == 2
+    end
+  end
+  describe "#all with 1 page" do
+    before(:each) do
+      @connection = mock('connection')
+      @connection.stub!(:get).and_return(IncrementPager.new 1)
+    end
+
+    subject do 
+      Ghee::ResourceProxy.new(@connection, '/foo')
+    end
+
+    it "should return count of 1" do 
+      subject.all.size.should == 1
+    end
+  end
+
+
   describe "past first page" do 
 
     before(:each) do
