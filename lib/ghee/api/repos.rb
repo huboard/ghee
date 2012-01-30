@@ -16,6 +16,21 @@ class Ghee
         end
       end
 
+      module Hooks
+        class Proxy < ::Ghee::ResourceProxy
+          include Ghee::CUD
+          
+          # Test hook - This will trigger the hook with the 
+          # latest push to the current repository. 
+          # 
+          def test
+              connection.post("#{path_prefix}/test").body
+          end                                 
+
+
+        end
+      end
+
       # Gists::Proxy inherits from Ghee::Proxy and
       # enables defining methods on the proxy object
       #
@@ -37,18 +52,30 @@ class Ghee
         #
         # Returns json
         #
-        def labels(id=nil)
-          prefix = id ? "#{path_prefix}/labels/#{id}" : "#{path_prefix}/labels"
-          Ghee::API::Repos::Labels::Proxy.new(connection,prefix)
+        def labels(number=nil, params={})
+          params = number if number.is_a?Hash
+          prefix = (!number.is_a?(Hash) and number)  ? "#{path_prefix}/labels/#{number}" : "#{path_prefix}/labels"
+          Ghee::API::Repos::Labels::Proxy.new(connection, prefix, params)
         end
 
         # Get milestones
         #
         # Returns json
         #
-        def milestones(number=nil)
-          prefix = number ? "#{path_prefix}/milestones/#{number}" : "#{path_prefix}/milestones"
-          Ghee::API::Milestones::Proxy.new(connection, prefix)
+        def milestones(number=nil, params={})
+          params = number if number.is_a?Hash
+          prefix = (!number.is_a?(Hash) and number) ? "#{path_prefix}/milestones/#{number}" : "#{path_prefix}/milestones"
+          Ghee::API::Milestones::Proxy.new(connection, prefix, params)
+        end
+
+        # Get hooks
+        #
+        # Returns json
+        #
+        def hooks(number=nil, params={})
+          params = number if number.is_a?Hash
+          prefix = (!number.is_a?(Hash) and number) ? "#{path_prefix}/hooks/#{number}" : "#{path_prefix}/hooks"
+          Ghee::API::Repos::Hooks::Proxy.new(connection, prefix, params)
         end
 
       end
