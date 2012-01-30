@@ -2,6 +2,7 @@
 require 'ghee/version'
 require 'ghee/connection'
 require 'ghee/resource_proxy'
+require 'ghee/state_methods'
 require 'ghee/api/gists'
 require 'ghee/api/users'
 require 'ghee/api/events'

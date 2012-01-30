@@ -14,16 +14,7 @@ class Ghee
       # enables defining methods on the proxy object
       #
       class Proxy < ::Ghee::ResourceProxy
-
-        # Updates the organization
-        #
-        # attributes - hash of the fields you want to update
-        #
-        # Returns json
-        #
-        def patch(attributes)
-          connection.patch(path_prefix, attributes).body
-        end
+        include Ghee::CUD
 
         # Repos for a orgs
         #

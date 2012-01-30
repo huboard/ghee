@@ -14,26 +14,8 @@ class Ghee
       # enables defining methods on the proxy object
       #
       class Proxy < ::Ghee::ResourceProxy
+        include Ghee::CUD
 
-        # Creates gist
-        #
-        # attributes - Hash of attributes
-        #
-        # Returns json
-        #
-        def create(attributes)
-          connection.post(path_prefix, attributes).body
-        end
-
-        # Patches gist
-        #
-        # attributes - Hash of attributes
-        #
-        # Returns json
-        #
-        def patch(attributes)
-          connection.patch(path_prefix, attributes).body
-        end
 
         # Star a gist
         #
@@ -75,13 +57,6 @@ class Ghee
           connection.get("#{path_prefix}/starred").body
         end
 
-        # Deletes a gist
-        #
-        # Returns true/false
-        #
-        def destroy
-          connection.delete(path_prefix).status == 204
-        end
       end
 
       # Get gists

@@ -12,30 +12,7 @@ class Ghee
 
       module Labels
         class Proxy < ::Ghee::ResourceProxy
-
-          # Creates label for an issue using the authenicated user
-          #
-          # return json
-          #
-          def create(attributes)
-            connection.post(path_prefix,attributes).body
-          end
-
-          # Patchs and existing label
-          #
-          # return json
-          #
-          def patch(attributes)
-            connection.patch(path_prefix, attributes).body
-          end
-
-          # Destroys label by id
-          #
-          # return boolean
-          #
-          def destroy
-            connection.delete(path_prefix).status == 204
-          end
+          include Ghee::CUD
         end
       end
 

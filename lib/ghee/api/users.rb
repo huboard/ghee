@@ -14,16 +14,7 @@ class Ghee
       # enables defining methods on the proxy object
       #
       class Proxy < ::Ghee::ResourceProxy
-
-        # Patch user
-        #
-        # attributes - Hash of attributes
-        #
-        # Returns json
-        #
-        def patch(attributes)
-          connection.patch('/user', attributes).body
-        end
+        include Ghee::CUD
 
         # Gists for a user
         #
