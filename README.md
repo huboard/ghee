@@ -171,7 +171,7 @@ Get a list of repos for an org:
 
     gh.orgs("huboard").repos
 
-> Notes: see above for all the available api methods for repos
+> Notes: see above for all the available api methods for [repos](#usage/repos)
 
 ### Users
 
