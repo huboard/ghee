@@ -208,7 +208,7 @@ Get a single repos for a specific user:
 
     gh.users("rauhryan").repos("ghee")
 
-> Notes: see above for all the available api methods for repos
+> Notes: see above for all the available api methods for [repos](#usage/repos)
 
 Get a list of orgs for the current user:
 
