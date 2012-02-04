@@ -45,7 +45,7 @@ describe Ghee::API::Orgs::Teams do
           end
           it "should add a member" do
             VCR.use_cassette "orgs(name).teams(id).members.add" do
-              subject.orgs(GH_ORG).teams(member_team["id"]).members.add(GH_USER).should be_true
+              subject.orgs.teams(member_team["id"]).members.add(GH_USER).should be_true
               members = subject.orgs.teams(member_team["id"]).members
               members.first["login"].should == GH_USER
               members.size.should > 0
@@ -53,7 +53,7 @@ describe Ghee::API::Orgs::Teams do
           end
           it "should remove a member" do
             VCR.use_cassette "orgs(name).teams(id).members.remove" do
-              subject.orgs(GH_ORG).teams(member_team["id"]).members.remove(GH_USER).should be_true
+              subject.orgs.teams(member_team["id"]).members.remove(GH_USER).should be_true
               members = subject.orgs.teams(member_team["id"]).members
               members.size.should == 0
             end
