@@ -83,9 +83,10 @@ class Ghee
       #
       # Returns json
       #
-      def orgs(org=nil)
-        return connection.get("/user/orgs").body if org.nil?
-        Proxy.new(connection, "/orgs/#{org}")
+      def orgs(name=nil, params={})
+          params = name if name.is_a?Hash
+          prefix = (!name.is_a?(Hash) and name) ? "/orgs/#{name}" : "user/orgs"
+          Proxy.new(connection, prefix, params)
       end
     end
   end
