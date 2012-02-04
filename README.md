@@ -173,6 +173,38 @@ Get a list of repos for an org:
 
 > Notes: see above for all the available api methods for repos
 
+Get a list of teams for an org:
+
+    gh.orgs("huboard").teams
+
+Get a single team for an org:
+
+    gh.orgs("huboard").teams(110234)
+
+Create team for an org: 
+
+    gh.orgs("huboard").teams.create :name => "awesome_developers"
+
+Patch a team for an org:
+
+    gh.orgs("huboard").teams(110234).patch :name => "junior_developers"
+
+Delete a team for an org:
+
+    gh.orgs("huboard").teams(110234).delete
+
+Get a list of members for a team:
+
+    gh.orgs("huboard").teams(110234).members
+
+Add a member to a team:
+
+    gh.orgs("huboard").teams(110234).members.add("rauhryan")
+
+Remove a member from a team:
+
+    gh.orgs("huboard").teams(110234).members.remove("rauhryan")
+
 ### Users
 
 Get a single user:
