@@ -76,6 +76,15 @@ class Ghee
         end
       end
 
+      # Team by id
+      #
+      # Returns json
+      #
+      def team(number, params={})
+        prefix = "/teams/#{number}" 
+        Ghee::API::Orgs::Teams::Proxy.new(connection, prefix, params)
+      end
+
       # Returns list of the authenticated users organizations or 
       # an organization by name
       #
@@ -84,9 +93,9 @@ class Ghee
       # Returns json
       #
       def orgs(name=nil, params={})
-          params = name if name.is_a?Hash
-          prefix = (!name.is_a?(Hash) and name) ? "/orgs/#{name}" : "user/orgs"
-          Proxy.new(connection, prefix, params)
+        params = name if name.is_a?Hash
+        prefix = (!name.is_a?(Hash) and name) ? "/orgs/#{name}" : "user/orgs"
+        Proxy.new(connection, prefix, params)
       end
     end
   end
