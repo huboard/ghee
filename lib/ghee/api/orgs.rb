@@ -10,29 +10,79 @@ class Ghee
     #
     module Orgs
 
+      # Orgs::Teams module handles all of the Github Organization Teams
+      # API endpoints
+      #
+      module Teams
+
+        # Orgs::Teams::Members module handles all of the Github Organization Teams members
+        # API endpoints
+        #
+        module Members
+
+          # Members::Proxy inherits from Ghee::Proxy and 
+          # enables defining methods on the proxy object
+          #
+          class Proxy < ::Ghee::ResourceProxy
+
+              def add(member)
+                connection.put("#{path_prefix}/#{member}").status == 204
+              end
+
+              def remove(member)
+                connection.delete("#{path_prefix}/#{member}").status == 204
+              end
+          end
+        end
+
+        # Teams::Proxy inherits from Ghee::Proxy and 
+        # enables defining methods on the proxy object
+        #
+        class Proxy < ::Ghee::ResourceProxy
+          include Ghee::CUD
+
+          def members(name=nil)
+            prefix = name ? "#{path_prefix}/members/#{name}" : "#{path_prefix}/members"
+            Ghee::API::Orgs::Teams::Members::Proxy.new(connection, prefix)
+          end
+
+        end
+      end
+
       # Orgs::Proxy inherits from Ghee::Proxy and
       # enables defining methods on the proxy object
       #
       class Proxy < ::Ghee::ResourceProxy
+        include Ghee::CUD
 
-        # Updates the organization
-        #
-        # attributes - hash of the fields you want to update
+        # Teams for an org
         #
         # Returns json
         #
-        def patch(attributes)
-          connection.patch(path_prefix, attributes).body
+        def teams(number=nil,params={})
+          params = number if number.is_a?Hash
+          prefix = (!number.is_a?(Hash) and number) ? "/teams/#{number}" : "#{path_prefix}/teams"
+          Ghee::API::Orgs::Teams::Proxy.new(connection, prefix, params)
         end
 
         # Repos for a orgs
         #
         # Returns json
         #
-        def repos(name=nil)
-          return connection.get("#{path_prefix}/repos").body if name.nil?
-          Ghee::API::Repos::Proxy.new(connection,"/repos/#{self["login"]}/#{name}")
+        def repos(name=nil,params={})
+          params = name if name.is_a?Hash
+          prefix = (!name.is_a?(Hash) and name) ? "/repos/#{self["login"]}/#{name}" : "#{path_prefix}/repos"
+          Ghee::API::Repos::Proxy.new(connection,prefix,params)
         end
+      end
+
+      # Team by id
+      #
+      # Returns json
+      #
+      def team(number, params={})
+        prefix = "/teams/#{number}" 
+        Ghee::API::Orgs::Teams::Proxy.new(connection, prefix, params)
       end
 
       # Returns list of the authenticated users organizations or 
@@ -42,9 +92,10 @@ class Ghee
       #
       # Returns json
       #
-      def orgs(org=nil)
-        return connection.get("/user/orgs").body if org.nil?
-        Proxy.new(connection, "/orgs/#{org}")
+      def orgs(name=nil, params={})
+        params = name if name.is_a?Hash
+        prefix = (!name.is_a?(Hash) and name) ? "/orgs/#{name}" : "user/orgs"
+        Proxy.new(connection, prefix, params)
       end
     end
   end

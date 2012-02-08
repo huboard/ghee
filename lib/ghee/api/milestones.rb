@@ -16,26 +16,7 @@ class Ghee
       # enables defining methods on the proxy object
       #
       class Proxy < ::Ghee::ResourceProxy
-
-        # Create milestone
-        #
-        # attibutes - Hash of attributes to create milestone
-        #
-        # Returns json 
-        #
-        def create(attributes)
-           connection.post(path_prefix,attributes).body
-        end
-
-        # Patch milestone
-        #
-        # attributes = Hash of attributes used to update milestone
-        #
-        # returns json
-        #
-        def patch(attributes)
-          connection.patch(path_prefix,attributes).body
-        end
+        include Ghee::CUD
 
         # Close milestone - closed milestone by id
         #
@@ -56,14 +37,6 @@ class Ghee
             req.params["state"] = "closed"
           end
           response.body
-        end
-
-        # Destroys milestone by id
-        #
-        # Returns boolean
-        #
-        def destroy
-          connection.delete(path_prefix).status == 204
         end
 
       end

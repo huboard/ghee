@@ -50,30 +50,7 @@ class Ghee
       #
       module Comments
         class Proxy < ::Ghee::ResourceProxy
-
-          # Creates comment for an issue using the authenicated user
-          #
-          # return json
-          #
-          def create(attributes)
-            connection.post(path_prefix,attributes).body
-          end
-
-          # Patchs and existing comment
-          #
-          # return json
-          #
-          def patch(attributes)
-            connection.patch(path_prefix, attributes).body
-          end
-
-          # Destroys comment by id
-          #
-          # return boolean
-          #
-          def destroy
-            connection.delete(path_prefix).status == 204
-          end
+          include Ghee::CUD
         end
       end
 
@@ -81,26 +58,7 @@ class Ghee
       # enables defining methods on the proxy object
       #
       class Proxy < ::Ghee::ResourceProxy
-
-        # Create issue
-        #
-        # attibutes - Hash of attributes to create issue
-        #
-        # Returns json 
-        #
-        def create(attributes)
-           connection.post(path_prefix,attributes).body
-        end
-
-        # Patch issue
-        #
-        # attributes = Hash of attributes used to update issue
-        #
-        # returns json
-        #
-        def patch(attributes)
-          connection.patch(path_prefix,attributes).body
-        end
+        include Ghee::CUD
 
         # Close issue - closed issue by id
         #

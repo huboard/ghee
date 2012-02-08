@@ -9,14 +9,17 @@ class Ghee
     # API endpoints
     #
     module Events
+      class Proxy < ::Ghee::ResourceProxy
+      end
 
       # Get events
       #
       # Returns json
       #
-      def events
-        connection.get('/events').body
+      def events(params={})
+        return Proxy.new(connection, "/events",params)
       end
+      
     end
   end
 end

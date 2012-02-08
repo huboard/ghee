@@ -14,32 +14,24 @@ class Ghee
       # enables defining methods on the proxy object
       #
       class Proxy < ::Ghee::ResourceProxy
-
-        # Patch user
-        #
-        # attributes - Hash of attributes
-        #
-        # Returns json
-        #
-        def patch(attributes)
-          connection.patch('/user', attributes).body
-        end
+        include Ghee::CUD
 
         # Gists for a user
         #
         # Returns json
         #
-        def gists
-          connection.get("#{path_prefix}/gists").body
+        def gists(params={})
+          Ghee::API::Gists::Proxy.new(connection,"#{path_prefix}/gists",params)
         end
 
         # Repos for a user
         #
         # Returns json
         #
-        def repos(name=nil)
-          return connection.get("#{path_prefix}/repos").body if name.nil?
-          Ghee::API::Repos::Proxy.new(connection,"/repos/#{self["login"]}/#{name}")
+        def repos(name=nil, params={})
+          params = name if name.is_a?Hash
+          prefix = name.is_a?(String) ? "/repos/#{self["login"]}/#{name}" : "#{path_prefix}/repos" 
+          Ghee::API::Repos::Proxy.new(connection,prefix, params)
         end
 
         # Returns list of the provided users organizations or 
@@ -49,9 +41,10 @@ class Ghee
         #
         # Returns json
         #
-        def orgs(org=nil)
-          return connection.get("#{path_prefix}/orgs").body if org.nil?
-          Ghee::API::Orgs::Proxy.new(connection, "/orgs/#{org}")
+        def orgs(org=nil, params={})
+          params = org if org.is_a?Hash
+          prefix = org.is_a?(String) ? "/orgs/#{org}" : "#{path_prefix}/orgs"
+          Ghee::API::Orgs::Proxy.new(connection, prefix, params)
         end
 
        

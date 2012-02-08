@@ -78,6 +78,32 @@ Get a single repo:
 
     gh.repos("rauhryan", "ghee")
 
+Get the hooks for a repo:
+
+    gh.repos("rauhryan", "ghee").hooks
+
+Get a single hook for a repo:
+
+    gh.repos("rauhryan", "ghee").hooks(12)
+
+Create a hook for a repo: ([see docs for all possible params](http://developer.github.com/v3/hooks/#create-an-hook)):
+
+    gh.repos("rauhryan", "ghee").hooks.create({
+      :name => "web",
+      :config => {:url => "http://huboard.com/webhook"}
+    })
+
+Update a hook for a repo: ([see docs for all possible params](http://developer.github.com/v3/hooks/#edit-an-hook)):
+
+    gh.repos("rauhryan", "ghee").hooks.patch({
+      :name => "web",
+      :config => {:url => "http://huboard.com/webhook"}
+    })
+
+Destroy a hook for a repo:
+
+    gh.repos("rauhryan", "ghee").hooks(1).destory
+
 Get the milestones for a repo:
 
     gh.repos("rauhryan", "ghee").milestones
@@ -172,6 +198,68 @@ Get a list of repos for an org:
     gh.orgs("huboard").repos
 
 > Notes: see above for all the available api methods for [repos](#usage/repos)
+
+Get a list of teams for an org:
+
+    gh.orgs("huboard").teams
+
+Get a single team for an org:
+
+    gh.orgs("huboard").teams(110234)
+
+Create team for an org: 
+
+    gh.orgs("huboard").teams.create :name => "awesome_developers"
+
+Patch a team for an org:
+
+    gh.orgs("huboard").teams(110234).patch :name => "junior_developers"
+
+Delete a team for an org:
+
+    gh.orgs("huboard").teams(110234).delete
+
+Get a list of members for a team:
+
+    gh.orgs("huboard").teams(110234).members
+
+Add a member to a team:
+
+    gh.orgs("huboard").teams(110234).members.add("rauhryan")
+
+Remove a member from a team:
+
+    gh.orgs("huboard").teams(110234).members.remove("rauhryan")
+
+### Teams
+
+Get a single team:
+
+    gh.team(110234)
+
+Create a team: 
+
+    gh.team.create :name => "awesome_developers"
+
+Patch a team:
+
+    gh.team(110234).patch :name => "junior_developers"
+
+Delete a team:
+
+    gh.team(110234).delete
+
+Get a list of members for a team:
+
+    gh.team(110234).members
+
+Add a member to a team:
+
+    gh.team(110234).members.add("rauhryan")
+
+Remove a member from a team:
+
+    gh.team(110234).members.remove("rauhryan")
 
 ### Users
 

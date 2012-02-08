@@ -41,6 +41,53 @@ describe Ghee::API::Users do
         end
       end
     end
+
+    describe "#repos :type => 'public'" do
+      it "should only return public repos" do
+        VCR.use_cassette "user.repos.public" do
+          repos = subject.user.repos :type => "public"
+          repos.size.should > 0
+          repos.path_prefix.should == "/user/repos"
+          repos.should be_instance_of(Array)
+          repos.each do |r|
+            r["private"].should be_false
+          end
+        end
+      end
+    end
+
+    describe "#repos" do
+      it "should return list of repos" do
+        VCR.use_cassette "user.repos" do
+          repos = subject.user.repos
+          repos.size.should > 0
+        end
+      end
+
+      describe "#paginate" do
+        it "should limit the count to 10" do
+          VCR.use_cassette "users(github).repos.paginate" do
+            repos = subject.users("github").repos.paginate :page => 1, :per_page => 10
+            repos.size.should == 10
+            repos.current_page.should == 1
+            repos.next_page.should == 2
+          end
+        end
+        it "should return page 3" do
+          VCR.use_cassette "users(github).repos.paginate:page=>3" do
+            repos = subject.users("github").repos.paginate :page => 3, :per_page => 10
+            repos.size.should == 10
+            repos.current_page.should == 3
+            repos.next_page.should == 4
+            repos.prev_page.should == 2
+            repos.first_page.should == 1
+            # no consistent way to check last page
+            repos.last_page.should >= 4
+          end
+        end
+      end
+
+    end
   end
 
   describe "#users" do

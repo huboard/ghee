@@ -12,30 +12,22 @@ class Ghee
 
       module Labels
         class Proxy < ::Ghee::ResourceProxy
+          include Ghee::CUD
+        end
+      end
 
-          # Creates label for an issue using the authenicated user
-          #
-          # return json
-          #
-          def create(attributes)
-            connection.post(path_prefix,attributes).body
+      module Hooks
+        class Proxy < ::Ghee::ResourceProxy
+          include Ghee::CUD
+          
+          # Test hook - This will trigger the hook with the 
+          # latest push to the current repository. 
+          # 
+          def test
+              connection.post("#{path_prefix}/test").body
           end
 
-          # Patchs and existing label
-          #
-          # return json
-          #
-          def patch(attributes)
-            connection.patch(path_prefix, attributes).body
-          end
 
-          # Destroys label by id
-          #
-          # return boolean
-          #
-          def destroy
-            connection.delete(path_prefix).status == 204
-          end
         end
       end
 
@@ -48,9 +40,10 @@ class Ghee
         #
         # Returns json
         #
-        def issues(number=nil)
-          prefix = number ? "#{path_prefix}/issues/#{number}" : "#{path_prefix}/issues"
-          Ghee::API::Issues::Proxy.new(connection, prefix)
+        def issues(number=nil, params={})
+          params = number if number.is_a?Hash
+          prefix = (!number.is_a?(Hash) and number) ? "#{path_prefix}/issues/#{number}" : "#{path_prefix}/issues"
+          Ghee::API::Issues::Proxy.new(connection, prefix, params)
         end
 
         # Get labels for a repo
@@ -59,18 +52,30 @@ class Ghee
         #
         # Returns json
         #
-        def labels(id=nil)
-          prefix = id ? "#{path_prefix}/labels/#{id}" : "#{path_prefix}/labels"
-          Ghee::API::Repos::Labels::Proxy.new(connection,prefix)
+        def labels(number=nil, params={})
+          params = number if number.is_a?Hash
+          prefix = (!number.is_a?(Hash) and number)  ? "#{path_prefix}/labels/#{number}" : "#{path_prefix}/labels"
+          Ghee::API::Repos::Labels::Proxy.new(connection, prefix, params)
         end
 
         # Get milestones
         #
         # Returns json
         #
-        def milestones(number=nil)
-          prefix = number ? "#{path_prefix}/milestones/#{number}" : "#{path_prefix}/milestones"
-          Ghee::API::Milestones::Proxy.new(connection, prefix)
+        def milestones(number=nil, params={})
+          params = number if number.is_a?Hash
+          prefix = (!number.is_a?(Hash) and number) ? "#{path_prefix}/milestones/#{number}" : "#{path_prefix}/milestones"
+          Ghee::API::Milestones::Proxy.new(connection, prefix, params)
+        end
+
+        # Get hooks
+        #
+        # Returns json
+        #
+        def hooks(number=nil, params={})
+          params = number if number.is_a?Hash
+          prefix = (!number.is_a?(Hash) and number) ? "#{path_prefix}/hooks/#{number}" : "#{path_prefix}/hooks"
+          Ghee::API::Repos::Hooks::Proxy.new(connection, prefix, params)
         end
 
       end
