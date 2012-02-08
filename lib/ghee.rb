@@ -30,4 +30,12 @@ class Ghee
   def initialize(options = {})
     @connection = Ghee::Connection.new(options)
   end
+
+  def self.basic_auth(user_name, password)
+      Ghee.new :basic_auth  => {:user_name => user_name, :password => password}
+  end
+
+  def self.access_token(token)
+    Ghee.new :access_token => token
+  end
 end

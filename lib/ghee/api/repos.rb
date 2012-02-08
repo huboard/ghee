@@ -25,7 +25,7 @@ class Ghee
           # 
           def test
               connection.post("#{path_prefix}/test").body
-          end                                 
+          end
 
 
         end
