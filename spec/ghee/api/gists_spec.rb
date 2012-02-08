@@ -56,7 +56,7 @@ describe Ghee::API::Gists do
       it "should create a gist" do
         VCR.use_cassette('gists.create') do
           gist = subject.gists.create({
-            :description => "I'm gonna buttah yo bread.",
+            :description => "Testing the ghee api",
             :public => true,
             :files => {
               'ghee_test.txt' => {
