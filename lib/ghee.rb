@@ -3,6 +3,7 @@ require 'ghee/version'
 require 'ghee/connection'
 require 'ghee/resource_proxy'
 require 'ghee/state_methods'
+require 'ghee/api/authorizations'
 require 'ghee/api/gists'
 require 'ghee/api/users'
 require 'ghee/api/events'
@@ -14,6 +15,7 @@ require 'ghee/api/orgs'
 class Ghee
   attr_reader :connection
 
+  include Ghee::API::Authorizations
   include Ghee::API::Gists
   include Ghee::API::Users
   include Ghee::API::Events
@@ -37,5 +39,11 @@ class Ghee
 
   def self.access_token(token)
     Ghee.new :access_token => token
+  end
+
+  def self.create_token(user_name, password, scopes)
+    auth = Ghee.basic_auth(user_name, password).authorizations.create({
+      :scopes => scopes})
+    auth["token"]
   end
 end

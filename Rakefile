@@ -8,3 +8,8 @@ end
 
 task :default => :spec
 task :test => :spec
+
+desc "Open an irb session with library"
+task :console do 
+  sh "irb -I lib -r ghee"
+end
