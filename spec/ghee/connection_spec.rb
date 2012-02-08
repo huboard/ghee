@@ -22,7 +22,7 @@ describe Ghee::Connection do
       end
 
       it "should parse the json response" do
-        response.body.should == ""
+        response.body.should be_nil
       end
     end
   end
@@ -47,7 +47,7 @@ describe Ghee::Connection do
       end
 
       it "should parse the json response" do
-        response.body.should == ""
+        response.body.should be_nil
       end
     end
   end
