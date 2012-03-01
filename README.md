@@ -95,7 +95,7 @@ Create a hook for a repo: ([see docs for all possible params](http://developer.g
 
 Update a hook for a repo: ([see docs for all possible params](http://developer.github.com/v3/hooks/#edit-an-hook)):
 
-    gh.repos("rauhryan", "ghee").hooks.patch({
+    gh.repos("rauhryan", "ghee").hooks(12).patch({
       :name => "web",
       :config => {:url => "http://huboard.com/webhook"}
     })
@@ -121,7 +121,7 @@ Create a milestone for a repo: ([see docs for all possible params](http://develo
 
 Update a milestone for a repo: ([see docs for all possible params](http://developer.github.com/v3/milestones/#edit-an-milestone)):
 
-    gh.repos("rauhryan", "ghee").milestones.patch({
+    gh.repos("rauhryan", "ghee").milestones(12).patch({
       :description => "I found this suck, remove it please"
     })
 
@@ -146,7 +146,7 @@ Create an issue for a repo: ([see docs for all possible params](http://developer
 
 Update an issue for a repo: ([see docs for all possible params](http://developer.github.com/v3/issues/#edit-an-issue)):
 
-    gh.repos("rauhryan", "ghee").issues.patch({
+    gh.repos("rauhryan", "ghee").issues(12).patch({
       :body => "I found this suck, remove it please"
     })
 
