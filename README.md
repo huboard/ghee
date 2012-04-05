@@ -6,10 +6,18 @@ This is an unofficial ruby client for the [GitHub API](http://developer.github.c
 Usage
 -----
 
-Instantiate the client:
+Instantiate the client with basic auth:
 
-    access_token = "abcd1234"
-    gh = Ghee.new(access_token)
+    gh = Ghee.basic_auth("rauhryan","password")
+
+Instantiate the client with auth token:
+
+    gh = Ghee.access_token("1234oijgakjioewj1o4oij")
+
+Create an OAuth access token:
+
+    user_name, password, scopes = "rauhryan", "secret", "repos, user"
+    gh = Ghee.create_token(user_name, password, scopes)
 
 ### Gists
 
@@ -314,6 +322,48 @@ List public events:
 
     gh.events
 
+### Pagination
+
+Ghee fully supports pagination for anything that returns a list, for
+example repo issues.
+
+    gh.repos("rauhryan","huboard").issues.paginate(:per_page => 30, :page => 1) #=> returns first page of issues
+    gh.repos("rauhryan","huboard").issues.paginate(:per_page => 30, :page => 2) #=> returns page two of issues
+    gh.repos("rauhryan","huboard").issues.paginate(:per_page => 30, :page => 2).first_page #=> 1
+    gh.repos("rauhryan","huboard").issues.paginate(:per_page => 30, :page => 2).last_page #=> 4
+    gh.repos("rauhryan","huboard").issues.paginate(:per_page => 30, :page => 2).next_page #=> 3
+    gh.repos("rauhryan","huboard").issues.paginate(:per_page => 30, :page => 2).prev_page #=> 1
+
+Ghee also provides a convienence method for all the pages
+
+    gh.repos("rauhryan","huboard").issues.all #=> return all the pages
+
+### Filtering parameters
+
+Many of the api calls allow you to pass in additional paramters to
+filter and sort your data, for example issues provide
+
+ * filter
+    * `assigned`
+    * `mentioned`
+    * `subscribed`
+    * `created`
+ * state
+    * `open` `closed` `default`
+ * labels
+    * list of labels comma delimited `herp,derp`
+ * direction
+    * `asc` or `desc`
+
+These can all be passed into ghee through an options hash:
+
+    gh.repos("rauhryan", "huboard").issues(:state => "closed", :sort =>
+"desc")
+
+> Note you can also change parameters with pagination!
+    
+    gh.repos("rauhryan", "huboard").issues(:state => "closed").all
+
 Testing
 -------
 
@@ -333,7 +383,7 @@ CONTRIBUTE
 
 If you'd like to hack on Ghee, start by forking the repo on GitHub:
 
-https://github.com/jonmagic/ghee
+https://github.com/rauhryan/ghee
 
 The best way to get your changes merged back into core is as follows:
 
@@ -349,5 +399,5 @@ The best way to get your changes merged back into core is as follows:
 
 Contributors
 ------------
-* Jonathan Hoyt
+* [Jonathan Hoyt](https://github.com/jonmagic)
 * [Ryan Rauh](https://github.com/rauhryan)
