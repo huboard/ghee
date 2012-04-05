@@ -46,6 +46,14 @@ class Ghee
           end
         end
 
+        # The Refs module handles all of the commit methods
+        #
+        module Refs
+          class Proxy < ::Ghee::ResourceProxy
+            include Ghee::CUD
+          end
+        end
+
         class Proxy < ::Ghee::ResourceProxy
 
           # Get the blob by a provided sha
@@ -64,15 +72,18 @@ class Ghee
             Ghee::API::Repos::Git::Commits::Proxy.new(connection, prefix, params)
           end
 
+          # Get refs for the repo
+          #
           def refs(ref=nil)
-
+             prefix = ref ? "#{path_prefix}/refs/#{ref}" : "#{path_prefix}/refs"
+            Ghee::API::Repos::Git::Refs::Proxy.new(connection, prefix)
           end
 
           # Get tree by a given sha
           #
-          def trees(sha, params={})
+          def trees(sha)
             prefix = "#{path_prefix}/trees/#{sha}"
-            Ghee::API::Repos::Git::Trees::Proxy.new(connection, prefix, params)
+            Ghee::API::Repos::Git::Trees::Proxy.new(connection, prefix)
           end
         end
       end
