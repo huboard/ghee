@@ -5,9 +5,9 @@ require "ghee/version"
 Gem::Specification.new do |s|
   s.name        = "ghee"
   s.version     = Ghee::VERSION
-  s.authors     = ["Jonathan Hoyt"]
-  s.email       = ["jonmagic@gmail.com"]
-  s.homepage    = "http://github.com/jonmagic/ghee"
+  s.authors     = ["Ryan Rauh","Jonathan Hoyt"]
+  s.email       = ["rauh.ryan@gmail.com"]
+  s.homepage    = "http://github.com/rauhryan/ghee"
   s.summary     = %q{Access Github in ruby.}
   s.description = %q{A complete, simple, and intuitive ruby API for all things Github.}
 
