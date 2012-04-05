@@ -22,7 +22,6 @@ describe Ghee::API::Repos do
       it "should return issues for repo" do
         VCR.use_cassette("repo(#{GH_USER},#{GH_REPO}).issues") do
           issues = subject.repos(GH_USER, GH_REPO).issues
-          puts issues.sort_by! { |r| r["title"]}.reverse
           issues.is_a?(Array).should be_true
           issues.size.should > 0
           issues.first["title"].should_not be_nil

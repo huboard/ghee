@@ -11,6 +11,7 @@ require 'ghee/api/repos'
 require 'ghee/api/issues'
 require 'ghee/api/milestones'
 require 'ghee/api/orgs'
+require 'ghee/api/git_data'
 
 class Ghee
   attr_reader :connection

@@ -78,6 +78,10 @@ class Ghee
           Ghee::API::Repos::Hooks::Proxy.new(connection, prefix, params)
         end
 
+        def git
+          Ghee::API::Repos::Git::Proxy.new(connection, "#{path_prefix}/git")
+        end
+
       end
 
       # Get repos
