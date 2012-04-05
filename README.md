@@ -9,7 +9,7 @@ Usage
 Instantiate the client:
 
     access_token = "abcd1234"
-    gh = Ghee.new(access_token)
+    gh = Ghee.new(:access_token => access_token)
 
 ### Gists
 
@@ -207,7 +207,7 @@ Get a single team for an org:
 
     gh.orgs("huboard").teams(110234)
 
-Create team for an org: 
+Create team for an org:
 
     gh.orgs("huboard").teams.create :name => "awesome_developers"
 
@@ -237,7 +237,7 @@ Get a single team:
 
     gh.team(110234)
 
-Create a team: 
+Create a team:
 
     gh.team.create :name => "awesome_developers"
 
