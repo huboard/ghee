@@ -10,6 +10,14 @@ class Ghee
     #
     module Repos
 
+      # The Commits module handles repo commit endpoints
+      #
+      module Commits
+        class Proxy < ::Ghee::ResourceProxy
+          include Ghee::CUD
+        end
+      end
+
       # The Git module handles all of the raw git data endpoints
       #
       module Git
@@ -25,6 +33,14 @@ class Ghee
         # The Commits module handles all of the commit methods
         #
         module Commits
+          class Proxy < ::Ghee::ResourceProxy
+            include Ghee::CUD
+          end
+        end
+
+        # The Trees module handles all of the commit methods
+        #
+        module Trees
           class Proxy < ::Ghee::ResourceProxy
             include Ghee::CUD
           end
@@ -46,6 +62,17 @@ class Ghee
             params = sha if sha.is_a?Hash
             prefix = (!sha.is_a?(Hash) and sha) ? "#{path_prefix}/commits/#{sha}" : "#{path_prefix}/commits"
             Ghee::API::Repos::Git::Commits::Proxy.new(connection, prefix, params)
+          end
+
+          def refs(ref=nil)
+
+          end
+
+          # Get tree by a given sha
+          #
+          def trees(sha, params={})
+            prefix = "#{path_prefix}/trees/#{sha}"
+            Ghee::API::Repos::Git::Trees::Proxy.new(connection, prefix, params)
           end
         end
       end

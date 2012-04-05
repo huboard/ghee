@@ -78,6 +78,12 @@ class Ghee
           Ghee::API::Repos::Hooks::Proxy.new(connection, prefix, params)
         end
 
+        def commits(sha=nil, params={})
+          params = sha if sha.is_a?Hash
+          prefix = (!sha.is_a?(Hash) and sha) ? "#{path_prefix}/commits/#{sha}" : "#{path_prefix}/commits"
+          Ghee::API::Repos::Commits::Proxy.new(connection, prefix, params)
+        end
+
         def git
           Ghee::API::Repos::Git::Proxy.new(connection, "#{path_prefix}/git")
         end
