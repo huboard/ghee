@@ -17,7 +17,7 @@ Instantiate the client with auth token:
 Create an OAuth access token:
 
     user_name, password, scopes = "rauhryan", "secret", "repos, user"
-    gh = Ghee.create_token(user_name, password, scopes)
+    token = Ghee.create_token(user_name, password, scopes)
 
 ### Gists
 
@@ -357,8 +357,7 @@ filter and sort your data, for example issues provide
 
 These can all be passed into ghee through an options hash:
 
-    gh.repos("rauhryan", "huboard").issues(:state => "closed", :sort =>
-"desc")
+    gh.repos("rauhryan", "huboard").issues(:state => "closed", :sort => "desc")
 
 > Note you can also change parameters with pagination!
     
