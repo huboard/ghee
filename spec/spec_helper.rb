@@ -10,7 +10,11 @@ VCR.config do |c|
   c.stub_with :webmock
   c.default_cassette_options = {:record => :once}
 end
-
-settings = YAML.load_file(File.expand_path('../settings.yml', __FILE__))
-GH_AUTH = settings['access_token'] ? {:access_token => settings['access_token']} : {:basic_auth => {:user_name => settings['username'], :password => settings['password']}}
-GH_USER, GH_REPO, GH_ORG = settings['username'], settings['repo'], settings['org']
+if File.exists? "../settings.yml"
+  settings = YAML.load_file(File.expand_path('../settings.yml', __FILE__))
+  GH_AUTH = settings['access_token'] ? {:access_token => settings['access_token']} : {:basic_auth => {:user_name => settings['username'], :password => settings['password']}}
+  GH_USER, GH_REPO, GH_ORG = settings['username'], settings['repo'], settings['org']
+else
+  GH_AUTH = ENV["token"]
+  GH_USER, GH_REPO, GH_ORG = ENV['username'], ENV['repo'], ENV['org']
+end

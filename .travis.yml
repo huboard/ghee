@@ -1,0 +1,16 @@
+
+env:
+  - username=gheeci repo=ghee_test org=ghee-org token=b41f292120668e926bda0f58609b9993c260d5b0
+
+language: ruby
+
+notifications:
+  email:
+    - rauh.ryan@gmail.com
+
+rvm:
+  - 1.8.7
+  - 1.9.2
+  - 1.9.3
+
+script: rake spec
