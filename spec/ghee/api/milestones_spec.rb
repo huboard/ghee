@@ -6,7 +6,8 @@ describe Ghee::API::Milestones do
   def should_be_an_milestone(milestone)
     milestone["title"].should_not be_nil
     milestone["number"].should_not be_nil
-    milestone["due_on"].should_not be_nil
+    milestone["open_issues"].should_not be_nil
+    milestone["closed_issues"].should_not be_nil
   end
 
   describe "#repos(login,name)#milestones" do
