@@ -1,6 +1,6 @@
 
 env:
-  - username=gheeci repo=ghee_test org=ghee-org token=b41f292120668e926bda0f58609b9993c260d5b0
+  - GH_USER=gheeci GH_REPO=ghee_test GH_ORG=ghee-org TOKEN=a4cbd4976070d1cac1cbdc01de3e105116a70e83
 
 language: ruby
 

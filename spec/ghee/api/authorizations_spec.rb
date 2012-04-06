@@ -3,7 +3,15 @@ require 'spec_helper'
 describe Ghee::API::Authorizations do
   subject { Ghee.new(GH_AUTH) }
 
-  describe "#authorizations" do
+  describe "#authorizations#list" do
+      it "should return a list of auths" do 
+        VCR.use_cassette "authorizations" do 
+          auth = subject.authorizations
+          auth.size().should > 0
+        end
+      end
+  end
+  describe "#authorizations", :if => false do
 
     context "with a test authorization" do 
       before :all do 
@@ -22,12 +30,6 @@ describe Ghee::API::Authorizations do
         end
       end
 
-      it "should return a list of auths" do 
-        VCR.use_cassette "authorizations" do 
-          auth = subject.authorizations
-          auth.size().should > 0
-        end
-      end
 
       it "should patch an auth" do 
         VCR.use_cassette "authorization(id).patch" do 
