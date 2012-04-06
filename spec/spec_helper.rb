@@ -15,6 +15,6 @@ if File.exists? "../settings.yml"
   GH_AUTH = settings['access_token'] ? {:access_token => settings['access_token']} : {:basic_auth => {:user_name => settings['username'], :password => settings['password']}}
   GH_USER, GH_REPO, GH_ORG = settings['username'], settings['repo'], settings['org']
 else
-  GH_AUTH = ENV["token"]
+  GH_AUTH = {:access_token => ENV["token"]}
   GH_USER, GH_REPO, GH_ORG = ENV['username'], ENV['repo'], ENV['org']
 end
