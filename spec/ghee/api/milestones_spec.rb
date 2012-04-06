@@ -4,8 +4,9 @@ describe Ghee::API::Milestones do
   subject { Ghee.new(GH_AUTH) }
 
   def should_be_an_milestone(milestone)
-    milestone["creator"]["login"].should_not be_nil
     milestone["title"].should_not be_nil
+    milestone["number"].should_not be_nil
+    milestone["due_on"].should_not be_nil
   end
 
   describe "#repos(login,name)#milestones" do
