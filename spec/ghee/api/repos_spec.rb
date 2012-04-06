@@ -33,7 +33,7 @@ describe Ghee::API::Repos do
     describe "#labels" do
       it "should return all the labels" do
         VCR.use_cassette("repo(#{GH_USER},#{GH_REPO}).labels") do
-          temp_label = subject.repos(GH_USER, GH_REPO).labels.create(:color => "efefef", :name => "temp label")
+          temp_label = subject.repos(GH_USER, GH_REPO).labels.create({:color => "efefef", :name => "#{(0...8).map{ ('a'..'z').to_a[rand(26)] }.join}"})
 
           labels = subject.repos(GH_USER, GH_REPO).labels
           labels.size.should > 0
