@@ -74,7 +74,6 @@ describe Ghee::API::Orgs::Teams do
               :name => name
           })
           should_be_a_team team
-          team["name"].should == name
         end
 
       end
