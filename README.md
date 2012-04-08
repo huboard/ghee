@@ -3,8 +3,7 @@ Ghee
 
 This is an unofficial ruby client for the [GitHub API](http://developer.github.com/v3/). The end goal is a complete, simple, and intuitive ruby API for all things Github.
 
-Usage
------
+# Usage
 
 Instantiate the client with basic auth:
 
@@ -19,7 +18,7 @@ Create an OAuth access token:
     user_name, password, scopes = "rauhryan", "secret", "repos, user"
     token = Ghee.create_token(user_name, password, scopes)
 
-### Gists
+## Gists
 
 List a user's gists:
 
@@ -80,13 +79,13 @@ Delete a gist:
 
     gh.gists("1393990").destroy
 
-### Repos
+## Repos
 
 Get a single repo:
 
     gh.repos("rauhryan", "ghee")
 
-#### Hooks
+### Hooks
 
 Get the hooks for a repo:
 
@@ -114,7 +113,7 @@ Destroy a hook for a repo:
 
     gh.repos("rauhryan", "ghee").hooks(1).destory
 
-#### Downloads
+### Downloads
 
 Get the downloads for a repo:
 
@@ -132,7 +131,7 @@ Destroy a download for a repo:
 
     gh.repos("rauhryan", "ghee").downloads.destroy
 
-#### Milestones
+### Milestones
 
 Get the milestones for a repo:
 
@@ -159,7 +158,7 @@ Destroy a milestone for a repo:
 
     gh.repos("rauhryan", "ghee").milestones(1).destory
 
-#### Issues
+### Issues
 
 Get the issues for a repo:
 
@@ -190,7 +189,7 @@ Get the closed issues for a repo:
 
     gh.repos("rauhryan", "ghee").issues(12).closed
 
-#### Comments
+### Comments
 
 Get the comments for an issue:
 
@@ -213,7 +212,7 @@ Destroy a comment for an issue
 
     gh.repos("rauhryan", "ghee").issues.comments(482910).destroy
 
-### Orgs
+## Orgs
 
 Get a list of orgs for the current user:
 
@@ -265,7 +264,7 @@ Remove a member from a team:
 
     gh.orgs("huboard").teams(110234).members.remove("rauhryan")
 
-### Teams
+## Teams
 
 Get a single team:
 
@@ -295,7 +294,7 @@ Remove a member from a team:
 
     gh.team(110234).members.remove("rauhryan")
 
-### Users
+## Users
 
 Get a single user:
 
@@ -342,13 +341,13 @@ Get a list of orgs for a specific user:
 
 > Notes: see above for all the available api methods for orgs
 
-### Events
+## Events
 
 List public events:
 
     gh.events
 
-### Pagination
+## Pagination
 
 Ghee fully supports pagination for anything that returns a list, for
 example repo issues.
@@ -364,7 +363,7 @@ Ghee also provides a convienence method for all the pages
 
     gh.repos("rauhryan","huboard").issues.all #=> return all the pages
 
-### Filtering parameters
+## Filtering parameters
 
 Many of the api calls allow you to pass in additional paramters to
 filter and sort your data, for example issues provide
