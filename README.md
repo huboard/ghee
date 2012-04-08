@@ -112,6 +112,18 @@ Destroy a hook for a repo:
 
     gh.repos("rauhryan", "ghee").hooks(1).destory
 
+Get the downloads for a repo:
+
+    gh.repos("rauhryan", "ghee").downloads
+
+Get a single download for a repo:
+
+    gh.repos("rauhryan", "ghee").downloads(12)
+
+Create a download for a repo:
+
+    gh.repos("rauhryan", "ghee").downloads.create("/path/to/file","description")
+
 Get the milestones for a repo:
 
     gh.repos("rauhryan", "ghee").milestones
