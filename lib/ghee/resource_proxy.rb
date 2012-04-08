@@ -94,15 +94,15 @@ class Ghee
     def parse_link_header(header)
       return @total = subject.size, @pagination = {} if header.nil?
       require 'cgi'
-      pattern = /<(?<link>.*)>;\s+rel="(?<rel>.*)"/
+      pattern = /<(.*)>;\s+rel="(.*)"/
         matches = {}
       header.split(',').each do |m|
         match = pattern.match m
-        uri = URI.parse(match[:link])
+        uri = URI.parse(match[1])
         uri_params = CGI.parse(uri.query)
         page = uri_params["page"].first.to_i
         per_page = uri_params["per_page"] ? uri_params["per_page"].first.to_i : 30
-        matches[match[:rel].to_sym] = {:link => match[:link], :page => page, :per_page => per_page}
+        matches[match[2].to_sym] = {:link => match[1], :page => page, :per_page => per_page}
       end
       @pagination = matches
     end

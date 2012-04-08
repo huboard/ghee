@@ -30,54 +30,53 @@ describe Ghee::API::Repos do
     end
 
     describe "#labels" do
-      it "should return all the labels" do
-        VCR.use_cassette("repo(#{GH_USER},#{GH_REPO}).labels") do
-          temp_label = subject.repos(GH_USER, GH_REPO).labels.create(:color => "efefef", :name => "temp label")
-
-          labels = subject.repos(GH_USER, GH_REPO).labels
-          labels.size.should > 0
-          labels.first["color"].should_not be_nil
-
-          subject.repos(GH_USER, GH_REPO).labels(temp_label['name']).destroy
+      context "" do
+        before :all do
+          VCR.use_cassette "#labels#create" do
+            @temp_label = subject.repos(GH_USER, GH_REPO).labels.create({:color => "efefef", :name => "#{(0...8).map{ ('a'..'z').to_a[rand(26)] }.join}"})
+          end
         end
-      end
-
-      it "should get a single label" do
-        VCR.use_cassette("repo(#{GH_USER},#{GH_REPO}).labels(id)") do
-          temp_label = subject.repos(GH_USER, GH_REPO).labels.create(:color => "efefef", :name => "temp label")
-
-          label = subject.repos(GH_USER,GH_REPO).labels(temp_label["name"])
-          label["color"].should == 'efefef'
-          label["name"].should == 'temp label'
-
-          subject.repos(GH_USER, GH_REPO).labels(temp_label['name']).destroy
+        let(:test_label) {@temp_label}
+        after :all do
+          VCR.use_cassette "#labels#destroy" do
+            subject.repos(GH_USER, GH_REPO).labels(test_label['name']).destroy
+          end
         end
-      end
+        it "should return all the labels" do
+          VCR.use_cassette("repo(#{GH_USER},#{GH_REPO}).labels") do
 
-      it "should patch a label" do
-        VCR.use_cassette("repo(#{GH_USER},#{GH_REPO}).labels.patched") do
-          label = subject.repos(GH_USER, GH_REPO).labels.create(:color => "efefef", :name => "patch label")
-          label["color"].should == "efefef"
-          label["url"].should include "labels/patch"
-          label["name"].should == "patch label"
+            labels = subject.repos(GH_USER, GH_REPO).labels
+            labels.size.should > 0
+            labels.first["color"].should_not be_nil
 
-          patched = subject.repos(GH_USER, GH_REPO).labels(label["name"]).patch(:color => "000000", :name => "patched label")
-          patched["color"].should == "000000"
-          patched["url"].should include "labels/patched"
-          patched["name"].should == "patched label"
-
-          subject.repos(GH_USER, GH_REPO).labels(patched["name"]).destroy.should be_true
+          end
         end
-      end
 
-      it "should create a label" do
-        VCR.use_cassette("repo(#{GH_USER},#{GH_REPO}).labels.create") do
-          label = subject.repos(GH_USER, GH_REPO).labels.create(:color => "efefef", :name => "created label")
-          label["color"].should == "efefef"
-          label["url"].should include "labels/created"
-          label["name"].should == "created label"
-          subject.repos(GH_USER, GH_REPO).labels(label["name"]).destroy.should be_true
+        it "should get a single label" do
+          VCR.use_cassette("repo(#{GH_USER},#{GH_REPO}).labels(id)") do
+
+            label = subject.repos(GH_USER,GH_REPO).labels(test_label["name"])
+            label["color"].should == 'efefef'
+            label["name"].should == test_label["name"]
+
+          end
         end
+
+        it "should patch a label" do
+          VCR.use_cassette("repo(#{GH_USER},#{GH_REPO}).labels.patched") do
+            name = "patch label #{rand(100)}"
+            label = subject.repos(GH_USER, GH_REPO).labels.create(:color => "efefef", :name => name)
+            label["color"].should == "efefef"
+            label["url"].should include "labels/patch"
+
+            patched = subject.repos(GH_USER, GH_REPO).labels(label["name"]).patch(:color => "000000", :name => "patched label")
+            patched["color"].should == "000000"
+            patched["url"].should include "labels/patched"
+
+            subject.repos(GH_USER, GH_REPO).labels(patched["name"]).destroy.should be_true
+          end
+        end
+
       end
     end
   end

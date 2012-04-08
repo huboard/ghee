@@ -1,0 +1,16 @@
+
+env:
+  - GH_USER=gheeci GH_REPO=ghee_test GH_ORG=ghee-org TOKEN=a4cbd4976070d1cac1cbdc01de3e105116a70e83
+
+language: ruby
+
+notifications:
+  email:
+    - rauh.ryan@gmail.com
+
+rvm:
+  - 1.8.7
+  - 1.9.2
+  - 1.9.3
+
+script: bundle exec rake spec

@@ -14,7 +14,7 @@ describe Ghee::API::Orgs::Teams do
       before :all do
         VCR.use_cassette "orgs.teams.create.test" do
           @test_team = subject.orgs(GH_ORG).teams.create({
-            :name => "test_team"
+            :name => "#{(0...8).map{ ('a'..'z').to_a[rand(26)] }.join}"
           })
           @test_team.should_not be_nil
         end
@@ -25,7 +25,7 @@ describe Ghee::API::Orgs::Teams do
         before :all do
           VCR.use_cassette "orgs.teams.create.test_member" do
             @member_team = subject.orgs(GH_ORG).teams.create({
-              :name => "test_team_with_members"
+              :name => "#{(0...8).map{ ('a'..'z').to_a[rand(26)] }.join}"
             })
             @member_team.should_not be_nil
           end
@@ -69,11 +69,11 @@ describe Ghee::API::Orgs::Teams do
 
       it "should patch the team" do
         VCR.use_cassette "orgs.teams.patch" do
+          name = "#{(0...8).map{ ('a'..'z').to_a[rand(26)] }.join}"
           team = subject.orgs(GH_ORG).teams(test_team['id']).patch({
-            :name => "herpderp"
+              :name => name
           })
           should_be_a_team team
-          team["name"].should == "herpderp"
         end
 
       end
