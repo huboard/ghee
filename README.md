@@ -86,6 +86,8 @@ Get a single repo:
 
     gh.repos("rauhryan", "ghee")
 
+#### Hooks
+
 Get the hooks for a repo:
 
     gh.repos("rauhryan", "ghee").hooks
@@ -112,6 +114,8 @@ Destroy a hook for a repo:
 
     gh.repos("rauhryan", "ghee").hooks(1).destory
 
+#### Downloads
+
 Get the downloads for a repo:
 
     gh.repos("rauhryan", "ghee").downloads
@@ -123,6 +127,12 @@ Get a single download for a repo:
 Create a download for a repo:
 
     gh.repos("rauhryan", "ghee").downloads.create("/path/to/file","description")
+
+Destroy a download for a repo: 
+
+    gh.repos("rauhryan", "ghee").downloads.destroy
+
+#### Milestones
 
 Get the milestones for a repo:
 
@@ -148,6 +158,8 @@ Update a milestone for a repo: ([see docs for all possible params](http://develo
 Destroy a milestone for a repo:
 
     gh.repos("rauhryan", "ghee").milestones(1).destory
+
+#### Issues
 
 Get the issues for a repo:
 
@@ -177,6 +189,8 @@ Close an issue for a repo:
 Get the closed issues for a repo:
 
     gh.repos("rauhryan", "ghee").issues(12).closed
+
+#### Comments
 
 Get the comments for an issue:
 
