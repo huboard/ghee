@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'time'
 
 describe Ghee::API::Repos::Git do
   subject { Ghee.new(GH_AUTH).repos(GH_USER,GH_REPO) }
@@ -22,7 +23,13 @@ describe Ghee::API::Repos::Git do
     ref["ref"].should_not be_nil
     ref["url"].should_not be_nil
     ref["object"].should_not be_nil
+  end
 
+  def should_be_a_tag(tag) 
+    tag["sha"].should_not be_nil
+    tag["tag"].should_not be_nil
+    tag["message"].should_not be_nil
+    tag["tagger"].should_not be_nil
   end
 
   describe "#repos()#commits" do
@@ -36,6 +43,35 @@ describe Ghee::API::Repos::Git do
   end
 
   describe "#repos(login,name)#git" do 
+    describe "#tags" do
+      context "with a test tags" do
+        before :all do 
+          VCR.use_cassette "repos()#git#tags#create" do 
+            @test_tag = subject.git.tags.create({
+              :tag => "test_tag_#{rand(100)}",
+              :object => subject.commits.first["sha"],
+              :type => "commit",
+              :message => "creating a tag with the api",
+              :tagger => {
+                :name => "Ryan Rauh",
+                :email => "rauh.ryan@gmail.com",
+                :date => Time.now.iso8601
+              }
+
+            });
+            @test_tag.should_not be_nil
+          end
+        end
+        let(:test_tag) {@test_tag}
+
+        it "should return a tag" do
+          VCR.use_cassette "repos()#git#tags#sha" do
+            tag = subject.git.tags(test_tag["sha"])
+            should_be_a_tag tag
+          end
+        end
+      end
+    end
     describe "#blobs" do
       context "with a test blob" do
         before :all do 

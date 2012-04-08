@@ -30,6 +30,14 @@ class Ghee
           end
         end
 
+        # The Tags module handles all of the tag methods
+        #
+        module Tags
+          class Proxy < ::Ghee::ResourceProxy
+            include Ghee::CUD
+          end
+        end
+
         # The Commits module handles all of the commit methods
         #
         module Commits
@@ -81,9 +89,16 @@ class Ghee
 
           # Get tree by a given sha
           #
-          def trees(sha)
-            prefix = "#{path_prefix}/trees/#{sha}"
+          def trees(sha=nil)
+            prefix = sha ? "#{path_prefix}/trees/#{sha}" : "#{path_prefix}/trees"
             Ghee::API::Repos::Git::Trees::Proxy.new(connection, prefix)
+          end
+
+          # Get a tag by a given sha
+          #
+          def tags(sha=nil)
+            prefix = sha ? "#{path_prefix}/tags/#{sha}" : "#{path_prefix}/tags"
+            Ghee::API::Repos::Git::Tags::Proxy.new(connection, prefix)
           end
         end
       end
