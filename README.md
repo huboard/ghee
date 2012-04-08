@@ -129,7 +129,7 @@ Create a download for a repo:
 
 Destroy a download for a repo: 
 
-    gh.repos("rauhryan", "ghee").downloads.destroy
+    gh.repos("rauhryan", "ghee").downloads(12).destroy
 
 ### Milestones
 
