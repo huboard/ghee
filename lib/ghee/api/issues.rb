@@ -54,6 +54,12 @@ class Ghee
         end
       end
 
+      module Events
+        class Proxy < ::Ghee::ResourceProxy
+
+        end
+      end
+
       # Gists::Proxy inherits from Ghee::Proxy and
       # enables defining methods on the proxy object
       #
@@ -81,13 +87,24 @@ class Ghee
           response.body
         end
 
+        # Returns issue comments for an issue or all of the comments 
+        # for a repo
         def comments(id=nil)
           prefix = id ? "#{path_prefix}/comments/#{id}" : "#{path_prefix}/comments"
           Ghee::API::Issues::Comments::Proxy.new(connection,prefix)
         end
 
+        # Returns all of the labels for repo
+        #
         def labels
           Ghee::API::Issues::Labels::Proxy.new(connection, "#{path_prefix}/labels")
+        end
+
+        # Returns issue events for a repo or issue number
+        #
+        def events(id=nil)
+          prefix = id ? "#{path_prefix}/events/#{id}" : "#{path_prefix}/events"
+          Ghee::API::Issues::Events::Proxy.new(connection,prefix)
         end
 
       end

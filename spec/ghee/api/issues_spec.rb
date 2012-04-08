@@ -72,6 +72,20 @@ describe Ghee::API::Issues do
           end
         end
 
+        describe "#events" do 
+          it "should return all the events for a given issue" do 
+            VCR.use_cassette "#repo#issues(id)#events" do
+              events = subject.repos(GH_USER,GH_REPO).issues(test_issue["number"]).events
+              events.size.should > 0
+            end
+          end
+          it "should return all the events for the repo" do 
+            VCR.use_cassette "#repo#issues#events" do
+              events = subject.repos(GH_USER,GH_REPO).issues.events
+              events.size.should > 0
+            end
+          end
+        end
         describe "#comments" do
           context "issue with comments " do
             before :all do
