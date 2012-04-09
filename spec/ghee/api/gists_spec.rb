@@ -14,8 +14,8 @@ describe Ghee::API::Gists do
   describe "#users" do
     describe "#gists" do
       it "should return users gists" do
-        VCR.use_cassette('users(login).gists') do
-          gists = subject.users('jonmagic').gists
+        VCR.use_cassette 'users(login).gists', :match_requests_on => MATCHES do
+          gists = subject.users(GH_USER).gists
           gists.size.should > 0
           should_be_a_gist(gists.first)
         end
@@ -25,7 +25,7 @@ describe Ghee::API::Gists do
 
   describe "#gists" do
     it "should return gists for authenticated user" do
-      VCR.use_cassette('gists') do
+      VCR.use_cassette 'gists', :match_requests_on => MATCHES do
         gists = subject.gists
         gists.size.should > 0
         should_be_a_gist(gists.first)
@@ -34,7 +34,7 @@ describe Ghee::API::Gists do
 
     describe "#public" do
       it "should return public gists" do
-        VCR.use_cassette('gists.public') do
+        VCR.use_cassette 'gists.public', :match_requests_on => MATCHES do
           gists = subject.gists.public
           gists.size.should > 0
           should_be_a_gist(gists.first)
@@ -44,7 +44,7 @@ describe Ghee::API::Gists do
 
     describe "#starred" do
       it "should return starred gists" do
-        VCR.use_cassette('gists.starred') do
+        VCR.use_cassette 'gists.starred', :match_requests_on => MATCHES do
           gists = subject.gists.starred
           gists.size.should > 0
           should_be_a_gist(gists.first)
@@ -54,7 +54,7 @@ describe Ghee::API::Gists do
 
     describe "#create" do
       it "should create a gist" do
-        VCR.use_cassette('gists.create') do
+        VCR.use_cassette 'gists.create', :match_requests_on => MATCHES do
           gist = subject.gists.create({
             :description => "Testing the ghee api",
             :public => true,
@@ -72,14 +72,14 @@ describe Ghee::API::Gists do
 
     context "with gist id" do
       before(:all) do
-        VCR.use_cassette('gists.test') do
+        VCR.use_cassette 'gists.test', :match_requests_on => MATCHES do
           @test_gist = subject.gists.create({:public => false, :files => {'file.txt' => {:content => 'ready to destroy'}}})
         end
       end
       let(:test_gist) { @test_gist }
 
       it "should return single gist" do
-        VCR.use_cassette('gists(id)') do
+        VCR.use_cassette 'gists(id)', :match_requests_on => MATCHES do
           gist = subject.gists(test_gist['id'])
           gist['id'].should == test_gist['id']
           should_be_a_gist(gist)
@@ -88,7 +88,7 @@ describe Ghee::API::Gists do
 
       describe "#patch" do
         it "should patch the gist" do
-          VCR.use_cassette('gists(id).patch') do
+          VCR.use_cassette 'gists(id).patch', :match_requests_on => MATCHES do
             gist = subject.gists(test_gist['id']).patch({
               :files => {
                 'test.md' => {
@@ -104,7 +104,7 @@ describe Ghee::API::Gists do
 
       describe "#star" do
         it "should star the gist" do
-          VCR.use_cassette('gists(id).star') do
+          VCR.use_cassette 'gists(id).star', :match_requests_on => MATCHES do
             subject.gists(test_gist['id']).star.should be_true
           end
         end
@@ -112,7 +112,7 @@ describe Ghee::API::Gists do
 
       describe "#unstar" do
         it "should star the gist" do
-          VCR.use_cassette('gists(id).unstar') do
+          VCR.use_cassette 'gists(id).unstar', :match_requests_on => MATCHES do
             subject.gists(test_gist['id']).unstar.should be_true
           end
         end
@@ -120,14 +120,14 @@ describe Ghee::API::Gists do
 
       describe "#starred?" do
         it "should return true if gist is starred" do
-          VCR.use_cassette('gists(id).starred? is true') do
+          VCR.use_cassette 'gists(id).starred? is true', :match_requests_on => MATCHES do
             subject.gists(test_gist['id']).star
             subject.gists(test_gist['id']).starred?.should be_true
           end
         end
 
         it "should return false if gist is unstarred" do
-          VCR.use_cassette('gists(id).starred? is false') do
+          VCR.use_cassette 'gists(id).starred? is false', :match_requests_on => MATCHES do
             subject.gists(test_gist['id']).unstar
             subject.gists(test_gist['id']).starred?.should be_false
           end
@@ -136,14 +136,14 @@ describe Ghee::API::Gists do
 
       describe "#destroy" do
         it "should delete the gist and return true" do
-          VCR.use_cassette('gists(id).destroy true') do
+          VCR.use_cassette 'gists(id).destroy true', :match_requests_on => MATCHES do
             gist = subject.gists.create({:public => false, :files => {'file.txt' => {:content => 'ready to destroy'}}})
             subject.gists(gist['id']).destroy.should be_true
           end
         end
 
         it "should return false if gist doesn't exist" do
-          VCR.use_cassette('gists(id).destroy false') do
+          VCR.use_cassette 'gists(id).destroy false', :match_requests_on => MATCHES do
             subject.gists("12345678901234567890").destroy.should be_false
           end
         end

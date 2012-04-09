@@ -1,0 +1,51 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://johndoe:omgbbq@api.github.com/repos/johndoe/ghee_test_repo/git/trees/bb5b78fe2cdd194ee8f4ad4774a684d1ac0c8c74
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.0.13
+      Date:
+      - Mon, 09 Apr 2012 16:01:04 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Status:
+      - 200 OK
+      X-Ratelimit-Limit:
+      - '5000'
+      Etag:
+      - ! '"f02a5a8902f985fa5c8806c8402307ea"'
+      X-Ratelimit-Remaining:
+      - '4958'
+      Content-Encoding:
+      - gzip
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA6WPsW7DIBCG3+XmKBhyNuCtUjN26VpVEQcX4yguyJChjfLu
+        xUv3qNtJd//3f3eH23qFEWKtuYxCuDzvp7nGG+19WsTKORVxSV+Lm2Yvpsh8
+        qlzqaVuIdijqylwEUU/anFn5EKRFZnNGF1BrdIPBIJ3vvPEaYQclutb3RGBr
+        gPHjDvU7twHomqhx/um9UYrgwQZWlkgFGQY8IBlS1rHWvQvGK0bj+4OVf97P
+        BOafptvtILsam/f78eX17dhISwrbH7LrBkR4fD5+ATNJPluFAQAA
+    http_version: !!null 
+  recorded_at: Mon, 09 Apr 2012 16:01:04 GMT
+recorded_with: VCR 2.0.1

@@ -12,7 +12,7 @@ describe Ghee::Connection do
 
     describe "any request" do
       let(:response) do
-        VCR.use_cassette('authorized_request') do
+        VCR.use_cassette 'authorized_request', :match_requests_on => MATCHES do
           subject.get('/')
         end
       end

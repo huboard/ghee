@@ -1,0 +1,46 @@
+---
+http_interactions:
+- request:
+    method: patch
+    uri: https://johndoe:omgbbq@api.github.com/gists/d4bce94d2451479adb67
+    body:
+      encoding: UTF-8
+      string: ! '{"files":{"test.md":{"content":"clarified butter"}}}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.0.13
+      Date:
+      - Mon, 09 Apr 2012 16:00:59 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Connection:
+      - keep-alive
+      Status:
+      - 200 OK
+      X-Ratelimit-Limit:
+      - '5000'
+      Etag:
+      - ! '"c09c716d51db46b6237eb9351a825831"'
+      X-Ratelimit-Remaining:
+      - '4973'
+      Content-Length:
+      - '2269'
+    body:
+      encoding: US-ASCII
+      string: ! '{"files":{"test.md":{"type":"text/plain","raw_url":"https://gist.github.com/raw/d4bce94d2451479adb67/7074bacd2ac0ca9d77830cf91d4f9d4b6eef04e2/test.md","language":"Markdown","size":16,"filename":"test.md","content":"clarified
+        butter"},"file.txt":{"type":"text/plain","raw_url":"https://gist.github.com/raw/d4bce94d2451479adb67/f4994bb813275c4fecfda349ff999e96249187a3/file.txt","language":"Text","size":16,"filename":"file.txt","content":"ready
+        to destroy"}},"html_url":"https://gist.github.com/d4bce94d2451479adb67","history":[{"url":"https://api.github.com/gists/d4bce94d2451479adb67/88565350a703580ce6916e4acd4104ea7fb92dfd","committed_at":"2012-04-09T16:00:59Z","user":{"login":"johndoe","url":"https://api.github.com/users/johndoe","gravatar_id":"7064ad438246a02809c85bcd92cb5f3f","id":623,"avatar_url":"https://secure.gravatar.com/avatar/7064ad438246a02809c85bcd92cb5f3f?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png"},"version":"88565350a703580ce6916e4acd4104ea7fb92dfd","change_status":{"deletions":0,"additions":1,"total":1}},{"url":"https://api.github.com/gists/d4bce94d2451479adb67/4f355f7c3ad8c4f767e209d9e84b389e9f144087","committed_at":"2012-04-09T16:00:58Z","user":{"login":"johndoe","url":"https://api.github.com/users/johndoe","gravatar_id":"7064ad438246a02809c85bcd92cb5f3f","id":623,"avatar_url":"https://secure.gravatar.com/avatar/7064ad438246a02809c85bcd92cb5f3f?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png"},"version":"4f355f7c3ad8c4f767e209d9e84b389e9f144087","change_status":{"deletions":0,"additions":1,"total":1}}],"comments":0,"updated_at":"2012-04-09T16:00:58Z","public":false,"url":"https://api.github.com/gists/d4bce94d2451479adb67","user":{"login":"johndoe","url":"https://api.github.com/users/johndoe","gravatar_id":"7064ad438246a02809c85bcd92cb5f3f","id":623,"avatar_url":"https://secure.gravatar.com/avatar/7064ad438246a02809c85bcd92cb5f3f?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png"},"forks":[],"created_at":"2012-04-09T16:00:58Z","git_pull_url":"git://gist.github.com/d4bce94d2451479adb67.git","description":null,"git_push_url":"git@gist.github.com:d4bce94d2451479adb67.git","id":"d4bce94d2451479adb67"}'
+    http_version: !!null 
+  recorded_at: Mon, 09 Apr 2012 16:00:59 GMT
+recorded_with: VCR 2.0.1

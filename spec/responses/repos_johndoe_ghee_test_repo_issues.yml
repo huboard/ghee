@@ -1,0 +1,55 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://johndoe:omgbbq@api.github.com/repos/johndoe/ghee_test_repo/issues
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.0.13
+      Date:
+      - Mon, 09 Apr 2012 16:05:26 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Status:
+      - 200 OK
+      X-Ratelimit-Limit:
+      - '5000'
+      Etag:
+      - ! '"224a10a29653c03df9176ef4c5fee8e4"'
+      X-Ratelimit-Remaining:
+      - '4882'
+      Content-Encoding:
+      - gzip
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA41STW+DMAz9K1Ok3SiEj9KCNO22P7CdVlXIEAPZQshImDRV
+        /e8zZazdDutuTmy/92y/3YGNRoBDUYBjOYt4GK14suLZU5jmPM7j+Jl5rOq7
+        DrWzLOceA2tloxFZrkelPGYd9VNvb1BTbes6VYyDop/WOWPzIGika8fSJ5Tg
+        pdcdNLIKmhaxcGhdMaDpA2ntiDYIOSF0UtF/r78ZfqKBkf4F4tRu/4U7WhxY
+        fmCqb6QmeYsWovyTYeo7M1A1vIOD4deQFqtxQL8Z5uxp2jkMNjxNQCTxNkpS
+        4NGWZ9V2XVYii6pyXcf1vbhbVgVRsvXRh1foQPoaXUDrRmcvJr6NHiTtEC0F
+        C9tlvAoT7hvdkNAlXUhB816TQQ1TXRrFR4856dR01UfojMKb0338yQoDXreL
+        6u2Xo2aLKChRkXt2e4/psSunO4RkpbIXH8RBsIasRE54IxOQDw/MgKvaecMz
+        xNlW81vIuj7nSfAkPeExz9ab4/4TBPK39tgCAAA=
+    http_version: !!null 
+  recorded_at: Mon, 09 Apr 2012 16:05:26 GMT
+recorded_with: VCR 2.0.1

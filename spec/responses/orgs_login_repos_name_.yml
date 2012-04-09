@@ -1,0 +1,167 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://johndoe:omgbbq@api.github.com/orgs/acme/repos
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.0.13
+      Date:
+      - Mon, 09 Apr 2012 16:01:18 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Status:
+      - 200 OK
+      X-Ratelimit-Limit:
+      - '5000'
+      Etag:
+      - ! '"347d769105b232d3490d82d466e1883b"'
+      X-Ratelimit-Remaining:
+      - '4922'
+      Content-Encoding:
+      - gzip
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA+2VS4/TMBDHv0skbs3LeTWWEEhIHLggQU8gVLnJNDFN4sh2
+        Wi2r/e5MmqbtLkkfAW57y8Pz/M/P8/3R2DGd5CCVQd2ZUTcqh3TJtEEN4rjE
+        dDzT9ReOQ4OAesE3Y2bkooSaZYAn8E1tq2UjC3zJta4Vte2M67xZWYko7ZSx
+        bcEru07X5pbDDmRrz9QyFbuqECzFoFo2gB91Wdzpp6lTpsdzDdtcSy6lkJ3j
+        qimKLjpXqoFj6OfZs5pbZxVIqIUarmMt5AadODOjYFXWdB35vPoJieZbMD9g
+        +PaIQdesUFhiUogK7qmxzaPtsMoPVvj+/pQb/bO7B4u2wzu+4X1zFf+FasX+
+        HPWVfItd6/8kEl72ECWPF25EPUL9qO0hSoW60UejEBmvUOhDXPzF0Bc7tPeo
+        v4KkkWBlsvu7H4Tu0XZCh6wYxCQOI59AnIILSezAPPbWhK2Dd+nbfooY8ecW
+        WGzDSsatCrTNlAKtzsR5Qz7yEtuu8KGPdv5sCpkpq64yzPSiyI3C8e9FxsO9
+        syVPsdxrSaNBe871iRdG86eZUbGyhePZ0KegEslrzUXbwYOJ58WxRwi2uIZq
+        2U8lDhSKfJL8GlJ70Z9mt4DsLdyQ+gF19sJOAHkHq9ZwOsGdg2F0j9nN/wO6
+        XeBBZr80qwesagqs6PVWSk9Hh/F0CQp/B54eDdxXPKfj2Q3EBS7xtpzAZS/z
+        TUC2N61PfWTSmwhknQstNK5vVj+YCSuSpmBa/O2aHXU6CO6LKv71zh1NZhDm
+        T7hqvu6v2olIj3T0Vswvm4+g70S4BK6z7+1XMw5MQH3nlf3p7I+IhBMzfB+E
+        keuH4aT7YCRUt7R//AZHNl3FfwsAAA==
+    http_version: !!null 
+  recorded_at: Mon, 09 Apr 2012 16:01:18 GMT
+- request:
+    method: get
+    uri: https://johndoe:omgbbq@api.github.com/orgs/acme
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.0.13
+      Date:
+      - Mon, 09 Apr 2012 16:01:19 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Status:
+      - 200 OK
+      X-Ratelimit-Limit:
+      - '5000'
+      Etag:
+      - ! '"f67a1ebfe5f5214f84d4793150e79b67"'
+      X-Ratelimit-Remaining:
+      - '4921'
+      Content-Encoding:
+      - gzip
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA22SzW6DMBCE38VSb4QfBwggVe2p11566gUtsHGsGGzZJlES
+        5d27FNKkVSUOK9bj3W/GF7bVSumjHASr4oD5k0FWsXcrYJBn8FIPLGBKCznQ
+        7w7goKgKmD4O2NXGygN4rC0a7Vi1DlgjFR0QNfYgFSl83+5RHfD0umjDVvek
+        H+3U3XlvXBVFYGQopN+NzdSOtBUuus/qpNvXowNBm/EkpS2NAlrnwv7MT6g1
+        QD8BNFYPZ6RBzkA76bIkzwp+DVhLvNBoC15b2pkkrUWC6GrwJORxwlcxfeVH
+        sqmSuMrKT7rGjI2SbS2k87MICBxs/ZvDYTtaDIWdu98wcxnFecwbwJKX+Sbl
+        WHaYYFvGWJTrLYdt9tI9/7jB0yLEEPZAJoYD+gicQ+8eLHrib7InQxwVt2mP
+        9WqyMDQUasBkx6ok5et8U1C+2oP6J7ebk3fAhXiJlmyaHwoupu18r/7QPyR4
+        C+/6BVYxsxxgAgAA
+    http_version: !!null 
+  recorded_at: Mon, 09 Apr 2012 16:01:19 GMT
+- request:
+    method: get
+    uri: https://johndoe:omgbbq@api.github.com/repos/acme/pdf-viewer
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.0.13
+      Date:
+      - Mon, 09 Apr 2012 16:01:19 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Status:
+      - 200 OK
+      X-Ratelimit-Limit:
+      - '5000'
+      Etag:
+      - ! '"e6764232bb7002f9430b43a69a8e62fb"'
+      X-Ratelimit-Remaining:
+      - '4920'
+      Content-Encoding:
+      - gzip
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA+1US2+cMBD+L5Z642nYB5aqVqrUay859YJm8QDugm3ZhpUS
+        5b93CIuSbdOmufdmi5lvvseYB2Ys6lp5P6FnIotYH8ahntzABB2D9SJNOxX6
+        6ZQ0ZkwlwDwonVrZxrPCCzoWsVE5Z9zapKdhiNgFQtOjI8Q8YtR+BaTTW3AJ
+        1RCknXyPsoZANHiW8zgr4ry8yzKx24li951KejOihQ6pgm5+1u9k7X3/TOvz
+        s0bxu8YrqclKCH9mtX9iBb6W5qIHA5LkBzdhxG7tBKsWwM1Sh9b4141dwLZo
+        VqQBdDetor+dfmAT1IzxF5rbGndmooXB07zlsqbZDEbje4y5SvXqnoytyiNF
+        4dRMsjctjcNfTaB0qrv8IAouysNmwkWd1dZDftCiiAc2mE5pCuxqMfH+qzWT
+        px3arKHizgFRAVcrSSDZPuMnwIpX+0PJsZKYY1NleKyKlkO7o4alLi95sT+Q
+        kGvv7USPzeQw2ZCflnwtTN/C/yQ/bi8EeHlMMIEzjKASjSEF7zH4Fzl/4F/V
+        SMl5OmzTXp5j4zqfWN2xx4hpGJe9vnll9B20uoegDFn438t/9VKib5yyq23L
+        r2JZiqKoqoLzx5/vTJ5QAAUAAA==
+    http_version: !!null 
+  recorded_at: Mon, 09 Apr 2012 16:01:19 GMT
+recorded_with: VCR 2.0.1

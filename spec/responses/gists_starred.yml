@@ -1,0 +1,60 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://johndoe:omgbbq@api.github.com/gists/starred
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.0.13
+      Date:
+      - Mon, 09 Apr 2012 16:00:57 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Status:
+      - 200 OK
+      X-Ratelimit-Limit:
+      - '5000'
+      Etag:
+      - ! '"7bc298ebe784dd9bb6d53a39a31cb941"'
+      X-Ratelimit-Remaining:
+      - '4978'
+      Content-Encoding:
+      - gzip
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA+1US4vbMBD+K4ugN8eWZPkJpT2UpZfCHnJqKWEsyY4av7Dk
+        btsl/71jJ26TJUuy9FrQQR7N45v55vOXJ1KaWluSPxGnrfMbNV0HeNyMQ01y
+        snWut3kQVAYfK+O2Y+HLrgnQI2BhFmYZDRKaiAKk4iCphEwlSRpSWWZMiTJT
+        ooi1LqnQPFgqeMT97DVmd/qHC/oaTEs8UkNbjVBN9k8w7FT3OFmt+YUWFnsz
+        0BaaQ9wB6n7vEQS16Ue7PQLGz/fPwOZHoBN+zIjwG9067Jl6ZOwVOK024LAs
+        p4yt8PBozZJccDyfMaAfi9pIkrth1BhxNhfozelYpsp2GQyGjlYP00DhOzgY
+        ns3UajkO2q+Gw+s818MVRxoLUCJMuYiB8pRmMo0KqTIui6gMy3fq7cIMcJH6
+        2ocdNGD8VrsArNXOnsB6w+9Ng5O1eFmqnd5XTFC/b6uJhK5CMnLyrWsxAru+
+        0vDUoA1OvJf8G4ObRK71geknv5iHyKQc9EtcMHrkQmkrB9M70yHKdqzrZQHq
+        +u8CXNjX8xWYsR1NCGHrmiX6pX1fnPfeiWImtqetZK+STQkQgYxYGHEoWCxp
+        wrJAa5BCgC5YmCiZSOBhVMaRjgFYViohRUSF4DAL8U/N1wspYWl2JqWzfDfq
+        6VIHN4qLrli45simwHMqrhJqe5u6LlX/L7V/lhoyQ9ec5VGc8/m3dyY18jB0
+        Ultr2uru4cO9vevau4966HYjeh5+wVcUeIm249LMcrz0fps2L0buv/4GkQN5
+        /dwGAAA=
+    http_version: !!null 
+  recorded_at: Mon, 09 Apr 2012 16:00:57 GMT
+recorded_with: VCR 2.0.1

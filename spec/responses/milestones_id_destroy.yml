@@ -1,0 +1,82 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://johndoe:omgbbq@api.github.com/repos/johndoe/ghee_test_repo/milestones
+    body:
+      encoding: UTF-8
+      string: ! '{"title":"Destroy test milestone 55"}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Server:
+      - nginx/1.0.13
+      Date:
+      - Mon, 09 Apr 2012 16:01:15 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Connection:
+      - keep-alive
+      Status:
+      - 201 Created
+      X-Ratelimit-Limit:
+      - '5000'
+      Etag:
+      - ! '"2411b9358d609276c61243545339da3e"'
+      Location:
+      - https://api.github.com/repos/johndoe/ghee_test_repo/milestones/4
+      X-Ratelimit-Remaining:
+      - '4930'
+      Content-Length:
+      - '544'
+    body:
+      encoding: US-ASCII
+      string: ! '{"creator":{"login":"johndoe","url":"https://api.github.com/users/johndoe","gravatar_id":"7064ad438246a02809c85bcd92cb5f3f","avatar_url":"https://secure.gravatar.com/avatar/7064ad438246a02809c85bcd92cb5f3f?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png","id":623},"closed_issues":0,"state":"open","url":"https://api.github.com/repos/johndoe/ghee_test_repo/milestones/4","due_on":null,"title":"Destroy
+        test milestone 55","created_at":"2012-04-09T16:01:15Z","number":4,"description":null,"open_issues":0}'
+    http_version: !!null 
+  recorded_at: Mon, 09 Apr 2012 16:01:16 GMT
+- request:
+    method: delete
+    uri: https://johndoe:omgbbq@api.github.com/repos/johndoe/ghee_test_repo/milestones/4
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 204
+      message: No Content
+    headers:
+      Server:
+      - nginx/1.0.13
+      Date:
+      - Mon, 09 Apr 2012 16:01:16 GMT
+      Connection:
+      - keep-alive
+      Status:
+      - 204 No Content
+      X-Ratelimit-Limit:
+      - '5000'
+      Etag:
+      - ! '"d41d8cd98f00b204e9800998ecf8427e"'
+      X-Ratelimit-Remaining:
+      - '4929'
+    body:
+      encoding: US-ASCII
+      string: ''
+    http_version: !!null 
+  recorded_at: Mon, 09 Apr 2012 16:01:16 GMT
+recorded_with: VCR 2.0.1

@@ -215,7 +215,7 @@ Get a single team for an org:
 
     gh.orgs("huboard").teams(110234)
 
-Create team for an org: 
+Create team for an org:
 
     gh.orgs("huboard").teams.create :name => "awesome_developers"
 
@@ -245,7 +245,7 @@ Get a single team:
 
     gh.team(110234)
 
-Create a team: 
+Create a team:
 
     gh.team.create :name => "awesome_developers"
 
@@ -360,13 +360,15 @@ These can all be passed into ghee through an options hash:
     gh.repos("rauhryan", "huboard").issues(:state => "closed", :sort => "desc")
 
 > Note you can also change parameters with pagination!
-    
+
     gh.repos("rauhryan", "huboard").issues(:state => "closed").all
 
 Testing
 -------
 
 The test suite uses [VCR](https://github.com/myronmarston/vcr) to cache actual requests to the Github API in a directory called responses in the spec directory.
+
+Responses are cached and ship with the repository, but you can delete everything in spec/responses to run against the actualy GitHub API. If you need to commit changes to the response files, make sure to run "bundle exec rake scrub" first to remove any sensitive passwords or tokens from the responses.
 
 In order for VCR to make and cache the actual calls to the Github API you will need to copy spec/settings.yml.sample to spec/settings.yml and configure it with your GitHub username, either a GitHub access token or your GitHub password, a test repo for it to hit against (which you should setup ahead of time), and finally an organization you belong to (for the entire suite of tests to pass you have to belong to an org).
 

@@ -12,7 +12,7 @@ describe Ghee::API::Repos::Hooks do
   describe "#repos(login,name)#hooks" do
     context "with a test web hook" do
       before :all do
-        VCR.use_cassette "repos(login,name).hook.create.test" do
+        VCR.use_cassette "repos(login,name).hook.create.test", :match_requests_on => MATCHES do
           @test_hook = subject.repos(GH_USER,GH_REPO).hooks.create({
             :name => "web",
             :config => {:url => "http://google.com"}
@@ -23,14 +23,14 @@ describe Ghee::API::Repos::Hooks do
       let(:test_hook) {@test_hook}
 
       it "should return a hook" do
-        VCR.use_cassette "repos(login,name).hooks" do
+        VCR.use_cassette "repos(login,name).hooks", :match_requests_on => MATCHES do
           hooks = subject.repos(GH_USER,GH_REPO).hooks
           should_be_a_hook hooks.first
         end
       end
 
       it "should patch the hook" do
-        VCR.use_cassette "repos(login,name).hooks.patch" do
+        VCR.use_cassette "repos(login,name).hooks.patch", :match_requests_on => MATCHES do
           hook = subject.repos(GH_USER,GH_REPO).hooks(test_hook['id']).patch({
            :config => {:url => "http://herpderp.com"}
           })
@@ -41,7 +41,7 @@ describe Ghee::API::Repos::Hooks do
       end
 
       it "should destroy the hook" do
-        VCR.use_cassette "repos(login,name).hooks.destroy" do
+        VCR.use_cassette "repos(login,name).hooks.destroy", :match_requests_on => MATCHES do
           hook = subject.repos(GH_USER,GH_REPO).hooks(test_hook['id']).destroy.should be_true
         end
       end

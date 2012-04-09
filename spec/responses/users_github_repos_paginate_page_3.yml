@@ -1,0 +1,91 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://johndoe:omgbbq@api.github.com/users/github/repos?page=3&per_page=10
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.0.13
+      Date:
+      - Mon, 09 Apr 2012 16:01:32 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Status:
+      - 200 OK
+      X-Ratelimit-Limit:
+      - '5000'
+      Etag:
+      - ! '"8fccca11fd5ca4bc2a5014cfb100ceb4"'
+      Link:
+      - <https://api.github.com/users/github/repos?page=4&per_page=10>; rel="next",
+        <https://api.github.com/users/github/repos?page=5&per_page=10>; rel="last",
+        <https://api.github.com/users/github/repos?page=1&per_page=10>; rel="first",
+        <https://api.github.com/users/github/repos?page=2&per_page=10>; rel="prev"
+      X-Ratelimit-Remaining:
+      - '4885'
+      Content-Encoding:
+      - gzip
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        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
+        nNYJJwAA
+    http_version: !!null 
+  recorded_at: Mon, 09 Apr 2012 16:01:32 GMT
+recorded_with: VCR 2.0.1

@@ -10,7 +10,7 @@ describe Ghee::API::Issues do
 
   describe "#repos(login,name)#issues" do
     it "should return repos issues" do
-      VCR.use_cassette("repos(#{GH_USER},#{GH_REPO}).issues") do
+      VCR.use_cassette "repos(#{GH_USER},#{GH_REPO}).issues", :match_requests_on => MATCHES do
         issues = subject.repos(GH_USER, GH_REPO).issues
         issues.size.should > 0
         should_be_an_issue(issues.first)
@@ -19,7 +19,7 @@ describe Ghee::API::Issues do
 
     describe "#repos(login,name)#issues#closed" do
       it "should return repos closed issues" do
-        VCR.use_cassette("repos(#{GH_USER},#{GH_REPO}).issues.closed") do
+        VCR.use_cassette "repos(#{GH_USER},#{GH_REPO}).issues.closed", :match_requests_on => MATCHES do
           issues = subject.repos(GH_USER, GH_REPO).issues.closed
           issues.size.should > 0
           should_be_an_issue(issues.first)
@@ -32,7 +32,7 @@ describe Ghee::API::Issues do
 
     describe "#repos(login,name)#issues(1)" do
       it "should return an issue by id" do
-        VCR.use_cassette("repos(#{GH_USER},#{GH_REPO}).issues(1)") do
+        VCR.use_cassette "repos(#{GH_USER},#{GH_REPO}).issues(1)", :match_requests_on => MATCHES do
           issue = subject.repos(GH_USER, GH_REPO).issues(1)
           should_be_an_issue(issue)
         end
@@ -41,7 +41,7 @@ describe Ghee::API::Issues do
       # Testing issue proxy
       context "with issue number" do
         before(:all) do
-          VCR.use_cassette "issues.test" do
+          VCR.use_cassette "issues.test", :match_requests_on => MATCHES do
             @repo = subject.repos(GH_USER, GH_REPO)
             @test_issue = @repo.issues.create({
               :title => "Test issue"
@@ -53,7 +53,7 @@ describe Ghee::API::Issues do
 
         describe "#patch" do
           it "should patch the issue" do
-            VCR.use_cassette "issues(id).patch" do
+            VCR.use_cassette "issues(id).patch", :match_requests_on => MATCHES do
               issue = test_repo.issues(test_issue["number"]).patch({
                 :body => "awesome description"
               })
@@ -65,7 +65,7 @@ describe Ghee::API::Issues do
 
         describe "#close" do
           it "should close the issue" do
-            VCR.use_cassette "issues(id).close" do
+            VCR.use_cassette "issues(id).close", :match_requests_on => MATCHES do
               closed = test_repo.issues(test_issue["number"]).close
               closed.should be_true
             end
@@ -75,7 +75,7 @@ describe Ghee::API::Issues do
         describe "#comments" do
           context "issue with comments " do
             before :all do
-              VCR.use_cassette "issues(id).comments.create.test" do
+              VCR.use_cassette "issues(id).comments.create.test", :match_requests_on => MATCHES do
                 @comment = test_repo.issues(test_issue["number"]).comments.create :body => "test comment"
                 @comment.should_not be_nil
               end
@@ -83,14 +83,14 @@ describe Ghee::API::Issues do
             let(:test_comment) { @comment }
 
             it "should create comment" do
-              VCR.use_cassette "issues(id).comments.create" do
+              VCR.use_cassette "issues(id).comments.create", :match_requests_on => MATCHES do
                 comment = test_repo.issues(test_issue["number"]).comments.create :body => "test comment"
                 comment.should_not be_nil
               end
             end
 
             it "should return comment by id" do
-              VCR.use_cassette "issues.comments(id)" do
+              VCR.use_cassette "issues.comments(id)", :match_requests_on => MATCHES do
                 comment = test_repo.issues.comments(test_comment["id"])
                 comment.should_not be_nil
                 comment["body"].should == "test comment"
@@ -98,7 +98,7 @@ describe Ghee::API::Issues do
             end
 
             it "should patch comment" do
-              VCR.use_cassette "issues.comments(id).patch" do
+              VCR.use_cassette "issues.comments(id).patch", :match_requests_on => MATCHES do
                 body = "some other description"
                 comment = test_repo.issues.comments(test_comment["id"]).patch(:body => body)
                 comment.should_not be_nil
@@ -107,7 +107,7 @@ describe Ghee::API::Issues do
             end
 
             it "should destroy comment" do
-              VCR.use_cassette "issues.comments(id).destroy" do
+              VCR.use_cassette "issues.comments(id).destroy", :match_requests_on => MATCHES do
                 comment = test_repo.issues(test_issue["number"]).comments.create :body => "test comment"
                 comment.should_not be_nil
                 comment["body"].should == "test comment"

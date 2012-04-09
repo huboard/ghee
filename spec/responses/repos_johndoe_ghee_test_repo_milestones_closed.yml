@@ -1,0 +1,177 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://johndoe:omgbbq@api.github.com/repos/johndoe/ghee_test_repo/milestones
+    body:
+      encoding: UTF-8
+      string: ! '{"title":"Destroy test milestone 43"}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Server:
+      - nginx/1.0.13
+      Date:
+      - Mon, 09 Apr 2012 16:01:13 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Connection:
+      - keep-alive
+      Status:
+      - 201 Created
+      X-Ratelimit-Limit:
+      - '5000'
+      Etag:
+      - ! '"13c62dee715538f419cd8e27a9a03790"'
+      Location:
+      - https://api.github.com/repos/johndoe/ghee_test_repo/milestones/4
+      X-Ratelimit-Remaining:
+      - '4937'
+      Content-Length:
+      - '544'
+    body:
+      encoding: US-ASCII
+      string: ! '{"creator":{"login":"johndoe","url":"https://api.github.com/users/johndoe","avatar_url":"https://secure.gravatar.com/avatar/7064ad438246a02809c85bcd92cb5f3f?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png","gravatar_id":"7064ad438246a02809c85bcd92cb5f3f","id":623},"state":"open","url":"https://api.github.com/repos/johndoe/ghee_test_repo/milestones/4","due_on":null,"title":"Destroy
+        test milestone 43","created_at":"2012-04-09T16:01:13Z","number":4,"description":null,"closed_issues":0,"open_issues":0}'
+    http_version: !!null 
+  recorded_at: Mon, 09 Apr 2012 16:01:13 GMT
+- request:
+    method: patch
+    uri: https://johndoe:omgbbq@api.github.com/repos/johndoe/ghee_test_repo/milestones/4
+    body:
+      encoding: UTF-8
+      string: ! '{"state":"closed"}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.0.13
+      Date:
+      - Mon, 09 Apr 2012 16:01:14 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Connection:
+      - keep-alive
+      Status:
+      - 200 OK
+      X-Ratelimit-Limit:
+      - '5000'
+      Etag:
+      - ! '"3d43414a50d36f3d4729106794e03f40"'
+      X-Ratelimit-Remaining:
+      - '4936'
+      Content-Length:
+      - '546'
+    body:
+      encoding: US-ASCII
+      string: ! '{"closed_issues":0,"creator":{"login":"johndoe","avatar_url":"https://secure.gravatar.com/avatar/7064ad438246a02809c85bcd92cb5f3f?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png","url":"https://api.github.com/users/johndoe","gravatar_id":"7064ad438246a02809c85bcd92cb5f3f","id":623},"state":"closed","url":"https://api.github.com/repos/johndoe/ghee_test_repo/milestones/4","due_on":null,"title":"Destroy
+        test milestone 43","created_at":"2012-04-09T16:01:13Z","number":4,"description":null,"open_issues":0}'
+    http_version: !!null 
+  recorded_at: Mon, 09 Apr 2012 16:01:14 GMT
+- request:
+    method: get
+    uri: https://johndoe:omgbbq@api.github.com/repos/johndoe/ghee_test_repo/milestones?state=closed
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.0.13
+      Date:
+      - Mon, 09 Apr 2012 16:01:14 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Status:
+      - 200 OK
+      X-Ratelimit-Limit:
+      - '5000'
+      Etag:
+      - ! '"20d34bf4c03943ead0b94ca2e963b922"'
+      X-Ratelimit-Remaining:
+      - '4935'
+      Content-Encoding:
+      - gzip
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA+2VzW7bMAzHXyUQsJtjfVj2HAFFL8OeIKcNhaHYrKPNtgxR
+        bjEUfffRzdI5hza5BsiNoP8kTfJn8+cL8yMMlUOcAJkRCas7j9CceALY6AMz
+        L6zzrRuYYb/80NvW1SxhU+jIsY9xRMO5HV3aurifdmntez4hBOQLdRvsk402
+        VK6hqK+i0LbRWal0YYUqxaYu813dbFS9yx+zR0o/6wqVJexf3Gk5hHoKkB6z
+        vtU8CPm53PfN3ftLK12mkNrftrcuHSByiwgRF518Ud8ddQxIxrHa0l5LLdJx
+        aNlrwjDaCNTdYZLnRhRg9P9HxNs9QBUBYzU/4L3ryPYDINeUKbrYzam/kTP4
+        P6tZuHrXrHRGmmaCytOShqnraJ3z8mifNlKYElKthV6LzVYWRkgjsx8UMUz9
+        Dmi/moIB6+DG6I4ZXpMbIjPXV4HIvP4jIttTNHJ1MRrEhZYmU0s06AM8QYPZ
+        Z0Dfw2rpvbFy+AdeBSszDx+woi9lpdiKnEAxIl+yom6sfH7Wru70yI9ZOX9x
+        5JqOjiq3SppcG62XqMiLUHn4C7sM47CnCAAA
+    http_version: !!null 
+  recorded_at: Mon, 09 Apr 2012 16:01:14 GMT
+- request:
+    method: delete
+    uri: https://johndoe:omgbbq@api.github.com/repos/johndoe/ghee_test_repo/milestones/4
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 204
+      message: No Content
+    headers:
+      Server:
+      - nginx/1.0.13
+      Date:
+      - Mon, 09 Apr 2012 16:01:14 GMT
+      Connection:
+      - keep-alive
+      Status:
+      - 204 No Content
+      X-Ratelimit-Limit:
+      - '5000'
+      Etag:
+      - ! '"d41d8cd98f00b204e9800998ecf8427e"'
+      X-Ratelimit-Remaining:
+      - '4934'
+    body:
+      encoding: US-ASCII
+      string: ''
+    http_version: !!null 
+  recorded_at: Mon, 09 Apr 2012 16:01:14 GMT
+recorded_with: VCR 2.0.1

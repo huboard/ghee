@@ -1,0 +1,46 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://johndoe:omgbbq@api.github.com/repos/johndoe/ghee_test_repo/git/blobs
+    body:
+      encoding: UTF-8
+      string: ! '{"content":"Oh hello!","encoding":"utf-8"}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Server:
+      - nginx/1.0.13
+      Date:
+      - Mon, 09 Apr 2012 16:01:03 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Connection:
+      - keep-alive
+      Status:
+      - 201 Created
+      X-Ratelimit-Limit:
+      - '5000'
+      Etag:
+      - ! '"618c895e3647598715fb6efc8efa9925"'
+      Location:
+      - https://api.github.com/repos/johndoe/ghee_test_repo/git/blobs/b1de8fc9aa46a2765f3ed6420a022b939856e731
+      X-Ratelimit-Remaining:
+      - '4962'
+      Content-Length:
+      - '162'
+    body:
+      encoding: US-ASCII
+      string: ! '{"url":"https://api.github.com/repos/johndoe/ghee_test_repo/git/blobs/b1de8fc9aa46a2765f3ed6420a022b939856e731","sha":"b1de8fc9aa46a2765f3ed6420a022b939856e731"}'
+    http_version: !!null 
+  recorded_at: Mon, 09 Apr 2012 16:01:03 GMT
+recorded_with: VCR 2.0.1

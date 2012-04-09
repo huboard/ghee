@@ -1,0 +1,99 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://johndoe:omgbbq@api.github.com/user
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.0.13
+      Date:
+      - Mon, 09 Apr 2012 16:01:24 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Status:
+      - 200 OK
+      X-Ratelimit-Limit:
+      - '5000'
+      Etag:
+      - ! '"e8dddcfa7dd55e12e6a25c6eae26d402"'
+      X-Ratelimit-Remaining:
+      - '4905'
+      Content-Encoding:
+      - gzip
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA4VSXYvbMBD8K0JQ+uLYjmI7PkNpKbS99KkP7Us5MGtLsdXI
+        ktBHQzjuv3edOL3cUehDQFnvzs7MziPdG6XMUeqBNkVCw8kK2tAfXjiaUGUG
+        qfHvL6MnGGSPJXPUgrfWyd8QROuENZ421dzaQ5Bm7v6kDiO4QHaaS9CAQ9Ep
+        rI8hWN9kGViZDjKMsUt7M2URd/nsZgUWLegTTnyR4T52CMClP7TRw4Dk2HrD
+        6m1CrQLc9khfcWF5QnvUBJ1xEIxDemssaZhmYZPgMk6I6C30M1i5rsqaPSW0
+        Q7ELSeQYRmGdGRxME1rTxaCEm9ni5CvweZ0TaAZvISAAy/N6lbMVY9/X24ZV
+        TVH8xCkxgTybYE7hw7N6/GJjp2TfDtIH5LpBLxeuX42GMIIm9ziDjaPEPZ1C
+        1sFFkVBkh0cA10qOwNu8KoAXm5oVFeSszu/6uux6fsf6rtxv9giwtL+8hhd9
+        dCK9gp1PcmnM/gf5nr/7e1NW1KlI4QCoM9UiZOC9CP7m0G/YZ4kpEh4f1223
+        79W6yFOLOUzoLKhiG4yjCaD+kbbrzRfTKkzuYuOSSIaVS7IxXLQpS7QvTKp9
+        qf0mhTf566RBP3dvJ4IpIN+eY0A+nnNAQHOyI0fjDgQCuYQ0TdMH96DnHz51
+        3BMPkhNCn/4AzCFS8mMDAAA=
+    http_version: !!null 
+  recorded_at: Mon, 09 Apr 2012 16:01:24 GMT
+- request:
+    method: get
+    uri: https://johndoe:omgbbq@api.github.com/repos/johndoe/ghee_test_repo/issues
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.0.13
+      Date:
+      - Mon, 09 Apr 2012 16:01:24 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Connection:
+      - keep-alive
+      Status:
+      - 200 OK
+      X-Ratelimit-Limit:
+      - '5000'
+      Etag:
+      - ! '"d751713988987e9331980363e24189ce"'
+      X-Ratelimit-Remaining:
+      - '4904'
+      Content-Length:
+      - '2'
+    body:
+      encoding: US-ASCII
+      string: ! '[]'
+    http_version: !!null 
+  recorded_at: Mon, 09 Apr 2012 16:01:24 GMT
+recorded_with: VCR 2.0.1

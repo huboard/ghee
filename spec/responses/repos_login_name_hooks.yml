@@ -1,0 +1,51 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://johndoe:omgbbq@api.github.com/repos/johndoe/ghee_test_repo/hooks
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.0.13
+      Date:
+      - Mon, 09 Apr 2012 16:01:05 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Status:
+      - 200 OK
+      X-Ratelimit-Limit:
+      - '5000'
+      Etag:
+      - ! '"503aaebe6d0e78200a5416ef0521733b"'
+      X-Ratelimit-Remaining:
+      - '4955'
+      Content-Encoding:
+      - gzip
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA4VPzY7CIBB+lzlXoY1uIs+xpzWmwTICSoF0Bj2YvrvgbrJH
+        j1++/+MT9MT+jqB4KdhByUYzmlEzKBhkP2zkbiMP3/2Xkr2Sux/oAO8YmUAd
+        IRdycKquJVS5Y86khNDZb61nV87bKc1iwZxIXFOctfWTsA5xZCQeGyFcSjcS
+        Qz8c9vuaPS34sT/ot5lyilSHP4FYc6mDoMRCaFpMMpWJJYQOZiTS9g+uHUQ9
+        VwAPPFehN6B+y5spXrxtgf9/6h2bkg3YrsC6nl4fQwNqMgEAAA==
+    http_version: !!null 
+  recorded_at: Mon, 09 Apr 2012 16:01:05 GMT
+recorded_with: VCR 2.0.1

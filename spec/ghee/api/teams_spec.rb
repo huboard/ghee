@@ -12,7 +12,7 @@ describe Ghee::API::Orgs::Teams do
   describe "#orgs#teams" do
     context "with a test team" do
       before :all do
-        VCR.use_cassette "orgs.teams.create.test" do
+        VCR.use_cassette "orgs.teams.create.test", :match_requests_on => MATCHES do
           @test_team = subject.orgs(GH_ORG).teams.create({
             :name => "#{(0...8).map{ ('a'..'z').to_a[rand(26)] }.join}"
           })
@@ -23,7 +23,7 @@ describe Ghee::API::Orgs::Teams do
 
       context "with a member test team" do
         before :all do
-          VCR.use_cassette "orgs.teams.create.test_member" do
+          VCR.use_cassette "orgs.teams.create.test_member", :match_requests_on => MATCHES do
             @member_team = subject.orgs(GH_ORG).teams.create({
               :name => "#{(0...8).map{ ('a'..'z').to_a[rand(26)] }.join}"
             })
@@ -31,28 +31,28 @@ describe Ghee::API::Orgs::Teams do
           end
         end
         after :all do
-          VCR.use_cassette "orgs.teams.destroy.test_member" do
+          VCR.use_cassette "orgs.teams.destroy.test_member", :match_requests_on => MATCHES do
               subject.orgs(GH_ORG).teams(member_team["id"]).destroy
           end
         end
         let(:member_team) {@member_team}
-        describe "#members" do 
+        describe "#members" do
           it "should return members" do
-            VCR.use_cassette "orgs(name).teams(id).members" do
+            VCR.use_cassette "orgs(name).teams(id).members", :match_requests_on => MATCHES do
               members = subject.orgs.teams(member_team["id"]).members
               members.size.should == 0
             end
           end
           it "should add a member" do
-            VCR.use_cassette "orgs(name).teams(id).members.add" do
+            VCR.use_cassette "orgs(name).teams(id).members.add", :match_requests_on => MATCHES do
               subject.orgs.teams(member_team["id"]).members.add(GH_USER).should be_true
               members = subject.orgs.teams(member_team["id"]).members
-              members.first["login"].should == GH_USER
+              members.first["login"].should == CACHED['username']
               members.size.should > 0
             end
           end
           it "should remove a member" do
-            VCR.use_cassette "orgs(name).teams(id).members.remove" do
+            VCR.use_cassette "orgs(name).teams(id).members.remove", :match_requests_on => MATCHES do
               subject.orgs.teams(member_team["id"]).members.remove(GH_USER).should be_true
               members = subject.orgs.teams(member_team["id"]).members
               members.size.should == 0
@@ -61,14 +61,14 @@ describe Ghee::API::Orgs::Teams do
         end
       end
       it "should return a team" do
-        VCR.use_cassette "orgs.teams" do
+        VCR.use_cassette "orgs.teams", :match_requests_on => MATCHES do
           teams = subject.orgs(GH_ORG).teams
           teams.size.should > 0
         end
       end
 
       it "should patch the team" do
-        VCR.use_cassette "orgs.teams.patch" do
+        VCR.use_cassette "orgs.teams.patch", :match_requests_on => MATCHES do
           name = "#{(0...8).map{ ('a'..'z').to_a[rand(26)] }.join}"
           team = subject.orgs(GH_ORG).teams(test_team['id']).patch({
               :name => name
@@ -79,7 +79,7 @@ describe Ghee::API::Orgs::Teams do
       end
 
       it "should destroy the team" do
-        VCR.use_cassette "orgs.teams.destroy" do
+        VCR.use_cassette "orgs.teams.destroy", :match_requests_on => MATCHES do
           team = subject.orgs(GH_ORG).teams(test_team['id']).destroy.should be_true
         end
       end

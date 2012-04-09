@@ -1,0 +1,44 @@
+---
+http_interactions:
+- request:
+    method: patch
+    uri: https://johndoe:omgbbq@api.github.com/repos/johndoe/ghee_test_repo/hooks/212955
+    body:
+      encoding: UTF-8
+      string: ! '{"config":{"url":"http://herpderp.com"}}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.0.13
+      Date:
+      - Mon, 09 Apr 2012 16:01:05 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Connection:
+      - keep-alive
+      Status:
+      - 200 OK
+      X-Ratelimit-Limit:
+      - '5000'
+      Etag:
+      - ! '"fcf4be1526cd2090949055cbd3470dcd"'
+      X-Ratelimit-Remaining:
+      - '4954'
+      Content-Length:
+      - '306'
+    body:
+      encoding: US-ASCII
+      string: ! '{"active":true,"updated_at":"2012-04-09T16:01:05Z","events":["push"],"last_response":{"status":"unused","code":null,"message":null},"url":"https://api.github.com/repos/johndoe/ghee_test_repo/hooks/212955","created_at":"2012-04-09T16:01:04Z","name":"web","id":212955,"config":{"url":"http://herpderp.com"}}'
+    http_version: !!null 
+  recorded_at: Mon, 09 Apr 2012 16:01:05 GMT
+recorded_with: VCR 2.0.1

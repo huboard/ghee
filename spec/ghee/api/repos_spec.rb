@@ -12,7 +12,7 @@ describe Ghee::API::Repos do
 
   describe "#repos(login,name)" do
     it "should be a repo" do
-      VCR.use_cassette("repos(#{GH_USER},#{GH_REPO})") do
+      VCR.use_cassette "repos(#{GH_USER},#{GH_REPO})", :match_requests_on => MATCHES do
         repo = subject.repos(GH_USER, GH_REPO)
         should_be_a_repo(repo)
       end
@@ -20,7 +20,7 @@ describe Ghee::API::Repos do
 
     describe "#issues" do
       it "should return issues for repo" do
-        VCR.use_cassette("repo(#{GH_USER},#{GH_REPO}).issues") do
+        VCR.use_cassette "repo(#{GH_USER},#{GH_REPO}).issues", :match_requests_on => MATCHES do
           issues = subject.repos(GH_USER, GH_REPO).issues
           issues.is_a?(Array).should be_true
           issues.size.should > 0
@@ -32,38 +32,37 @@ describe Ghee::API::Repos do
     describe "#labels" do
       context "" do
         before :all do
-          VCR.use_cassette "#labels#create" do
+          VCR.use_cassette "#labels#create", :match_requests_on => MATCHES do
             @temp_label = subject.repos(GH_USER, GH_REPO).labels.create({:color => "efefef", :name => "#{(0...8).map{ ('a'..'z').to_a[rand(26)] }.join}"})
           end
         end
+
         let(:test_label) {@temp_label}
+
         after :all do
-          VCR.use_cassette "#labels#destroy" do
+          VCR.use_cassette "#labels#destroy", :match_requests_on => MATCHES do
             subject.repos(GH_USER, GH_REPO).labels(test_label['name']).destroy
           end
         end
-        it "should return all the labels" do
-          VCR.use_cassette("repo(#{GH_USER},#{GH_REPO}).labels") do
 
+        it "should return all the labels" do
+          VCR.use_cassette "repo(#{GH_USER},#{GH_REPO}).labels", :match_requests_on => MATCHES do
             labels = subject.repos(GH_USER, GH_REPO).labels
             labels.size.should > 0
             labels.first["color"].should_not be_nil
-
           end
         end
 
         it "should get a single label" do
-          VCR.use_cassette("repo(#{GH_USER},#{GH_REPO}).labels(id)") do
-
+          VCR.use_cassette "repo(#{GH_USER},#{GH_REPO}).labels(id)", :match_requests_on => MATCHES do
             label = subject.repos(GH_USER,GH_REPO).labels(test_label["name"])
             label["color"].should == 'efefef'
             label["name"].should == test_label["name"]
-
           end
         end
 
         it "should patch a label" do
-          VCR.use_cassette("repo(#{GH_USER},#{GH_REPO}).labels.patched") do
+          VCR.use_cassette "repo(#{GH_USER},#{GH_REPO}).labels.patched", :match_requests_on => MATCHES do
             name = "patch label #{rand(100)}"
             label = subject.repos(GH_USER, GH_REPO).labels.create(:color => "efefef", :name => name)
             label["color"].should == "efefef"
@@ -84,7 +83,7 @@ describe Ghee::API::Repos do
   describe "#user" do
     describe "#repos" do
       it "should return users repos" do
-        VCR.use_cassette('users(login).repos') do
+        VCR.use_cassette 'users(login).repos', :match_requests_on => MATCHES do
           repos = subject.users(GH_USER).repos
           repos.size.should > 0
           should_be_a_repo(repos.first)
@@ -94,17 +93,17 @@ describe Ghee::API::Repos do
 
     describe "#repo" do
       it "should return a repo" do
-        VCR.use_cassette("user.repos(#{GH_REPO})") do
+        VCR.use_cassette "user.repos(#{GH_REPO})", :match_requests_on => [:method, :host] do
           repo = subject.user.repos(GH_REPO)
           repo.connection.should_not be_nil
-          repo.path_prefix.should == "/repos/#{GH_USER}/#{GH_REPO}"
+          repo.path_prefix.should == "/repos/#{CACHED['username']}/#{GH_REPO}"
           should_be_a_repo(repo)
         end
       end
 
       describe "#milestones" do
         it "should return milestones for repo" do
-          VCR.use_cassette("user.repos(#{GH_REPO}).milestones") do
+          VCR.use_cassette "user.repos(#{GH_REPO}).milestones", :match_requests_on => [:method, :host] do
             milestones = subject.user.repos(GH_REPO).milestones
             milestones.should be_instance_of(Array)
           end
@@ -113,7 +112,7 @@ describe Ghee::API::Repos do
 
       describe "#issues" do
         it "should return issues for repo" do
-          VCR.use_cassette("user.repos(#{GH_REPO}).issues") do
+          VCR.use_cassette "user.repos(#{GH_REPO}).issues", :match_requests_on => [:method, :host] do
             issues = subject.user.repos(GH_REPO).issues
             issues.should be_instance_of(Array)
           end

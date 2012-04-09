@@ -1,0 +1,58 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://johndoe:omgbbq@api.github.com/user
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.0.13
+      Date:
+      - Mon, 09 Apr 2012 16:01:29 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Status:
+      - 200 OK
+      X-Ratelimit-Limit:
+      - '5000'
+      Etag:
+      - ! '"c4ebc49f86e2ac32a1574942dc3bf3ac"'
+      X-Ratelimit-Remaining:
+      - '4892'
+      Content-Encoding:
+      - gzip
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA4VTwYrbMBD9FSEoe3FsR7Edr6G0FNpueuqheykLYSwrjhpZ
+        MtKoISz77x1vkiYNhT0IRiPpzXvzRs/c7a3q1qPXvwHV2qvRBd5UCR9ja7Q8
+        J0SR8I0zxu217XlDOzyMijf8MSjPE25cry1tfzk7QK8lpYAAwa+jN5TfIo6h
+        ybKgZPQq7f3xNJVuyI5htsyrArpiUYuiglzU+b2sy1Z290K25Wax+dC9P6OA
+        KOpUpbCDAXRqFWYQgsKQ9hq3sZ1Q34kvmpioQMG52nU8mxd5OpKWhLgN5obm
+        BSe7UmScBNRu0vnZ7Lbgka1sp8ECofyrE0Z9RSaL1KVwDUUMR7AHQvqq8SG2
+        Ew3tFbSGmoo+qoR3OuzWMZAG3oj5QtRLMsUAVX/mkqyA1nlA58mueZ5wC8Pk
+        x6A6HQeCu3FU0JUwgpzAynlV1uLlr8e9DkgoC3K9JSNPdpFbuFWjd9S+YSDb
+        24hG+am5BH/DgNAl0UcaJUACEHlez3IxE+LHfNmIqimKn/RKkV+v4+AO+PHS
+        ZDpptaP86m5gVJR9v1Rln17LMrAdW7G98zsGyI5dS9P0yT/ZaVFo44YF0B1j
+        V/JP2iqa2FOHvjkLuAXLHogE3TxPx1p3xOCtKaQH6BDMf37M9L4Si/NHIcd5
+        U5YvfwD0S9M9YwMAAA==
+    http_version: !!null 
+  recorded_at: Mon, 09 Apr 2012 16:01:29 GMT
+recorded_with: VCR 2.0.1

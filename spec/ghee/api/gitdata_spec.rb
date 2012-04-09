@@ -27,7 +27,7 @@ describe Ghee::API::Repos::Git do
 
   describe "#repos()#commits" do
     it "should return an array of commits" do
-      VCR.use_cassette "#repos()#commits" do
+      VCR.use_cassette "#repos()#commits", :match_requests_on => MATCHES do
         commits = subject.commits
         commits.size.should > 0
         should_be_a_commit commits.first
@@ -35,11 +35,11 @@ describe Ghee::API::Repos::Git do
     end
   end
 
-  describe "#repos(login,name)#git" do 
+  describe "#repos(login,name)#git" do
     describe "#blobs" do
       context "with a test blob" do
-        before :all do 
-          VCR.use_cassette "repos()#git#blobs#create" do 
+        before :all do
+          VCR.use_cassette "repos()#git#blobs#create", :match_requests_on => MATCHES do
             @test_blob = subject.git.blobs.create({
               :content => "Oh hello!",
               :encoding => "utf-8"
@@ -50,7 +50,7 @@ describe Ghee::API::Repos::Git do
         let(:test_blob) {@test_blob}
 
         it "should return a blob" do
-          VCR.use_cassette "repos()#git#blobs#sha" do
+          VCR.use_cassette "repos()#git#blobs#sha", :match_requests_on => MATCHES do
             blob = subject.git.blobs(test_blob["sha"])
             should_be_a_blob blob
           end
@@ -59,7 +59,7 @@ describe Ghee::API::Repos::Git do
     end
     describe "#refs" do
       it "should return all the refs" do
-        VCR.use_cassette "repos()#git#refs" do
+        VCR.use_cassette "repos()#git#refs", :match_requests_on => MATCHES do
           refs = subject.git.refs
           refs.size.should > 0
           should_be_a_ref refs.first
@@ -67,17 +67,17 @@ describe Ghee::API::Repos::Git do
       end
     end
     context "with a test commit" do
-      before :all do 
-        VCR.use_cassette "repos()#commits#first" do 
+      before :all do
+        VCR.use_cassette "repos()#commits#first", :match_requests_on => MATCHES do
           # create a commit
           @test_commit = subject.commits.first
         end
       end
       let(:test_commit) {@test_commit}
 
-      describe "#trees" do 
+      describe "#trees" do
         it "should return a tree for the commit sha" do
-          VCR.use_cassette "repos()#git#trees:sha" do
+          VCR.use_cassette "repos()#git#trees:sha", :match_requests_on => MATCHES do
             tree = subject.git.trees test_commit["sha"]
             tree.should_not be_nil
           end
@@ -86,7 +86,7 @@ describe Ghee::API::Repos::Git do
 
       describe "#commits" do
         it "should return a commit" do
-          VCR.use_cassette "repos()#git#commit#sha" do
+          VCR.use_cassette "repos()#git#commit#sha", :match_requests_on => MATCHES do
             commit = subject.git.commits(test_commit["sha"])
             should_be_a_commit commit
           end

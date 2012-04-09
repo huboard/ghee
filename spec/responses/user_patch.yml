@@ -1,0 +1,103 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://johndoe:omgbbq@api.github.com/user
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.0.13
+      Date:
+      - Mon, 09 Apr 2012 16:01:29 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Status:
+      - 200 OK
+      X-Ratelimit-Limit:
+      - '5000'
+      Etag:
+      - ! '"7c5ac5af3759676da6247166b1c634f9"'
+      X-Ratelimit-Remaining:
+      - '4891'
+      Content-Encoding:
+      - gzip
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA4VTwY6bMBD9FctS1UsCxAHCIlWtKrXd9NRDe6lWQgM44MbY
+        yDaNotX+ex/ZTTZNDz0gDZ6ZN/Oenx954yQF2VYUeMlFkhTLRCyF+L7alCIv
+        0/QnX/BwHCWyP7x0+NO2oaCswcknve/JBbY1rSJDSPYKeLVGeXCTXPBxqrVq
+        KidH63kp0gWvlUXn9u3AQi/ZN2c7R8OgTMc+TkFLx8i0bMsO1u0ZBfZFhfup
+        jqLowT2Y+UNoph3zpFrGMHFyGnh9CKMv45hGFXUq9Ghp7BBPWNnHv6wZqFMN
+        qnE4kjmi4xl4ZmcD6Wp06jeEOG+aL3ir/L6aPHUgI1ZrUWzmdq2pto6CdeCT
+        gKAmKPF4m1khZWiYZRtkq6YBg25GCJT4kZoZPlvlWSGeLnp1ygfgr7GGHEid
+        GNpj+PBKDXiEhclVfwvgZTM5GUHUU/akwnMYb5I8pTZdFyLNKRFFctcUWd20
+        d6Kps9169759d5FRpEUkI9oTpkdGhpi8l8FfaftGfFZQVXoE52nX8XKVJtFo
+        Oiy6g2r2gJvgZZYtuD0YGO5fwc8nL+RzmOUMXKkWEvyPwGUU3MRLtPdh0Df6
+        XJnjyhYvV/XVGgo9GXYPsYFWawugk7ngLfh1fLVrfXLrrC8K5/VysZ4fR6fm
+        l3HBfvoDfuFn22MDAAA=
+    http_version: !!null 
+  recorded_at: Mon, 09 Apr 2012 16:01:29 GMT
+- request:
+    method: patch
+    uri: https://johndoe:omgbbq@api.github.com/user
+    body:
+      encoding: UTF-8
+      string: ! '{"bio":"I''m the Programming Butler and I work at GitHub...\r\n\r\n...nuf
+        said   "}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.0.13
+      Date:
+      - Mon, 09 Apr 2012 16:01:29 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Connection:
+      - keep-alive
+      Status:
+      - 200 OK
+      X-Ratelimit-Limit:
+      - '5000'
+      Etag:
+      - ! '"7266d8c0dd23b9c596e4d50d19ebd6dc"'
+      X-Ratelimit-Remaining:
+      - '4890'
+      Content-Length:
+      - '868'
+    body:
+      encoding: US-ASCII
+      string: ! '{"following":4,"type":"User","login":"johndoe","owned_private_repos":6,"location":"Elkhart
+        Indiana","url":"https://api.github.com/users/johndoe","company":"GitHub","disk_usage":213287,"plan":{"private_repos":20,"collaborators":10,"name":"medium","space":2516582},"blog":"http://theprogrammingbutler.com","collaborators":0,"created_at":"2008-02-22T17:26:44Z","email":"hoyt@github.com","public_gists":36,"name":"Jonathan
+        Hoyt","hireable":true,"gravatar_id":"7064ad438246a02809c85bcd92cb5f3f","avatar_url":"https://secure.gravatar.com/avatar/7064ad438246a02809c85bcd92cb5f3f?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png","id":623,"total_private_repos":6,"private_gists":64,"public_repos":24,"followers":55,"html_url":"https://github.com/johndoe","bio":"I''m
+        the Programming Butler and I work at GitHub...\r\n\r\n...nuf said   "}'
+    http_version: !!null 
+  recorded_at: Mon, 09 Apr 2012 16:01:29 GMT
+recorded_with: VCR 2.0.1

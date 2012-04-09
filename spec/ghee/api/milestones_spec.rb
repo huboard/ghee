@@ -12,7 +12,7 @@ describe Ghee::API::Milestones do
 
   describe "#repos(login,name)#milestones" do
     it "should return repos milestones" do
-      VCR.use_cassette("repos(#{GH_USER},#{GH_REPO}).milestones") do
+      VCR.use_cassette "repos(#{GH_USER},#{GH_REPO}).milestones", :match_requests_on => MATCHES do
         temp_milestone = subject.repos(GH_USER, GH_REPO).milestones.create({ :title => "Destroy test milestone #{rand(100)}" })
 
         milestones = subject.repos(GH_USER, GH_REPO).milestones
@@ -25,7 +25,7 @@ describe Ghee::API::Milestones do
 
     describe "#repos(login,name)#milestones#closed" do
       it "should return repos closed milestones" do
-        VCR.use_cassette("repos(#{GH_USER},#{GH_REPO}).milestones.closed") do
+        VCR.use_cassette "repos(#{GH_USER},#{GH_REPO}).milestones.closed", :match_requests_on => MATCHES do
           temp_milestone = subject.repos(GH_USER, GH_REPO).milestones.create({ :title => "Destroy test milestone #{rand(100)}" })
           subject.repos(GH_USER, GH_REPO).milestones(temp_milestone["number"]).close
 
@@ -43,7 +43,7 @@ describe Ghee::API::Milestones do
 
     describe "#repos(login,name)#milestones(1)" do
       it "should return an milestone by id" do
-        VCR.use_cassette("repos(#{GH_USER},#{GH_REPO}).milestones(1)") do
+        VCR.use_cassette "repos(#{GH_USER},#{GH_REPO}).milestones(1)", :match_requests_on => MATCHES do
           temp_milestone = subject.repos(GH_USER, GH_REPO).milestones.create({ :title => "Destroy test milestone #{rand(100)}" })
 
           milestone = subject.repos(GH_USER, GH_REPO).milestones(1)
@@ -55,7 +55,7 @@ describe Ghee::API::Milestones do
 
       describe "#destroy" do
         it "should delete milestone" do
-          VCR.use_cassette "milestones(id).destroy" do
+          VCR.use_cassette "milestones(id).destroy", :match_requests_on => MATCHES do
             repo = subject.repos(GH_USER, GH_REPO)
             test_milestone = repo.milestones.create({
               :title => "Destroy test milestone #{rand(100)}"
@@ -69,7 +69,7 @@ describe Ghee::API::Milestones do
       # Testing milestone proxy
       context "with milestone number" do
         before(:all) do
-          VCR.use_cassette "milestones.test" do
+          VCR.use_cassette "milestones.test", :match_requests_on => MATCHES do
             @repo = subject.repos(GH_USER, GH_REPO)
             @test_milestone = @repo.milestones.create({
               :title => "Test milestone #{rand(100)}"
@@ -81,7 +81,7 @@ describe Ghee::API::Milestones do
 
         describe "#patch" do
           it "should patch the milestone" do
-            VCR.use_cassette "milestones(id).patch" do
+            VCR.use_cassette "milestones(id).patch", :match_requests_on => MATCHES do
               milestone = test_repo.milestones(test_milestone["number"]).patch({
                 :description => "awesome description"
               })
@@ -93,7 +93,7 @@ describe Ghee::API::Milestones do
 
         describe "#close" do
           it "should close the milestone" do
-            VCR.use_cassette "milestones(id).close" do
+            VCR.use_cassette "milestones(id).close", :match_requests_on => MATCHES do
               closed = test_repo.milestones(test_milestone["number"]).close
               closed.should be_true
             end

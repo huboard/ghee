@@ -1,0 +1,63 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://johndoe:omgbbq@api.github.com/repos/johndoe/ghee_test_repo/issues?state=closed
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.0.13
+      Date:
+      - Mon, 09 Apr 2012 16:01:06 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Status:
+      - 200 OK
+      X-Ratelimit-Limit:
+      - '5000'
+      Etag:
+      - ! '"6697f27405552b851cf0e15a66455f3d"'
+      X-Ratelimit-Remaining:
+      - '4951'
+      Content-Encoding:
+      - gzip
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA+2YTY+bMBCG/8rKUm8EjDEELFW99dpLTl2tIgcc4pavYtOq
+        ivLfOyZNlqxIsloCJ25G9ry2Z55MxvO8R02VcC2SNdeIIYJdssB0gaMVdhl1
+        GVl+RxaKyzwXhVaIEQtxpWRaCIFY0WSZhZQGe7CNs1KJxKxuB9cEfSOYy0wo
+        XRZnkabOQGKndaWY4/BK2qnUu2Zjw9ZOLapSOT/KIuepjJ10J8Rag/3aTDhS
+        qUYoJwTZRokasT3KylQWoHcygSn+m2tery/3USJuamGn9XG23ew4dJY4oDyh
+        XkhowDEJcRSH/iZOIhJv/K23/ZJ8Pp+W0NAWNv/Jcy7tQmgHXCS06lzhE/kq
+        4fBCweC0W3e8cCm2qyI1d7jlCXPBV0/A6pPYWiZw33uHBgOzLiDewUJa6szE
+        bQWefGqdaGJXi1s0tMHL+EZkwMLzi4WKJt8Yn4cW2pTJX5Djf4Qqc/GUCBXX
+        stKyLMCmAlQgXL8gUsDZHlVcx7tjNI4UJXK77X7vdJ69fsNxzcEphmgQzwJQ
+        TrNnZjq83CXlYF3jPlhhn3mEYfdB3B8FXeaHI3G/nLkfjfvL4PVxv5yIe4xJ
+        FA3kfon6uHcXkPJJuCLAKIVf2GDuLwW9sbgPZu5H4P5N8Np//z7ug0m4J8HS
+        dwnsNSjfB/e49+gj6pyO64wgGSnf+zP343JvgtdmwT7u/am4p1FABnLv3+Me
+        E0aG1zkd7kHQjUbins7cj8u9CV77Z93HPZ2M+yCCvQble/oO7h9Q33e5h9pp
+        LO69mfuRuT89zvq4h7fmBO9aqHNoEA1913q93Hf6OX7EvDf9HDyon3MWHKGf
+        Q2buP8b9t0oUT6Y9drWpc5m5vDZz9cEPBch/+GHBYzo4R9LdgRme9JLevRZm
+        Hn3kSxaDYFsqjUC6O5P+MdJvdi4vaSBXIQcWp8rwIWTbQZWNiw4v/wDY8gB3
+        sxcAAA==
+    http_version: !!null 
+  recorded_at: Mon, 09 Apr 2012 16:01:06 GMT
+recorded_with: VCR 2.0.1

@@ -1,0 +1,61 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://johndoe:omgbbq@api.github.com/orgs/acme/repos
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.0.13
+      Date:
+      - Mon, 09 Apr 2012 16:01:18 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Status:
+      - 200 OK
+      X-Ratelimit-Limit:
+      - '5000'
+      Etag:
+      - ! '"3ac4a93d5af0a82e7f2ba6119512cc0b"'
+      X-Ratelimit-Remaining:
+      - '4923'
+      Content-Encoding:
+      - gzip
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA+2VwY7aMBCG38VSbxASJwRiqWqlSj30UqndU6sKDcmQuJvE
+        lu2Atqu+eyeELGwEC6y6e1qJQ5A9nvE//+f5ec9WytxaJvwRS0tV46IxJROs
+        cE5bMZnk0hXN0ktVNckA1qWsJzpbjdcSN2g8WmUUZxAcZgtwFMj9gI99+iU3
+        wUyEXESzH7SnhDpvIEfa8XX5G1Mn1zj+RAtqU6Nh4p49zgtatqf3uRuLxvYV
+        UBSswYEZ1GoxbQx6uelWt0V3nxM/9vkSMOFJPIs4JhkGmCY+zpNwxWE1/ZC9
+        728MPJp76MEtVCC9Gt0ErEVnD8p5xz/Lii5j6aPPdvg9Via3nq5zqrRfX8iM
+        7n6uDgpo9wURD+PZnGRTuawpbqc9+ztiBdjFRt5KJpxpcPS0bga1etDtoHOU
+        x9pipx/p/HGvtTjZZ6WxXkhrG+z8Uklj1K4JdVOWI7YBlxbUKbrBiGVoUyO1
+        k6q9QSuFdPuMF3pLN7Z4bK1wHEQ3vi+mUxFOW2tZ+YdslUQkV+tlJlZQWhKm
+        cFV5jZvpqEZnQycfpou36db1lafWULW+33NDp7RdzMj7pYKM5OpaqY0kX9Pe
+        7m/rhDBMkpDzLqDXvlsuVIW6Q4p88QyQN7i8gOBQTIMBwd+a5R3d4Q3dwyeE
+        BHlBdKlXrffOMbtv6SvAuk92lNLwJohFNBX+dgB0lAac5swzKO2ufxzPhzzz
+        i/Hsjttx2f25Dkh6a9qA/wykLpRTjh5Q0HfjFMq0KcGpJ8ZsuB2zUaty5A8g
+        /UKj7/v2AX5DdTDtXxbVE128BN8TobtX+hWQfrqAY5jvDEikhweY+zMaWc/g
+        /ER+0u4o+8PkF43m45BRin5On9xw8RsRz4Iojs++Eb/+AawKexd/CwAA
+    http_version: !!null 
+  recorded_at: Mon, 09 Apr 2012 16:01:18 GMT
+recorded_with: VCR 2.0.1

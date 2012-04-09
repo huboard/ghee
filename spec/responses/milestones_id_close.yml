@@ -1,0 +1,46 @@
+---
+http_interactions:
+- request:
+    method: patch
+    uri: https://johndoe:omgbbq@api.github.com/repos/johndoe/ghee_test_repo/milestones/4
+    body:
+      encoding: UTF-8
+      string: ! '{"state":"closed"}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.0.13
+      Date:
+      - Mon, 09 Apr 2012 16:01:17 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Connection:
+      - keep-alive
+      Status:
+      - 200 OK
+      X-Ratelimit-Limit:
+      - '5000'
+      Etag:
+      - ! '"e7fbf38c6177a0fb149fc5ef0bf21eda"'
+      X-Ratelimit-Remaining:
+      - '4926'
+      Content-Length:
+      - '555'
+    body:
+      encoding: US-ASCII
+      string: ! '{"open_issues":0,"closed_issues":0,"creator":{"login":"johndoe","url":"https://api.github.com/users/johndoe","gravatar_id":"7064ad438246a02809c85bcd92cb5f3f","id":623,"avatar_url":"https://secure.gravatar.com/avatar/7064ad438246a02809c85bcd92cb5f3f?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png"},"state":"closed","url":"https://api.github.com/repos/johndoe/ghee_test_repo/milestones/4","title":"Test
+        milestone 39","due_on":null,"created_at":"2012-04-09T16:01:16Z","number":4,"description":"awesome
+        description"}'
+    http_version: !!null 
+  recorded_at: Mon, 09 Apr 2012 16:01:17 GMT
+recorded_with: VCR 2.0.1

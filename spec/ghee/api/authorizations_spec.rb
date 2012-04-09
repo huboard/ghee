@@ -4,8 +4,8 @@ describe Ghee::API::Authorizations do
   subject { Ghee.new(GH_AUTH) }
 
   describe "#authorizations#list" do
-      it "should return a list of auths" do 
-        VCR.use_cassette "authorizations" do 
+      it "should return a list of auths" do
+        VCR.use_cassette "authorizations", :match_requests_on => MATCHES do
           auth = subject.authorizations
           auth.size().should > 0
         end
@@ -13,8 +13,8 @@ describe Ghee::API::Authorizations do
   end
   describe "#authorizations", :if => false do
 
-    context "with a test authorization" do 
-      before :all do 
+    context "with a test authorization" do
+      before :all do
         VCR.use_cassette "authorizations.create.test" do
           @test_auth = subject.authorizations.create :scopes => ["public_repo"]
           @test_auth.should_not be_nil
@@ -23,23 +23,23 @@ describe Ghee::API::Authorizations do
 
       let(:test_auth) {@test_auth}
 
-      it "should return an auth" do 
-        VCR.use_cassette "authorizations(id)" do 
+      it "should return an auth" do
+        VCR.use_cassette "authorizations(id)" do
           auth = subject.authorizations(test_auth["id"])
           auth["scopes"].should include("public_repo")
         end
       end
 
 
-      it "should patch an auth" do 
-        VCR.use_cassette "authorization(id).patch" do 
+      it "should patch an auth" do
+        VCR.use_cassette "authorization(id).patch" do
           auth = subject.authorizations(test_auth["id"]).patch :add_scopes => ["repo"]
           auth["scopes"].should include("repo")
         end
       end
 
-      after :all do 
-        VCR.use_cassette "authorizations(id).destroy" do 
+      after :all do
+        VCR.use_cassette "authorizations(id).destroy" do
           subject.authorizations(test_auth["id"]).destroy.should be_true
         end
       end

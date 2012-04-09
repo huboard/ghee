@@ -6,7 +6,7 @@ describe Ghee::API::Orgs do
   describe "#orgs" do
 
     it "should return list of authenticated users organizations" do
-      VCR.use_cassette "orgs" do
+      VCR.use_cassette "orgs", :match_requests_on => MATCHES do
         orgs = subject.orgs
         orgs.size.should > 0
         orgs.first["url"].should include("https://api.github.com/orgs")
@@ -14,9 +14,9 @@ describe Ghee::API::Orgs do
     end
 
     it "should return specific organization" do
-      VCR.use_cassette "orgs(name)" do
+      VCR.use_cassette "orgs(name)", :match_requests_on => MATCHES do
         org = subject.orgs(GH_ORG)
-        org["url"].should include("https://api.github.com/orgs/#{GH_ORG}")
+        org["url"].should include("https://api.github.com/orgs/#{CACHED['org']}")
         org["type"].should == "Organization"
       end
     end
@@ -31,7 +31,7 @@ describe Ghee::API::Orgs do
 
     describe "#repos" do
       it "should return a list of repos" do
-        VCR.use_cassette "orgs(login).repos" do
+        VCR.use_cassette "orgs(login).repos", :match_requests_on => MATCHES do
           repos = subject.orgs(GH_ORG).repos
           repos.size.should > 0
           repo = repos.first
@@ -42,7 +42,7 @@ describe Ghee::API::Orgs do
       end
 
       it "should return a repo" do
-        VCR.use_cassette "orgs(login).repos(name)" do
+        VCR.use_cassette "orgs(login).repos(name)", :match_requests_on => [:method, :host] do
           repos = subject.orgs(GH_ORG).repos
 
           repo = subject.orgs(GH_ORG).repos(repos.first['name'])

@@ -1,0 +1,88 @@
+---
+http_interactions:
+- request:
+    method: put
+    uri: https://johndoe:omgbbq@api.github.com/teams/168247/members/johndoe
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Content-Length:
+      - '0'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 204
+      message: No Content
+    headers:
+      Server:
+      - nginx/1.0.13
+      Date:
+      - Mon, 09 Apr 2012 16:01:26 GMT
+      Connection:
+      - keep-alive
+      Status:
+      - 204 No Content
+      X-Ratelimit-Limit:
+      - '5000'
+      Etag:
+      - ! '"d41d8cd98f00b204e9800998ecf8427e"'
+      X-Ratelimit-Remaining:
+      - '4897'
+    body:
+      encoding: US-ASCII
+      string: ''
+    http_version: !!null
+  recorded_at: Mon, 09 Apr 2012 16:01:26 GMT
+- request:
+    method: get
+    uri: https://johndoe:omgbbq@api.github.com/teams/168247/members
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.0.13
+      Date:
+      - Mon, 09 Apr 2012 16:01:26 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Status:
+      - 200 OK
+      X-Ratelimit-Limit:
+      - '5000'
+      Etag:
+      - ! '"0ad4e687c49c1a1bbf2b45ccd35edca1"'
+      X-Ratelimit-Remaining:
+      - '4896'
+      Content-Encoding:
+      - gzip
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA4WPywrCMBBF/yXgTpOYpjUtiDt/QqRM0zSN9kUebsR/N6UU
+        6srdZWY4c+7tjbpRmwEV6DEOPWgj0R7BCzzYMtguzlvvJ1cQ4pQMVmFtly2W
+        Y0+WSE4041DzRDCeAWWC5lKklaxzJqu0SZpLfV4pwLjACsMTejB4UJ6Ac8o7
+        rI1vQzVTd+xqoolyMazftvlw5BRPg46iv4YwmQ2GBKesI5taK6w0dez1Tzri
+        57uMJZ/7F+NyP8EnAQAA
+    http_version: !!null
+  recorded_at: Mon, 09 Apr 2012 16:01:26 GMT
+recorded_with: VCR 2.0.1
