@@ -6,8 +6,8 @@ RSpec::Core::RakeTask.new do |t|
   #t.rspec_opts = %w(-fs --color)
 end
 
-task :default => :spec
-task :test => :spec
+task :default => [:spec, :scrub]
+task :test => :default
 
 desc "Open an irb session with library"
 task :console do
