@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Ghee::API::Milestones do
+describe Ghee::API::Repos::Milestones do
   subject { Ghee.new(GH_AUTH) }
 
   def should_be_an_milestone(milestone)

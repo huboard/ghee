@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Ghee::API::Issues do
+describe Ghee::API::Repos::Issues do
   subject { Ghee.new(GH_AUTH) }
 
   def should_be_an_issue(issue)

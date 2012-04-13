@@ -13,6 +13,8 @@ require 'ghee/api/milestones'
 require 'ghee/api/orgs'
 require 'ghee/api/git_data'
 require 'ghee/api/downloads'
+require 'ghee/api/labels'
+require 'ghee/api/hooks'
 
 class Ghee
   attr_reader :connection
@@ -22,8 +24,6 @@ class Ghee
   include Ghee::API::Users
   include Ghee::API::Events
   include Ghee::API::Repos
-  include Ghee::API::Issues
-  include Ghee::API::Milestones
   include Ghee::API::Orgs
 
   # Instantiates Ghee, accepts an access_token
