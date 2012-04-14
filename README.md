@@ -450,6 +450,36 @@ Update authenticated user ([see docs for all possible params](http://developer.g
       # …etc
     })
 
+### Keys
+
+List the keys for a user:
+
+    gh.user.keys
+  
+Get a single key for a user:
+
+    gh.user.keys(123)
+
+Create a key for a user: 
+  
+    gh.user.keys.create({
+      :title => "customer deploy key",
+      :key => "ssh-rsa AAA ..."
+    })
+
+Update a key for a user: 
+  
+    gh.user.keys.patch({
+      :title => "customer deploy key",
+      :key => "ssh-rsa AAA ..."
+    })
+
+Destroy a key for a user: 
+
+    gh.user.keys(123).destroy # => true
+
+### Repos
+
 Get a list of repos for the current user:
 
     gh.user.repos
@@ -477,6 +507,32 @@ Get a list of orgs for a specific user:
     gh.users("rauhryan").orgs
 
 > Notes: see above for all the available api methods for orgs
+
+### Followers
+
+Get the followers for a user:
+
+    gh.user.followers
+
+    gh.users("rauhryan").followers
+
+Get users following another user:
+
+    gh.users("rauhryan").following
+
+    gh.user.following
+
+Check if you are following a user:
+
+    gh.user.following? "rauhryan"
+
+Follow a user:
+
+    gh.user.follow "rauhryan"
+
+Unfollow a user:
+
+    gh.user.follow! "rauhryan"
 
 ## Events
 
