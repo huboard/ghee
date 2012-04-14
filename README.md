@@ -157,6 +157,19 @@ Remove a collaborator:
 
     gh.repos("rauhryan", "ghee").collaborators.remove("herp") # => true
 
+### Forks
+
+List the hooks for a repo:
+
+    gh.repos("rauhryan", "ghee").forks
+
+    gh.repos("rauhryan", "ghee").forks(:sort => "newest") # => `newest`, `oldest`, `watchers`
+
+Create a fork:
+
+    gh.repos("rauhryan", "ghee").forks.create # => forks the repo to the authenticated user
+
+
 ### Hooks
 
 Get the hooks for a repo:
