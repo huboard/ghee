@@ -353,6 +353,8 @@ Destroy a comment for an issue
 
 ## Orgs
 
+### Usage
+
 Get a list of orgs for the current user:
 
     gh.orgs
@@ -365,11 +367,15 @@ Patch an organization:([see docs for all possible params](http://developer.githu
 
     gh.orgs("huboard").patch({ :company => "awesome company" })
 
+### Repos
+
 Get a list of repos for an org:
 
     gh.orgs("huboard").repos
 
 > Notes: see above for all the available api methods for repos
+
+### Teams
 
 Get a list of teams for an org:
 
@@ -391,6 +397,8 @@ Delete a team for an org:
 
     gh.orgs("huboard").teams(110234).delete
 
+### Members
+
 Get a list of members for a team:
 
     gh.orgs("huboard").teams(110234).members
@@ -404,6 +412,8 @@ Remove a member from a team:
     gh.orgs("huboard").teams(110234).members.remove("rauhryan")
 
 ## Teams
+
+### Usage
 
 Get a single team:
 
@@ -421,6 +431,8 @@ Delete a team:
 
     gh.team(110234).delete
 
+### Members
+
 Get a list of members for a team:
 
     gh.team(110234).members
@@ -434,6 +446,8 @@ Remove a member from a team:
     gh.team(110234).members.remove("rauhryan")
 
 ## Users
+
+### Usage
 
 Get a single user:
 
@@ -646,11 +660,15 @@ Create a tree:
 
 ## Events
 
+### Usage
+
 List public events:
 
     gh.events
 
 ## Pagination
+
+### Usage
 
 Ghee fully supports pagination for anything that returns a list, for
 example repo issues.
@@ -667,6 +685,8 @@ Ghee also provides a convienence method for all the pages
     gh.repos("rauhryan","huboard").issues.all #=> return all the pages
 
 ## Filtering parameters
+
+### Usage
 
 Many of the api calls allow you to pass in additional paramters to
 filter and sort your data, for example issues provide
