@@ -169,6 +169,34 @@ Create a fork:
 
     gh.repos("rauhryan", "ghee").forks.create # => forks the repo to the authenticated user
 
+### Keys
+
+List the keys for a repo:
+
+    gh.repos("rauhryan", "ghee").keys
+  
+Get a single key for a repo:
+
+    gh.repos("rauhryan", "ghee").keys(123)
+
+Create a key for a repo: 
+  
+    gh.repos("rauhryan", "ghee").keys.create({
+      :title => "customer deploy key",
+      :key => "ssh-rsa AAA ..."
+    })
+
+Update a key for a repo: 
+  
+    gh.repos("rauhryan", "ghee").keys.patch({
+      :title => "customer deploy key",
+      :key => "ssh-rsa AAA ..."
+    })
+
+Destroy a key for a repo: 
+
+    gh.repos("rauhryan", "ghee").keys(123).destroy # => true
+
 
 ### Hooks
 
