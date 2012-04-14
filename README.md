@@ -136,7 +136,27 @@ Destroy a commit comment:
 Compare two commits:
 
     gh.repos("rauhryan", "ghee").compare("basesha","headsha")
+
+### Collaborators
+
+List a repos collaborators:
+
+    gh.repos("rauhryan", "ghee").collaborators
     
+Get a single collaborator:
+
+    gh.repos("rauhryan", "ghee").collaborators("herp") # => false
+
+    gh.repos("rauhryan", "ghee").collaborators("jonmagic") # => true
+
+Add a collaborator:
+
+    gh.repos("rauhryan", "ghee").collaborators.add("herp") # => true
+    
+Remove a collaborator:
+
+    gh.repos("rauhryan", "ghee").collaborators.remove("herp") # => true
+
 ### Hooks
 
 Get the hooks for a repo:
