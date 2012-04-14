@@ -85,6 +85,58 @@ Get a single repo:
 
     gh.repos("rauhryan", "ghee")
 
+### Commits
+
+List commits on a repo:
+
+    gh.repos("rauhryan", "ghee").commits
+
+    gh.repos("rauhryan", "ghee").commits({
+      :sha => "awesome_branch" # optional
+    })
+
+    gh.repos("rauhryan", "ghee").commits( {
+      :path => "/path/to/file" # only commits containing this path
+    })
+
+Get a single commit:
+
+    gh.repos("rauhryan", "ghee").commits("sha")
+
+List commit comments for a repo:
+
+    gh.repos("rauhryan", "ghee").comments
+
+List comments for a single commit:
+
+    gh.repos("rauhryan", "ghee").commits("sha").comments
+
+Create a commit comment:
+
+    gh.repos("rauhryan", "ghee").commits("sha").comments.create({
+      :body => "sweet codez yo!", #required
+      :commit_id => "sha", #required
+      :line => 123, #required
+      :path => "/path/to/file", #required
+      :position => 4 #required
+    })
+
+Get a single commit comment:
+
+    gh.repos("rauhryan", "ghee").comments(123)
+
+Update a commit comment:
+
+    gh.repos("rauhryan", "ghee").comments(123).patch(:body => "new text")
+
+Destroy a commit comment: 
+
+    gh.repos("rauhryan", "ghee").comments(123).destroy
+
+Compare two commits:
+
+    gh.repos("rauhryan", "ghee").compare("basesha","headsha")
+    
 ### Hooks
 
 Get the hooks for a repo:

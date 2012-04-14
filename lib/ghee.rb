@@ -17,6 +17,7 @@ require 'ghee/api/labels'
 require 'ghee/api/hooks'
 require 'ghee/api/collaborators'
 require 'ghee/api/forks'
+require 'ghee/api/commits'
 
 class Ghee
   attr_reader :connection

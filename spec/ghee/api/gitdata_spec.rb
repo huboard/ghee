@@ -40,6 +40,18 @@ describe Ghee::API::Repos::Git do
         should_be_a_commit commits.first
       end
     end
+    it "should return a single commit" do
+      VCR.use_cassette "#repos()#commit(sha)" do 
+        sha = subject.commits.first["sha"]
+        commit = subject.commits(sha)
+        should_be_a_commit commit
+      end
+    end
+    it "should respond to comments" do 
+        # check that the method is there
+        # Todo: create a comment in the before context
+        subject.respond_to?("comments").should be_true
+    end
   end
 
   describe "#repos(login,name)#git" do 

@@ -10,14 +10,6 @@ class Ghee
     #
     module Repos
 
-      # The Commits module handles repo commit endpoints
-      #
-      module Commits
-        class Proxy < ::Ghee::ResourceProxy
-          include Ghee::CUD
-        end
-      end
-
       # The Git module handles all of the raw git data endpoints
       #
       module Git
@@ -103,11 +95,6 @@ class Ghee
         end
       end
       class Proxy < :: Ghee::ResourceProxy
-        def commits(sha=nil, params={})
-          params = sha if sha.is_a?Hash
-          prefix = (!sha.is_a?(Hash) and sha) ? "#{path_prefix}/commits/#{sha}" : "#{path_prefix}/commits"
-          Ghee::API::Repos::Commits::Proxy.new(connection, prefix, params)
-        end
 
         def git
           Ghee::API::Repos::Git::Proxy.new(connection, "#{path_prefix}/git")
