@@ -81,9 +81,9 @@ class Ghee
 
           # Get tree by a given sha
           #
-          def trees(sha=nil)
+          def trees(sha=nil,params={})
             prefix = sha ? "#{path_prefix}/trees/#{sha}" : "#{path_prefix}/trees"
-            Ghee::API::Repos::Git::Trees::Proxy.new(connection, prefix)
+            Ghee::API::Repos::Git::Trees::Proxy.new(connection, prefix, params)
           end
 
           # Get a tag by a given sha

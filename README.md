@@ -20,6 +20,8 @@ Create an OAuth access token:
 
 ## Gists
 
+### Usage
+
 List a user's gists:
 
     gh.user('jonmagic').gists
@@ -533,6 +535,114 @@ Follow a user:
 Unfollow a user:
 
     gh.user.follow! "rauhryan"
+
+## Git Data
+
+### Blobs
+
+Get a blob:
+
+    gh.repos("rauhryan","huboard").git.blobs("sha")
+
+Create a blob:
+
+    gh.repos("rauhryan","huboard").git.blobs.create({
+      :content => "Contents of blob",
+      :encoding => "utf-8"
+    })
+
+
+### Commit
+
+Get a commit:
+
+    gh.repos("rauhryan","huboard").git.commits("sha")
+
+Create a commit:
+
+    gh.repos("rauhryan","huboard").git.commits.create({
+      :message => "message of commit",
+      :tree => "sha",
+      :parents => ["sha","sha"]
+    })
+
+### References
+
+Get a reference:
+
+    gh.repos("rauhryan","huboard").git.refs("heads/master")
+
+Get all references:
+
+    gh.repos("rauhryan","huboard").git.refs
+
+    gh.repos("rauhryan","huboard").git.refs("tags")
+
+    gh.repos("rauhryan","huboard").git.refs("heads")
+
+Create a reference:
+
+    gh.repos("rauhryan","huboard").git.refs.create({
+        :ref => "refs/heads/master",
+        :sha => "287efc2351325e215j235f25215el1"
+      })
+
+Update a reference:
+
+    gh.repos("rauhryan","huboard").git.refs("heads/master").patch({
+        :sha => "287efc2351325e215j235f25215el1",
+        :force => true
+      })
+
+Delete a reference:
+
+    gh.repos("rauhryan","huboard").git.refs("tags/v1.0").destroy
+    
+### Tags
+
+Get a tag:
+
+    gh.repos("rauhryan","huboard").git.tags("sha")
+
+Create a tag:
+
+    gh.repos("rauhryan","huboard").git.tags.create({
+        :tag => "v1.0",
+        :message => "tag message",
+        :object => "sha", #sha of the object you are tagging, usually a commit
+        :type => "commit", #the type of object you are tagging
+        :tagger => {
+           :name => "Ryan Rauh",
+           :email => "rauh.ryan@gmail.com",
+           :date => "2011-06-17T14:53:35-07:00"
+        }
+      })
+
+### Trees
+
+Get a tree:
+
+    gh.repos("rauhryan","huboard").git.trees("sha")
+
+Get a tree recursively:
+
+    gh.repos("rauhryan","huboard").git.trees("sha",{:recursive => 1})
+
+Create a tree:
+
+    gh.repos("rauhryan","huboard").git.trees.create({
+        :base_tree => "sha", #optional
+        :tree => [
+          {
+            :path => "/path/to/thing",
+            :mode => 100644,
+            :type => "blob",
+            :sha => "sha"
+            # :content => "" # can use this instead of sha
+          }
+        ]
+    })
+    
 
 ## Events
 
