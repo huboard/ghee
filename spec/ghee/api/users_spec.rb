@@ -98,5 +98,19 @@ describe Ghee::API::Users do
         user['login'].should == 'jonmagic'
       end
     end
+    describe "#emails" do
+      it "should add and remove emails" do 
+        VCR.use_cassette("user#emails") do
+          user = subject.user
+          emails = user.emails.add (["support@microsoft.com","octocat@microsoft.com"])
+          emails.should include("support@microsoft.com")
+          emails.should include("octocat@microsoft.com")
+          user.emails.remove(["support@microsoft.com","octocat@microsoft.com"]).should be_true
+          emails = user.emails
+          emails.should_not include("support@microsoft.com")
+          emails.should_not include("octocat@microsoft.com")
+        end
+      end
+    end
   end
 end
