@@ -244,6 +244,30 @@ Destroy a download for a repo:
 
     gh.repos("rauhryan", "ghee").downloads(12).destroy
 
+### Watchers
+
+List watchers for a repo:
+
+    gh.repos("rauhryan", "ghee").watchers
+
+List repos being watched:
+
+    gh.user.watched
+    
+    gh.users("jonmagic").watched
+
+Check if you are watching a repo:
+
+    gh.user.watching? "rauhryan", "huboard"
+
+Watch a repo:
+
+    gh.user.watch "rauhryan", "huboard"
+
+Unwatch a repo: 
+
+    gh.user.watch! "rauhryan", "huboard"
+
 ### Milestones
 
 Get the milestones for a repo:
