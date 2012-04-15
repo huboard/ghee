@@ -14,7 +14,9 @@ class Ghee
           end
 
           def remove(emails)
-            connection.run_request(:delete,path_prefix, emails,nil).status == 204
+            connection.delete(path_prefix) do |req|
+              req.body = emails
+            end.status == 204
           end
         end
       end
