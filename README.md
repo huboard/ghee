@@ -87,6 +87,46 @@ Get a single repo:
 
     gh.repos("rauhryan", "ghee")
 
+### Pulls
+
+List pull requests on a repo (see [List pull requests](http://developer.github.com/v3/pulls/#list-pull-requests) )
+
+
+    gh.repos("rauhryan", "ghee").pulls
+
+    gh.repos("rauhryan", "ghee").pulls({
+      :state => "closed" # optional
+    })
+    
+Get a single pull request on a repo (see [Get a single pull request](http://developer.github.com/v3/pulls/#get-a-single-pull-request) )
+
+    gh.repos("rauhryan", "ghee").pulls(1097)
+    
+Create a pull request (see [Create a pull request](http://developer.github.com/v3/pulls/#create-a-pull-request) )
+
+    gh.repos("rauhryan", "ghee").pulls.create({:title=>"take my awesome code!", :body=>"This code is so awesome. Let me tell you why...", :base=>"master", :head=>"octocat:awesomebranch")
+    
+Update a pull request (see [Update a pull request](http://developer.github.com/v3/pulls/#update-a-pull-request) )
+
+    gh.repos("rauhryan", "ghee").pulls(1097).patch({:title=>"New title", :body=>"New body", :state=>"closed"})
+    
+List commits on a pull request (see [List commits a pull request](http://developer.github.com/v3/pulls/#list-commits-on-a-pull-request) )
+
+    gh.repos("rauhryan", "ghee").pulls(1097).commits
+    
+List files on a pull request (see [List files a pull request](http://developer.github.com/v3/pulls/#list-pull-requests-files) )
+
+    gh.repos("rauhryan", "ghee").pulls(1097).files
+
+Get if a pull request has been merged (see [Get if a pull request has been merged](http://developer.github.com/v3/pulls/#get-if-a-pull-request-has-been-merged) )
+
+    gh.repos("rauhryan", "ghee").pulls(1097).merged? #=> true
+
+Merge a pull request (see [Merge a pull request](http://developer.github.com/v3/pulls/#merge-a-pull-request-merge-buttontrade) )
+
+    gh.repos("rauhryan", "ghee").pulls(1097).merge!  
+    gh.repos("rauhryan", "ghee").pulls(1097).merge!("It's like hitting the Merge Button(TM)")
+
 ### Commits
 
 List commits on a repo:
