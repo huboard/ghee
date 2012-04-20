@@ -23,7 +23,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'multi_json'
   s.add_runtime_dependency 'yajl-ruby'
   s.add_development_dependency 'rake'
-  s.add_development_dependency 'json'
+  s.add_development_dependency 'json_pure'
   s.add_development_dependency 'rspec', '~>2.0'
   s.add_development_dependency 'webmock'
   s.add_development_dependency 'vcr'
