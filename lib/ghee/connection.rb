@@ -20,7 +20,7 @@ class Ghee
       basic_auth = hash[:basic_auth] if hash.has_key?:basic_auth
 
       super('https://api.github.com') do |builder|
-        builder.use     Faraday::Request::JSON
+        builder.use     FaradayMiddleware::EncodeJson
         builder.use     FaradayMiddleware::ParseJson
         builder.adapter Faraday.default_adapter
       end
