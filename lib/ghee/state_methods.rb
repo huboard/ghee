@@ -6,7 +6,7 @@ class Ghee
     # return json
     #
     def create(attributes)
-      connection.post(URI.escape(path_prefix),attributes).body
+      connection.post(path_prefix,attributes).body
     end
 
     # Patchs 
@@ -14,7 +14,7 @@ class Ghee
     # return json
     #
     def patch(attributes)
-      connection.patch(URI.escape(path_prefix), attributes).body
+      connection.patch(path_prefix, attributes).body
     end
 
     # Destroys 
@@ -22,7 +22,7 @@ class Ghee
     # return boolean
     #
     def destroy
-      connection.delete(URI.escape(path_prefix)).status == 204
+      connection.delete(path_prefix).status == 204
     end
   end
 

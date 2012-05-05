@@ -23,7 +23,7 @@ class Ghee
     # path_prefix - String
     #
     def initialize(connection, path_prefix, params = {})
-      @connection, @path_prefix, @params = connection, path_prefix, params
+      @connection, @path_prefix, @params = connection, URI.escape(path_prefix), params
     end
 
     # Method_missing takes any message passed
