@@ -22,6 +22,7 @@ class Ghee
       super('https://api.github.com') do |builder|
         builder.use     FaradayMiddleware::EncodeJson
         builder.use     FaradayMiddleware::ParseJson
+      #  builder.use     Ghee::Middleware::UriEscape
         builder.adapter Faraday.default_adapter
       end
 
