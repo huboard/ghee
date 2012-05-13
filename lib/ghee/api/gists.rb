@@ -10,11 +10,20 @@ class Ghee
     #
     module Gists
 
+      module Comments
+        class Proxy < ::Ghee::ResourceProxy
+        end
+      end
+
       # Gists::Proxy inherits from Ghee::Proxy and
       # enables defining methods on the proxy object
       #
       class Proxy < ::Ghee::ResourceProxy
-        include Ghee::CUD
+
+        def comments(id = nil)
+          prefix = id ? "#{path_prefix}/comments/#{id}" : "#{path_prefix}/comments"
+          return Ghee::API::Gists::Comments::Proxy.new connection, prefix
+        end
 
 
         # Star a gist
