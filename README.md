@@ -81,7 +81,35 @@ Delete a gist:
 
     gh.gists("1393990").destroy
 
-## Repos
+### Comments
+
+List comments for a gist:
+
+    gh.gists("1382919").comments
+
+Get a single gist comment:
+
+    gh.gists.comments("1231414")
+
+Create a single gist comment: 
+
+    gh.gists.comments("1231414").create({
+       :body => "new body"
+    })
+
+Patch a single gist comment: 
+
+    gh.gists.comments("1231414").patch({
+       :body => "new body"
+    })
+
+Delete a comment for a gist: 
+
+    gh.gists.comments("1231441").destroy
+
+
+
+## Repos                                
 
 Get a single repo:
 
