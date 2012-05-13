@@ -12,7 +12,6 @@ class Ghee
 
       module Labels
         class Proxy < ::Ghee::ResourceProxy
-          include Ghee::CUD
         end
       end
 
