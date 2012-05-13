@@ -17,6 +17,9 @@ class Ghee
         #
         module Labels
           class Proxy < ::Ghee::ResourceProxy
+            undef_method "patch"
+            undef_method "destroy"
+            undef_method "create"
 
             # Creates label for an issue using the authenicated user
             #
@@ -51,13 +54,14 @@ class Ghee
         #
         module Comments
           class Proxy < ::Ghee::ResourceProxy
-            include Ghee::CUD
           end
         end
 
         module Events
           class Proxy < ::Ghee::ResourceProxy
-
+            undef_method "patch"
+            undef_method "destroy"
+            undef_method "create"
           end
         end
 
@@ -65,7 +69,6 @@ class Ghee
         # enables defining methods on the proxy object
         #
         class Proxy < ::Ghee::ResourceProxy
-          include Ghee::CUD
 
           # Close issue - closed issue by id
           #
