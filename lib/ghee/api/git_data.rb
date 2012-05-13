@@ -18,7 +18,8 @@ class Ghee
         #
         module Blobs
           class Proxy < ::Ghee::ResourceProxy
-            include Ghee::CUD
+            undef_method "patch"
+            undef_method "destroy"
           end
         end
 
@@ -26,7 +27,8 @@ class Ghee
         #
         module Tags
           class Proxy < ::Ghee::ResourceProxy
-            include Ghee::CUD
+            undef_method "patch"
+            undef_method "destroy"
           end
         end
 
@@ -34,7 +36,8 @@ class Ghee
         #
         module Commits
           class Proxy < ::Ghee::ResourceProxy
-            include Ghee::CUD
+            undef_method "patch"
+            undef_method "destroy"
           end
         end
 
@@ -42,7 +45,8 @@ class Ghee
         #
         module Trees
           class Proxy < ::Ghee::ResourceProxy
-            include Ghee::CUD
+            undef_method "patch"
+            undef_method "destroy"
           end
         end
 
@@ -50,7 +54,6 @@ class Ghee
         #
         module Refs
           class Proxy < ::Ghee::ResourceProxy
-            include Ghee::CUD
           end
         end
 
