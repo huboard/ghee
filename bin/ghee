@@ -1,0 +1,71 @@
+#!/usr/bin/env ruby
+require "ghee"
+require "optparse"
+
+options = {}
+
+opt_parser = OptionParser.new do |opt|
+  opt.banner = "Usage: ghee COMMAND [OPTIONS}"
+  opt.separator ""
+  opt.separator "Commands"
+  opt.separator "   install: install <username> <password>"
+  opt.separator ""
+  opt.separator "Options"
+
+  opt.on("-h", "--help", "help") do 
+    puts opt_parser
+  end
+end
+
+opt_parser.parse!
+class CMD
+  def self.get_password
+   begin
+    print "Enter your GitHub password (never stored): "
+    current_tty = `stty -g`
+    system 'stty raw -echo -icanon isig' if $?.success?
+    input = ''
+    while char = $stdin.getbyte and not (char == 13 or char == 10)
+      if char == 127 or char == 8
+        input[-1, 1] = '' unless input.empty?
+      else
+        input << char.chr
+      end
+    end
+    input
+  rescue Interrupt
+    print '^C'
+  ensure
+    system "stty #{current_tty}" unless current_tty.empty?
+  end
+  end
+
+end
+
+
+case ARGV[0]
+when "install"
+  user = ARGV[1]
+
+  ghee = Ghee.basic_auth user, CMD.get_password 
+
+  auth = ghee.authorizations.create(
+    :scopes => %w(repo,user,gist),
+    :note => "ghee api key",
+    :note_url => "https://github.com/rauhryan/ghee"
+  )
+  token = auth["token"]
+  run = []
+  run << "git config --global github.user #{user}"
+  run << "git config --global github.token #{token}"
+  system run.join("; ")
+  puts <<EOF
+  Your ~/.gitconfig has been modified. Be sure not to commit this to a public repository!
+
+  Alternatively you can have a private .dotfile that can set an ENV variable 
+
+EOF
+  puts "  export GH_TOKEN=#{token}"
+else
+  puts opt_parser
+end
