@@ -15,7 +15,7 @@ Instantiate the client with auth token:
 
 Create an OAuth access token:
 
-    user_name, password, scopes = "rauhryan", "secret", ["user","repos"]
+    user_name, password, scopes = "rauhryan", "secret", ["user","repo"]
     token = Ghee.create_token(user_name, password, scopes)
 
 ## Gists
