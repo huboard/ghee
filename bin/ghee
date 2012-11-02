@@ -50,7 +50,7 @@ when "install"
   ghee = Ghee.basic_auth user, CMD.get_password 
 
   auth = ghee.authorizations.create(
-    :scopes => %w(repo,user,gist),
+    :scopes => ["repo","user","gists"],
     :note => "ghee api key",
     :note_url => "https://github.com/rauhryan/ghee"
   )
