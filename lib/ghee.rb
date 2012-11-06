@@ -40,9 +40,9 @@ class Ghee
   #
   # Access_token - String of the access_token
   #
-  def initialize(options = nil)
+  def initialize(options = nil, &block)
     
-    return @connection = Ghee::Connection.new(options) unless options.nil?
+    return @connection = Ghee::Connection.new(options, &block) unless options.nil?
 
     begin
       token = ENV["GH_TOKEN"] || `git config github.token`
