@@ -53,16 +53,16 @@ class Ghee
     end
   end
 
-  def self.basic_auth(user_name, password)
-      Ghee.new :basic_auth  => {:user_name => user_name, :password => password}
+  def self.basic_auth(user_name, password, api_url = nil)
+      Ghee.new :basic_auth  => {:user_name => user_name, :password => password, :api_url => api_url}
   end
 
-  def self.access_token(token)
-    Ghee.new :access_token => token
+  def self.access_token(token, api_url = nil)
+    Ghee.new :access_token => token, :api_url => api_url
   end
 
-  def self.create_token(user_name, password, scopes)
-    auth = Ghee.basic_auth(user_name, password).authorizations.create({
+  def self.create_token(user_name, password, scopes, api_url = nil)
+    auth = Ghee.basic_auth(user_name, password, api_url).authorizations.create({
       :scopes => scopes})
     auth["token"]
   end

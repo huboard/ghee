@@ -19,7 +19,7 @@ class Ghee
       access_token = hash[:access_token] if hash.has_key?:access_token
       basic_auth = hash[:basic_auth] if hash.has_key?:basic_auth
 
-      super(hash[:api_uri] || 'https://api.github.com') do |builder|
+      super(hash[:api_url] || 'https://api.github.com') do |builder|
         yield builder if block_given?
         builder.use     FaradayMiddleware::EncodeJson
         builder.use     FaradayMiddleware::ParseJson
