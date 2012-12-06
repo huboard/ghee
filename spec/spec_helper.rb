@@ -4,6 +4,7 @@ Bundler.require :default, :test
 require 'webmock/rspec'
 require 'vcr'
 require 'ghee'
+require 'uuidtools'
 
 VCR.config do |c|
   c.cassette_library_dir = File.expand_path('../responses', __FILE__)
@@ -17,4 +18,9 @@ if File.exists? File.expand_path("../settings.yml", __FILE__)
 else
   GH_AUTH = {:access_token => ENV["TOKEN"]}
   GH_USER, GH_REPO, GH_ORG = ENV['GH_USER'], ENV['GH_REPO'], ENV['GH_ORG']
+end
+class Guid
+  def self.guid
+    UUIDTools::UUID.timestamp_create().to_s
+  end
 end

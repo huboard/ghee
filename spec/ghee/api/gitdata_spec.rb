@@ -60,7 +60,7 @@ describe Ghee::API::Repos::Git do
         before :all do 
           VCR.use_cassette "repos()#git#tags#create" do 
             @test_tag = subject.git.tags.create({
-              :tag => "test_tag_#{rand(100)}",
+              :tag => "#{Guid::guid}",
               :object => subject.commits.first["sha"],
               :type => "commit",
               :message => "creating a tag with the api",

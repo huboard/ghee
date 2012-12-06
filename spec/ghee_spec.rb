@@ -35,7 +35,6 @@ describe Ghee do
       it "should set up a connection" do
         gh = Ghee.new
         gh.connection.should be_instance_of(Ghee::Connection)
-        gh.connection.hash.should == {}
       end
     end
   end

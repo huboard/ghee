@@ -14,7 +14,6 @@ class Ghee
         class Proxy < ::Ghee::ResourceProxy
            def create(org=nil)
              params = org ? {:org => org} : {}
-             puts params
              connection.post(path_prefix, params).body
            end
         end

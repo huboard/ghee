@@ -64,7 +64,7 @@ describe Ghee::API::Repos do
 
         it "should patch a label" do
           VCR.use_cassette("repo(#{GH_USER},#{GH_REPO}).labels.patched") do
-            name = "patch label #{rand(100)}"
+            name = "patch label #{Guid::guid}"
             label = subject.repos(GH_USER, GH_REPO).labels.create(:color => "efefef", :name => name)
             label["color"].should == "efefef"
             label["url"].should include "labels/patch"

@@ -18,10 +18,10 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
-  s.add_runtime_dependency 'faraday'
-  s.add_runtime_dependency 'faraday_middleware'
-  s.add_runtime_dependency 'multi_json'
-  s.add_runtime_dependency 'yajl-ruby'
+  s.add_dependency 'faraday', '~> 0.8'
+  s.add_dependency 'faraday_middleware', '~> 0.9'
+  s.add_dependency 'hashie', '~> 1.2'
+  s.add_dependency 'multi_json', '~> 1.3'
   s.add_development_dependency 'rake'
   s.add_development_dependency 'json_pure'
   s.add_development_dependency 'rspec', '~>2.9.0'
@@ -29,4 +29,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'vcr'
   s.add_development_dependency 'ZenTest'
   s.add_development_dependency 'autotest-growl'
+  s.add_development_dependency 'uuidtools'
 end
