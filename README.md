@@ -18,6 +18,11 @@ Create an OAuth access token:
     user_name, password, scopes = "rauhryan", "secret", ["user","repo"]
     token = Ghee.create_token(user_name, password, scopes)
 
+Create a client for github enterprise
+    
+    gh = Ghee.access_token("your_token","https://foo.com")
+    gh = Ghee.basic_auth("your_user", "your_pass", "https://foo.com")
+
 ## Gists
 
 ### Usage
