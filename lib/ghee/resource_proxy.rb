@@ -25,6 +25,7 @@ class Ghee
     # path_prefix - String
     #
     def initialize(connection, path_prefix, params = {})
+      params = {} if !params.is_a?Hash
       @connection, @path_prefix, @params = connection, URI.escape(path_prefix), params
     end
 
