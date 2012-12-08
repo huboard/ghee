@@ -22,8 +22,8 @@ class Ghee
       super(hash[:api_url] || 'https://api.github.com') do |builder|
         yield builder if block_given?
         builder.use     FaradayMiddleware::EncodeJson
-        builder.use     FaradayMiddleware::ParseJson
         builder.use     FaradayMiddleware::Mashify
+        builder.use     FaradayMiddleware::ParseJson
       #  builder.use     Ghee::Middleware::UriEscape
         builder.adapter Faraday.default_adapter
 

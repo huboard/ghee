@@ -69,6 +69,7 @@ class Ghee
         # enables defining methods on the proxy object
         #
         class Proxy < ::Ghee::ResourceProxy
+          attr_accessor :repo
 
           # Close issue - closed issue by id
           #
@@ -122,7 +123,9 @@ class Ghee
         #
         def issues(number=nil)
           prefix = (!number.is_a?(Hash) and number) ? "#{path_prefix}/issues/#{number}" : "#{path_prefix}/issues"
-          Ghee::API::Repos::Issues::Proxy.new(connection, prefix, number)
+          issue = Ghee::API::Repos::Issues::Proxy.new(connection, prefix, number)
+          issue.repo = self
+          issue
         end
       end
     end

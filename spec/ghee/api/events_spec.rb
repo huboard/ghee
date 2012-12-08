@@ -10,8 +10,8 @@ describe Ghee::API::Events do
 
   def should_be_an_event(event)
     EventTypes.should include(event['type'])
-    event['repo'].should be_instance_of(Hash)
-    event['actor'].should be_instance_of(Hash)
+    event['repo'].should be_instance_of(Hashie::Mash)
+    event['actor'].should be_instance_of(Hashie::Mash)
     event['created_at'].should_not be_nil
   end
 
