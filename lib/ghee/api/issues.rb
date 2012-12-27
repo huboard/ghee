@@ -7,6 +7,20 @@ class Ghee
 
     module Repos
 
+      module Assignees
+        class Proxy < ::Ghee::ResourceProxy
+          def check?(member)
+              connection.get("#{path_prefix}/#{member}").status == 204
+          end
+        end
+      end
+      class Proxy < ::Ghee::ResourceProxy
+        def assignees
+            prefix = "#{path_prefix}/assignees"
+            Ghee::API::Repos::Assignees::Proxy.new(connection, prefix)
+        end
+      end
+
       # The Issues module handles all of the Github Repo Issues
       # API endpoints
       #

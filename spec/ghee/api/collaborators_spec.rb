@@ -11,4 +11,17 @@ describe Ghee::API::Repos::Collaborators do
     end
 
   end
+  describe "#assignees" do
+    it "should have at least one assignee" do
+      VCR.use_cassette "#repos#assignees" do
+        subject.assignees.size.should > 0
+      end
+    end
+    it "current user should be an assignee" do
+      VCR.use_cassette "#repos#assignees#check" do
+        subject.assignees.check?(GH_USER).should be_true
+      end
+
+    end
+  end
 end
