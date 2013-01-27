@@ -137,7 +137,12 @@ Get a single pull request on a repo (see [Get a single pull request](http://deve
     
 Create a pull request (see [Create a pull request](http://developer.github.com/v3/pulls/#create-a-pull-request) )
 
-    gh.repos("rauhryan", "ghee").pulls.create({:title=>"take my awesome code!", :body=>"This code is so awesome. Let me tell you why...", :base=>"master", :head=>"octocat:awesomebranch"})
+    gh.repos("rauhryan", "ghee").pulls.create({
+        :title=>"take my awesome code!",
+        :body=>"This code is so awesome. Let me tell you why...",
+        :base=>"master",
+        :head=>"octocat:awesomebranch"
+    })
     
 Update a pull request (see [Update a pull request](http://developer.github.com/v3/pulls/#update-a-pull-request) )
 
