@@ -76,7 +76,7 @@ class Ghee
       #
       def gists(id=nil, params={})
         params = id if id.is_a?Hash
-        path_prefix = (!id.is_a?(Hash) and id) ? "/gists/#{id}" : '/gists'
+        path_prefix = (!id.is_a?(Hash) and id) ? "./gists/#{id}" : './gists'
         Proxy.new(connection, path_prefix,params)
       end
     end

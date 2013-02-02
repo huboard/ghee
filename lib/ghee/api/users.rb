@@ -30,7 +30,7 @@ class Ghee
         #
         def repos(name=nil, params={})
           params = name if name.is_a?Hash
-          prefix = name.is_a?(String) ? "/repos/#{self["login"]}/#{name}" : "#{path_prefix}/repos" 
+          prefix = name.is_a?(String) ? "./repos/#{self["login"]}/#{name}" : "#{path_prefix}/repos" 
           Ghee::API::Repos::Proxy.new(connection,prefix, params)
         end
 
@@ -43,7 +43,7 @@ class Ghee
         #
         def orgs(org=nil, params={})
           params = org if org.is_a?Hash
-          prefix = org.is_a?(String) ? "/orgs/#{org}" : "#{path_prefix}/orgs"
+          prefix = org.is_a?(String) ? "./orgs/#{org}" : "#{path_prefix}/orgs"
           Ghee::API::Orgs::Proxy.new(connection, prefix, params)
         end
 
@@ -55,7 +55,7 @@ class Ghee
       # Returns json
       #
       def user
-        Proxy.new(connection, '/user')
+        Proxy.new(connection, './user')
       end
 
       # Get a single user
@@ -65,7 +65,7 @@ class Ghee
       # Returns json
       #
       def users(user)
-        Proxy.new(connection, "/users/#{user}")
+        Proxy.new(connection, "./users/#{user}")
       end
     end
   end
