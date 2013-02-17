@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 require "ghee"
 require "optparse"
+require "highline/import"
 
 options = {}
 
@@ -8,16 +9,23 @@ opt_parser = OptionParser.new do |opt|
   opt.banner = "Usage: ghee COMMAND [OPTIONS}"
   opt.separator ""
   opt.separator "Commands"
-  opt.separator "   install: install <username> <password>"
+  opt.separator "   install: install <username>"
   opt.separator ""
   opt.separator "Options"
 
-  opt.on("-h", "--help", "help") do 
+  opt.on("install") do
+    options[:install] = true
+  end
+
+  opt.on("-h", "--help", "help") do
     puts opt_parser
   end
 end
 
 opt_parser.parse!
+
+puts options
+
 class CMD
   def self.get_password
    begin
@@ -42,12 +50,17 @@ class CMD
 
 end
 
+class HL
+  def self.get_password
+    ask("Enter your GitHub password (never stored): ") { |x| x.echo = '*' }
+  end
+end
 
-case ARGV[0]
-when "install"
+if options[:install]
+
   user = ARGV[1]
 
-  ghee = Ghee.basic_auth user, CMD.get_password 
+  ghee = Ghee.basic_auth user, HL.get_password
 
   auth = ghee.authorizations.create(
     :scopes => ["repo","user","gists"],
@@ -59,13 +72,12 @@ when "install"
   run << "git config --global github.user #{user}"
   run << "git config --global github.token #{token}"
   system run.join("; ")
-  puts <<EOF
+  say "
   Your ~/.gitconfig has been modified. Be sure not to commit this to a public repository!
 
-  Alternatively you can have a private .dotfile that can set an ENV variable 
+  Alternatively you can have a private .dotfile that can set an ENV variable"
 
-EOF
-  puts "  export GH_TOKEN=#{token}"
+  say "  export GH_TOKEN=#{token}"
 else
-  puts opt_parser
+  say opt_parser
 end
