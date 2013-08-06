@@ -41,17 +41,8 @@ class Ghee
   #
   # Access_token - String of the access_token
   #
-  def initialize(options = nil, &block)
-    
-    return @connection = Ghee::Connection.new(options, &block) unless options.nil?
-
-    begin
-      token = ENV["GH_TOKEN"] || `git config github.token`
-      @connection = Ghee::Connection.new :access_token => token unless token.empty?
-      raise "Couldn't find an auth token. Please run `ghee install <username>`" if token.empty?
-    rescue Errno::ENOENT
-      raise "Couldn't find git"
-    end
+  def initialize(options = {}, &block)
+    return @connection = Ghee::Connection.new(options, &block) 
   end
 
   def self.basic_auth(user_name, password, api_url = nil)
