@@ -40,6 +40,14 @@ class Ghee
       subject.send(message, *args, &block)
     end
 
+    # Raw is the raw response from the faraday
+    # Use this if you need access to status codes
+    # or header values
+    #
+    def raw
+      connection.get(path_prefix){|req| req.params.merge!params }
+    end
+
     # Subject is the response body parsed
     # as json
     #
