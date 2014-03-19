@@ -61,7 +61,7 @@ class Ghee
         #
         def teams(number=nil,params={})
           params = number if number.is_a?Hash
-          prefix = (!number.is_a?(Hash) and number) ? "/teams/#{number}" : "#{path_prefix}/teams"
+          prefix = (!number.is_a?(Hash) and number) ? "./teams/#{number}" : "#{path_prefix}/teams"
           Ghee::API::Orgs::Teams::Proxy.new(connection, prefix, params)
         end
 
@@ -71,7 +71,7 @@ class Ghee
         #
         def repos(name=nil,params={})
           params = name if name.is_a?Hash
-          prefix = (!name.is_a?(Hash) and name) ? "/repos/#{self["login"]}/#{name}" : "#{path_prefix}/repos"
+          prefix = (!name.is_a?(Hash) and name) ? "./repos/#{self["login"]}/#{name}" : "#{path_prefix}/repos"
           Ghee::API::Repos::Proxy.new(connection,prefix,params)
         end
       end
@@ -94,7 +94,7 @@ class Ghee
       #
       def orgs(name=nil, params={})
         params = name if name.is_a?Hash
-        prefix = (!name.is_a?(Hash) and name) ? "/orgs/#{name}" : "user/orgs"
+        prefix = (!name.is_a?(Hash) and name) ? "./orgs/#{name}" : "user/orgs"
         Proxy.new(connection, prefix, params)
       end
     end
