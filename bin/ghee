@@ -63,7 +63,7 @@ if options[:install]
   ghee = Ghee.basic_auth user, HL.get_password
 
   auth = ghee.authorizations.create(
-    :scopes => ["repo","user","gists"],
+    :scopes => ["repo","user","gist"],
     :note => "ghee api key",
     :note_url => "https://github.com/rauhryan/ghee"
   )
