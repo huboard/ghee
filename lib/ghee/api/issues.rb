@@ -131,6 +131,7 @@ class Ghee
 
       class Proxy < ::Ghee::ResourceProxy
 
+
         # Get issues
         #
         # Returns json
