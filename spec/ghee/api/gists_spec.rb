@@ -5,7 +5,7 @@ describe Ghee::API::Gists do
 
   def should_be_a_gist(gist)
     gist['url'].should include('https://api.github.com/gists/')
-    gist['user']['url'].should include('https://api.github.com/users/')
+    gist['owner']['url'].should include('https://api.github.com/users/')
     gist['created_at'].should_not be_nil
     gist['files'].should be_instance_of(Hashie::Mash)
     gist['files'].size.should > 0
@@ -15,7 +15,7 @@ describe Ghee::API::Gists do
     describe "#gists" do
       it "should return users gists" do
         VCR.use_cassette('users(login).gists') do
-          gists = subject.users('jonmagic').gists
+          gists = subject.users(GH_USER).gists
           gists.size.should > 0
           should_be_a_gist(gists.first)
         end
