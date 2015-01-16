@@ -21,7 +21,7 @@ class Ghee
         # Returns json
         #
         def gists(params={})
-          Ghee::API::Gists::Proxy.new(connection,"#{path_prefix}/gists",params)
+          Ghee::API::Gists::Proxy.new(connection,"#{path_prefix}/gists", params)
         end
 
         # Repos for a user

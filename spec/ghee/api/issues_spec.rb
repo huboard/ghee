@@ -28,8 +28,8 @@ describe Ghee::API::Repos::Issues do
       it "should return open issues by default" do 
         VCR.use_cassette("repos(#{GH_USER},#{GH_REPO}).issues.search#default") do
           issues = subject.repos(GH_USER, GH_REPO).issues.search("Seeded")
-          issues.issues.size.should > 0
-          should_be_an_issue(issues.issues.first)
+          issues['issues'].size.should > 0
+          should_be_an_issue(issues['issues'].first)
         end
 
       end

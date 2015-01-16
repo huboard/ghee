@@ -47,7 +47,7 @@ describe Ghee::API::Users do
         VCR.use_cassette "user.repos.public" do
           repos = subject.user.repos :type => "public"
           repos.size.should > 0
-          repos.path_prefix.should == "/user/repos"
+          repos.path_prefix.should == "./user/repos"
           repos.should be_instance_of(Array)
           repos.each do |r|
             r["private"].should be_false
@@ -103,12 +103,12 @@ describe Ghee::API::Users do
         VCR.use_cassette("user#emails") do
           user = subject.user
           emails = user.emails.add (["support@microsoft.com","octocat@microsoft.com"])
-          emails.should include("support@microsoft.com")
-          emails.should include("octocat@microsoft.com")
+          emails.map{ |e| e['email'] }.should include("support@microsoft.com")
+          emails.map{ |e| e['email'] }.should include("octocat@microsoft.com")
           user.emails.remove(["support@microsoft.com","octocat@microsoft.com"]).should be_true
           emails = user.emails
-          emails.should_not include("support@microsoft.com")
-          emails.should_not include("octocat@microsoft.com")
+          emails.map{ |e| e['email'] }.should_not include("support@microsoft.com")
+          emails.map{ |e| e['email'] }.should_not include("octocat@microsoft.com")
         end
       end
     end

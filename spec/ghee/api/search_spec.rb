@@ -12,8 +12,8 @@ describe Ghee::API::Search do
     it "should search open issues by repo by default" do 
       VCR.use_cassette "gh#search#issues#default" do
         issues = subject.search.issues("#{GH_USER}/#{GH_REPO}", "Seeded")
-        issues.issues.size.should > 0
-        should_be_an_issue(issues.issues.first)
+        issues['issues'].size.should > 0
+        should_be_an_issue(issues['issues'].first)
       end
     end
   end

@@ -7,7 +7,7 @@ describe Ghee::API::Gists do
     gist['url'].should include('https://api.github.com/gists/')
     gist['owner']['url'].should include('https://api.github.com/users/')
     gist['created_at'].should_not be_nil
-    gist['files'].should be_instance_of(Hashie::Mash)
+    gist['files'].should be_instance_of(Hash)
     gist['files'].size.should > 0
   end
 
