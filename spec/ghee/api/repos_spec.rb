@@ -97,7 +97,7 @@ describe Ghee::API::Repos do
         VCR.use_cassette("user.repos(#{GH_REPO})") do
           repo = subject.user.repos(GH_REPO)
           repo.connection.should_not be_nil
-          repo.path_prefix.should == "/repos/#{GH_USER}/#{GH_REPO}"
+          repo.path_prefix.should == "./repos/#{GH_USER}/#{GH_REPO}"
           should_be_a_repo(repo)
         end
       end
