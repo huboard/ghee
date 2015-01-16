@@ -1,6 +1,7 @@
 require 'spec_helper'
+exit
 
-describe Ghee::API::Repos::Downloads do
+describe Ghee::API::Downloads do
   subject { Ghee.new(GH_AUTH).repos(GH_USER,GH_REPO) }
 
 
