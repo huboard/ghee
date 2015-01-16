@@ -23,7 +23,7 @@ class Ghee
         yield builder if block_given?
         builder.use     FaradayMiddleware::EncodeJson
        # builder.use     FaradayMiddleware::Mashify
-        builder.use     FaradayMiddleware::ParseJson
+        builder.use     FaradayMiddleware::ParseJson, :content_type => /\bjson$/
         builder.adapter Faraday.default_adapter
       end
 
