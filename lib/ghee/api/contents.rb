@@ -19,8 +19,7 @@ class Ghee
 
       class Proxy < ::Ghee::ResourceProxy
         def readme(&block)
-          block.call(connection) if block
-          Contents::Proxy.new connection, "#{path_prefix}/readme"
+          Contents::Proxy.new connection, "#{path_prefix}/readme", {}, &block
         end
       end
     end

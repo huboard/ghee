@@ -4,7 +4,7 @@ require 'multi_json'
 
 class Ghee
   class Connection < Faraday::Connection
-    attr_reader :hash
+    attr_reader :hash, :is_recording
 
     # Instantiates connection, accepts an options hash
     # for authenticated access

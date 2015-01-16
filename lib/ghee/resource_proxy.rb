@@ -24,9 +24,11 @@ class Ghee
     # connection - Ghee::Connection object
     # path_prefix - String
     #
-    def initialize(connection, path_prefix, params = {})
+    def initialize(connection, path_prefix, params = {}, &block)
       params = {} if !params.is_a?Hash
       @connection, @path_prefix, @params = connection, URI.escape(path_prefix), params
+      @block = block if block
+      subject if block
     end
 
     # Method_missing takes any message passed
@@ -54,7 +56,10 @@ class Ghee
     # Returns json
     #
     def subject
-      @subject ||= connection.get(path_prefix){|req| req.params.merge!params }.body
+      @subject ||= connection.get(path_prefix) do |req| 
+        req.params.merge!params 
+        @block.call(req)if @block
+      end.body
     end
 
     # Paginate is a helper method to handle

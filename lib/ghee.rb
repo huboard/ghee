@@ -42,7 +42,17 @@ class Ghee
   # Access_token - String of the access_token
   #
   def initialize(options = {}, &block)
+    @options = options
+    @block = block if block
     return @connection = Ghee::Connection.new(options, &block) 
+  end
+
+  def in_parallel(adapter = :typhoeus, &block)
+    ghee = self.class.new @options, &@block
+    ghee.connection.adapter adapter
+    ghee.connection.in_parallel do
+      block.call ghee
+    end
   end
 
   def self.basic_auth(user_name, password, api_url = nil)

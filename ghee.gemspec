@@ -18,11 +18,13 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
-  s.add_dependency 'faraday', '< 0.9', '>= 0.8'
+  s.add_dependency 'faraday', '~> 0.9'
   s.add_dependency 'faraday_middleware', '~> 0.9'
   s.add_dependency 'hashie', '~> 3.3.2'
   s.add_dependency 'multi_json', '~> 1.3'
   s.add_dependency 'highline', '~> 1.6.15'
+  s.add_dependency 'typhoeus', '~> 0.7.0'
+  
   s.add_development_dependency 'rake'
   s.add_development_dependency 'json_pure'
   s.add_development_dependency 'rspec', '~>2.9.0'
