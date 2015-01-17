@@ -4,7 +4,13 @@ require 'multi_json'
 
 class Ghee
   class Connection < Faraday::Connection
-    attr_reader :hash, :is_recording
+    attr_reader :hash
+
+    def parallel_connection
+      conn = self.class.new @hash
+      conn.adapter :typhoeus
+      conn
+    end
 
     # Instantiates connection, accepts an options hash
     # for authenticated access

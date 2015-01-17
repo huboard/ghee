@@ -98,6 +98,25 @@ class Ghee
       self.all
     end
 
+    def all_parallel
+      connection = @connection.parallel_connection
+      headers = connection.head(path_prefix) do |req|
+        req.params.merge! params.merge(:per_page => 100)
+      end
+      pages = pagination_data headers.headers.delete("link")
+      requests = []
+      connection.in_parallel do
+        pages[:pages].to_i.times do |i|
+          requests << connection.get(path_prefix) do |req|
+            req.params.merge! params.merge(:per_page => 100, :page => i + 1)
+          end
+        end
+      end
+      requests.inject([]) do |results, page| 
+        results.concat(page.body)
+      end
+    end
+
     # Generate first_page, last_page, next_page, prev_page convienence methods
     %w{ next prev first last }.each do |term|
       define_method "#{term}_page" do
@@ -106,6 +125,11 @@ class Ghee
     end
 
     private 
+
+    def pagination_data(header)
+      parse_link_header header
+      { pages: @pagination[:last][:page] }
+    end
 
     def parse_link_header(header)
       return @total = subject.size, @pagination = {} if header.nil?

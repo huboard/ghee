@@ -6,7 +6,7 @@ require 'benchmark'
 describe "testing concurrencies" do
   subject { Ghee.new(GH_AUTH) }
 
-  it "should make requests in parallel" do
+  xit "should make requests in parallel" do
     Benchmark.bm do |b|
       b.report do
         subject.in_parallel :em_synchrony do |ghee|
@@ -27,6 +27,16 @@ describe "testing concurrencies" do
              ghee.repos("rauhryan/huboard").issues.raw
              ghee.repos("rauhryan/huboard").issues.labels.raw
           end
+      end
+    end
+  end
+  it "play with paging" do
+    Benchmark.bm do |b|
+      b.report do
+        puts subject.repos("aspnet/mvc").issues.all_parallel.size
+      end
+      b.report do 
+        puts subject.repos("aspnet/mvc").issues.all.size
       end
     end
   end
