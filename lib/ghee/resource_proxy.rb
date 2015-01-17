@@ -131,6 +131,11 @@ class Ghee
       { pages: @pagination[:last][:page] }
     end
 
+    def build_prefix(first_argument, endpoint)
+      (!first_argument.is_a?(Hash) and first_argument) ? 
+        "#{path_prefix}/#{endpoint}/#{first_argument}" : "#{path_prefix}/#{endpoint}"
+    end
+
     def parse_link_header(header)
       return @total = subject.size, @pagination = {} if header.nil?
       require 'cgi'

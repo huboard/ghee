@@ -14,7 +14,7 @@ class Ghee
         class Proxy < ::Ghee::ResourceProxy
 
           def comments
-            Ghee::API::Repos::Commits::Comments::Proxy.new connection, path_prefix
+            Comments::Proxy.new connection, path_prefix
           end
         end
 
@@ -42,21 +42,20 @@ class Ghee
         end
       end
 
-      # Gists::Proxy inherits from Ghee::Proxy and
+      # Repos::Proxy inherits from Ghee::Proxy and
       # enables defining methods on the proxy object
       #
       class Proxy < ::Ghee::ResourceProxy
         def compare(base, head)
           connection.get("#{path_prefix}/compare/#{base}...#{head}").body
         end
-        def commits(sha=nil, params={})
-          params = sha if sha.is_a?Hash
-          prefix = (!sha.is_a?(Hash) and sha) ? "#{path_prefix}/commits/#{sha}" : "#{path_prefix}/commits"
-          Ghee::API::Repos::Commits::Proxy.new(connection, prefix, params)
+        def commits(sha=nil, &block)
+          prefix = build_prefix sha, "commits"
+          Commits::Proxy.new(connection, prefix, sha, &block)
         end
-        def comments(id=nil)
-          prefix = id ? "#{path_prefix}/comments/#{id}" : "#{path_prefix}/comments"
-          Ghee::API::Repos::Comments::Proxy.new connection, prefix
+        def comments(id=nil, &block)
+          prefix = build_prefix id, "comments"
+          Comments::Proxy.new connection, prefix, id, &block
         end
       end
     end

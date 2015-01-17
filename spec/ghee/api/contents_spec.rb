@@ -21,4 +21,21 @@ describe Ghee::API::Repos::Contents do
     end
   end
 
+  describe "#contents" do 
+    it "should return the content from a repo path" do 
+      VCR.use_cassette "repos#contents(path)" do
+        readme = subject.contents("readme.md")
+        readme["path"].downcase.should == "readme.md"
+      end
+    end
+    it "should create a new file in the repo" do 
+      temp_file_name = "#{(0...8).map{ ('a'..'z').to_a[rand(26)] }.join}"
+      file = subject.contents("#{temp_file_name}.md").create(
+        message: "Adds #{temp_file_name}.md through the api",
+        content: "# Whoop whoop"
+      )
+      file['content']['type'].should == "file"
+    end
+  end
+
 end

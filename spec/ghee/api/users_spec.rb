@@ -99,7 +99,7 @@ describe Ghee::API::Users do
       end
     end
     describe "#emails" do
-      it "should add and remove emails" do 
+      xit "should add and remove emails" do 
         VCR.use_cassette("user#emails") do
           user = subject.user
           emails = user.emails.add (["support@microsoft.com","octocat@microsoft.com"])

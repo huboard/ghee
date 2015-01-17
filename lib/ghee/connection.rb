@@ -6,9 +6,9 @@ class Ghee
   class Connection < Faraday::Connection
     attr_reader :hash
 
-    def parallel_connection
+    def parallel_connection(adapter=:typhoeus)
       conn = self.class.new @hash
-      conn.adapter :typhoeus
+      conn.adapter adapter
       conn
     end
 

@@ -30,7 +30,7 @@ describe "testing concurrencies" do
       end
     end
   end
-  it "play with paging" do
+  xit "play with paging" do
     Benchmark.bm do |b|
       b.report do
         puts subject.repos("aspnet/mvc").issues.all_parallel.size
