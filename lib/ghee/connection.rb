@@ -27,8 +27,8 @@ class Ghee
 
       super(hash[:api_url] || 'https://api.github.com') do |builder|
         yield builder if block_given?
+        builder.use     Faraday::Response::RaiseGheeError
         builder.use     FaradayMiddleware::EncodeJson
-       # builder.use     FaradayMiddleware::Mashify
         builder.use     FaradayMiddleware::ParseJson, :content_type => /\bjson$/
         builder.adapter Faraday.default_adapter
       end

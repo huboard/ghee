@@ -1,6 +1,7 @@
 # encoding: UTF-8
 require 'ghee/version'
 require 'ghee/connection'
+require 'ghee/errors'
 require 'ghee/uri_escape'
 require 'ghee/state_methods'
 require 'ghee/resource_proxy'
