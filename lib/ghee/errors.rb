@@ -33,7 +33,7 @@ class Ghee
       end
 
       errors = unless message.empty?
-        response_body["errors"] ?  " #{response_body["errors"].to_a.map{|e|e.message || e.code}.join(', ')} " : ''
+        response_body["errors"] ?  " #{response_body["errors"].to_a.map{|e| e['message'] || e['code'] }.join(', ')} " : ''
       end
 
       "#{message}#{errors}"
