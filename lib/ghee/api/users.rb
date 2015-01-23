@@ -73,7 +73,7 @@ class Ghee
         # Returns a Memberships Proxy 
         def memberships
           prefix = "#{path_prefix}/memberships"
-          Ghee::API::Users::Membership::Proxy.new(connection, prefix)
+          Ghee::API::Users::Memberships::Proxy.new(connection, prefix)
         end
       end
 
