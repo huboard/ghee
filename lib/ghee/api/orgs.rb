@@ -74,6 +74,16 @@ class Ghee
           prefix = (!name.is_a?(Hash) and name) ? "./repos/#{self["login"]}/#{name}" : "#{path_prefix}/repos"
           Ghee::API::Repos::Proxy.new(connection,prefix,params)
         end
+
+        # User Membership for an org
+        #
+        # Returns json
+        #
+
+        def memberships(user, &block)
+          prefix = "#{path_prefix}/memberships/#{user}"
+          Proxy.new(connection, prefix, nil, &block)
+        end
       end
 
       # Team by id
