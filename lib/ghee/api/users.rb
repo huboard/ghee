@@ -10,6 +10,29 @@ class Ghee
     #
     module Users
 
+      #Users::Memberships modules handles a users memberships
+      #
+      #
+      module Memberships
+
+        # Memberships::Proxy inherits from Ghee::Proxy and 
+        # enables defining methods on the proxy object
+        #
+        class Proxy < ::Ghee::ResourceProxy
+
+          #Org membership for the user
+          #
+          #State: string to limit scope to either active or 
+          #pending
+          #
+          #Returns json
+          def orgs(state, &block)
+            params = state ? {state: state} : {}
+            connection.get("#{path_prefix}/orgs", params, &block)
+          end
+        end
+      end
+
       # Users::Proxy inherits from Ghee::Proxy and
       # enables defining methods on the proxy object
       #
@@ -47,7 +70,11 @@ class Ghee
           Ghee::API::Orgs::Proxy.new(connection, prefix, params)
         end
 
-       
+        # Returns a Memberships Proxy 
+        def memberships
+          prefix = "#{path_prefix}/memberships"
+          Ghee::API::Users::Memberships::Proxy.new(connection, prefix)
+        end
       end
 
       # Get authenticated user
