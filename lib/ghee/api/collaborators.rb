@@ -28,7 +28,7 @@ class Ghee
       class Proxy < ::Ghee::ResourceProxy
         def collaborators(user=nil, &block)
           prefix = build_prefix user, "collaborators"
-          return (!user.is_a?(Hash) and number) ?  connection.get(prefix).status == 204 : Collaborators::Proxy.new(connection, prefix, user, &block)
+          Collaborators::Proxy.new(connection, prefix, user, &block)
         end
       end
     end
