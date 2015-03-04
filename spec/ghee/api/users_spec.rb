@@ -3,6 +3,23 @@ require 'spec_helper'
 describe Ghee::API::Users do
   subject { Ghee.new(GH_AUTH) }
 
+  describe "#memberships" do
+    it "should return a list of memberships" do
+      VCR.use_cassette('user.memberships') do
+        memberships = subject.user.memberships
+        memberships.size.should > 0
+      end
+    end
+    it "should return a single membership" do
+      VCR.use_cassette('user.memberships.org(org)') do
+        memberships = subject.user.memberships.org(GH_ORG)
+        memberships['state'].should == 'active'
+        memberships.active?.should be_true
+        memberships.admin?.should be_true
+      end
+    end
+  end
+
   describe "#user" do
     it "should return authenticated user" do
       VCR.use_cassette('user') do
