@@ -199,6 +199,15 @@ describe Ghee::ResourceProxy do
     end
   end
 
+  describe "#build_prefix" do
+    it 'should not append the prefix if hash' do
+      subject.build_prefix({}, "bar").should == "/foo/bar"
+    end
+    it 'should append the prefix if param is not a hash' do
+      subject.build_prefix("baz", "bar").should == "/foo/bar/baz"
+    end
+  end
+
   describe "#method_missing" do
     it "should pass message and args to target" do
       subject.upcase.should == "BAR!"
