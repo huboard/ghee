@@ -12,7 +12,6 @@ class Ghee
 
       module Memberships
         class MembershipsProxy < ::Ghee::ResourceProxy
-          accept_header "application/vnd.github.moondragon+json"
         end
       end
 
