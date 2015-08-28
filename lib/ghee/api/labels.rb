@@ -12,6 +12,11 @@ class Ghee
 
       module Labels
         class Proxy < ::Ghee::ResourceProxy
+
+          def patch(name, params={})
+            prefix = "#{path_prefix}/#{name}"
+            connection.put(prefix, params).body
+          end
         end
       end
 
