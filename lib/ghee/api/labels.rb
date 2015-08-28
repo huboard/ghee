@@ -13,9 +13,9 @@ class Ghee
       module Labels
         class Proxy < ::Ghee::ResourceProxy
 
-          def update(name, params={})
+          def patch(name, params={})
             prefix = "#{path_prefix}/#{name}"
-            connection.post(prefix, params).body
+            connection.put(prefix, params).body
           end
         end
       end
