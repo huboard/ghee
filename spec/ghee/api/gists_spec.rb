@@ -37,7 +37,12 @@ describe Ghee::API::Gists do
         VCR.use_cassette('gists.public') do
           gists = subject.gists.public
           gists.size.should > 0
-          should_be_a_gist(gists.first)
+          gist = gists.first
+
+          gist['url'].should include('https://api.github.com/gists/')
+          gist['created_at'].should_not be_nil
+          gist['files'].should be_instance_of(Hash)
+          gist['files'].size.should > 0
         end
       end
     end

@@ -16,6 +16,16 @@ class Ghee
           def comments
             Comments::Proxy.new connection, path_prefix
           end
+
+          def statuses
+            prefix = build_prefix nil, 'statuses'
+            connection.get(prefix).body
+          end
+
+          def status
+            prefix = build_prefix nil, 'status'
+            connection.get(prefix).body
+          end
         end
 
         module Comments
@@ -56,6 +66,10 @@ class Ghee
         def comments(id=nil, &block)
           prefix = build_prefix id, "comments"
           Comments::Proxy.new connection, prefix, id, &block
+        end
+        def statuses(sha, attributes={})
+          path = "#{path_prefix}/statuses/#{sha}"
+          connection.post(path, attributes).body
         end
       end
     end

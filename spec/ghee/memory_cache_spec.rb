@@ -17,7 +17,7 @@ class TestCache < Hash
   end
 @cache = TestCache.new
 
-describe Ghee::Connection do 
+describe Ghee::Connection, :advanced do 
   context "with custom cache middleware" do 
     before :all do 
       @cache = TestCache.new
