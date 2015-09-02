@@ -806,6 +806,7 @@ Before  you run the api test suite:
      - Enable issue tracking on (your username)/ghee
      - Create a Public Gist and Star it
      - Create an issue with the title "Seeded"
+     - Create a comment on a commit line
 
 Now run the test suite:
 
