@@ -21,6 +21,11 @@ class Ghee
             prefix = build_prefix nil, 'statuses'
             connection.get(prefix).body
           end
+
+          def status
+            prefix = build_prefix nil, 'status'
+            connection.get(prefix).body
+          end
         end
 
         module Comments

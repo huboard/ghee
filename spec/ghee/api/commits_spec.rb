@@ -33,7 +33,7 @@ describe Ghee::API::Repos::Commits do
       let(:commit){ @commit }
 
       it 'adds a status to the commit' do
-        VCR.use_cassette("repos(#{GH_USER},#{GH_REPO})commits(sha)status") do
+        VCR.use_cassette("repos(#{GH_USER},#{GH_REPO})statuses") do
           sha = commit['sha']
           state = {state: "pending"}
           status = subject.repos(GH_USER, GH_REPO).statuses(sha, state)
@@ -49,6 +49,16 @@ describe Ghee::API::Repos::Commits do
 
           statuses.length.should > 0
           statuses.first['state'].should == 'pending'
+        end
+      end
+
+      it 'gets combined statuses' do
+        VCR.use_cassette("repos(#{GH_USER},#{GH_REPO})commits(sha)status") do
+          sha = commit['sha']
+          status = subject.repos(GH_USER, GH_REPO).commits(sha).status
+
+          status['state'].should == 'pending'
+          status.has_key?('total_count').should == true
         end
       end
     end
