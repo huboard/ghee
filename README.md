@@ -798,10 +798,19 @@ In order for VCR to make and cache the actual calls to the Github API you will n
 
 This file is ignored by git (see .gitignore) so you can commit any changes you make to the gem without having to worry about your user/token/pass/org being released into the wild.
 
+Before  you run the api test suite:
+
+    Fork [Ghee-Test](https://github.com/rauhryan/ghee_test)
+    Set the settings.yml repo key to ghee_test
+    On ghee_test:
+     - Enable issue tracking on (your username)/ghee
+     - Create a Public Gist and Star it
+     - Create an issue with the title "Seeded"
+
 Now run the test suite:
 
     bundle
-    bundle exec rake
+    bundle exec rake api
 
 CONTRIBUTE
 ----------
