@@ -33,4 +33,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'ZenTest'
   s.add_development_dependency 'autotest-growl'
   s.add_development_dependency 'uuidtools'
+  s.add_development_dependency 'pry-byebug'
 end
