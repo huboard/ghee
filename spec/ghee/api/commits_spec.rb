@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'pry'
 
 describe Ghee::API::Repos::Commits do
   subject { Ghee.new(GH_AUTH) }
@@ -36,7 +37,7 @@ describe Ghee::API::Repos::Commits do
         VCR.use_cassette("repos(#{GH_USER},#{GH_REPO})statuses") do
           sha = commit['sha']
           state = {state: "pending"}
-          status = subject.repos(GH_USER, GH_REPO).statuses(sha, state)
+          status = subject.repos(GH_USER, GH_REPO).commits(sha).statuses.create state
 
           status['state'].should == 'pending'
         end
@@ -65,6 +66,17 @@ describe Ghee::API::Repos::Commits do
   end
 
   describe 'repo(user,repo)#comments' do
+    before :all do
+      VCR.use_cassette "repos(#{GH_USER},#{GH_REPO})comments.seed" do
+        comments = subject.repos(GH_USER, GH_REPO).comments
+        if comments.empty?
+          sha = subject.repos(GH_USER, GH_REPO).commits.first['sha']
+          subject.repos(GH_USER, GH_REPO).commits(sha).comments.create({
+            body: "SEED a commit just in case"
+          })
+        end
+      end
+    end
     it 'return a list of commit comments' do
       VCR.use_cassette("repos(#{GH_USER},#{GH_REPO})comments") do
         comments = subject.repos(GH_USER, GH_REPO).comments

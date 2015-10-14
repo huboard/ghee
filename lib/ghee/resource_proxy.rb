@@ -13,7 +13,7 @@ class Ghee
     include Ghee::CUD
 
     # Make connection and path_prefix readable
-    attr_reader :connection, :path_prefix, :params
+    attr_reader :connection, :path_prefix, :params, :id
 
     # Expose pagination data
     attr_reader :current_page, :total, :pagination
@@ -31,7 +31,10 @@ class Ghee
   # path_prefix - String
   #
   def initialize(connection, path_prefix, params = {}, &block)
-    params = {} if !params.is_a?Hash
+    if !params.is_a?Hash
+      @id = params
+      params = {} 
+    end
     @connection, @path_prefix, @params = connection, URI.escape(path_prefix), params
     @block = block if block
     subject if block
