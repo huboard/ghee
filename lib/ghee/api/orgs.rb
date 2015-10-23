@@ -37,6 +37,10 @@ class Ghee
               def remove(member)
                 connection.delete("#{path_prefix}/#{member}").status == 204
               end
+              def check?(username=nil)
+                prefix = username ? File.join(path_prefix, username) : path_prefix
+                connection.get(prefix).status == 204
+              end
           end
         end
 
