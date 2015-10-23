@@ -28,6 +28,7 @@ require 'ghee/api/followers'
 require 'ghee/api/pulls'
 require 'ghee/api/search'
 require 'ghee/api/contents'
+require 'ghee/api/members'
 
 class Ghee
   attr_reader :connection
