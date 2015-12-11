@@ -37,4 +37,4 @@ require 'ghee/gitlab/api/repos'
 #require 'ghee/gitlab/api/contents'
 #require 'ghee/gitlab/api/members'
 
-require 'ghee/gitlab/translators/repo_translator'
+require 'ghee/gitlab/api/translators/repo_translator'
