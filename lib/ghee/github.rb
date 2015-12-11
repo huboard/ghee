@@ -1,4 +1,22 @@
 class Ghee
+  def self.basic_auth(user_name, password, api_url = nil)
+    options = { :basic_auth  => {:user_name => user_name, :password => password} }
+    options[:api_url] = api_url if api_url
+    Ghee.new options
+  end
+
+  def self.access_token(token, api_url = nil)
+    options = {  :access_token => token }
+    options[:api_url] = api_url if api_url
+    Ghee.new  options
+  end
+
+  def self.create_token(user_name, password, scopes, api_url = nil)
+    auth = Ghee.basic_auth(user_name, password, api_url).authorizations.create({
+                                                                                   :scopes => scopes})
+    auth["token"]
+  end
+
   module GitHub
     module API
     end
