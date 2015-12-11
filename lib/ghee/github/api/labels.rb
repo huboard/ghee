@@ -10,11 +10,8 @@ class Ghee
     #
     module Repos
 
-      module Forks
+      module Labels
         class Proxy < ::Ghee::ResourceProxy
-           def create(org=nil)
-             raise NotImplemented
-           end
         end
       end
 
@@ -22,11 +19,19 @@ class Ghee
       # enables defining methods on the proxy object
       #
       class Proxy < ::Ghee::ResourceProxy
-        def forks(params={})
-          raise NotImplemented
+
+        # Get labels for a repo
+        #
+        # id - Number get a specific label (optional)
+        #
+        # Returns json
+        #
+        def labels(number=nil, params={})
+          params = number if number.is_a?Hash
+          prefix = (!number.is_a?(Hash) and number)  ? "#{path_prefix}/labels/#{number}" : "#{path_prefix}/labels"
+          Ghee::API::Repos::Labels::Proxy.new(connection, prefix, params)
         end
       end
     end
   end
 end
-

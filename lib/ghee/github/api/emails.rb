@@ -10,17 +10,19 @@ class Ghee
         class Proxy < ::Ghee::ResourceProxy
 
           def add(emails)
-            raise NotImplemented
+            connection.post(path_prefix, emails).body
           end
 
           def remove(emails)
-            raise NotImplemented
+            connection.delete(path_prefix) do |req|
+              req.body = emails
+            end.status == 204
           end
         end
       end
       class Proxy < ::Ghee::ResourceProxy
         def emails
-          raise NotImplemented
+          Ghee::API::Users::Emails::Proxy.new connection, "#{path_prefix}/emails"
         end
       end
     end

@@ -24,11 +24,7 @@ class Ghee
       # Returns json
       #
       def repos(login, name = nil)
-        repo = name.nil? ? login : "#{login}/#{name}"
-        path_prefix = "./repos/#{repo}"
-        proxy = Proxy.new(connection, path_prefix)
-        proxy.repo_name = repo
-        proxy
+        raise NotImplemented
       end
 
     end

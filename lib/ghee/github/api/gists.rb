@@ -21,7 +21,8 @@ class Ghee
       class Proxy < ::Ghee::ResourceProxy
 
         def comments(id = nil)
-          raise NotImplemented
+          prefix = id ? "#{path_prefix}/comments/#{id}" : "#{path_prefix}/comments"
+          return Ghee::API::Gists::Comments::Proxy.new connection, prefix
         end
 
 
@@ -30,7 +31,7 @@ class Ghee
         # Returns true/false
         #
         def star
-          raise NotImplemented
+          connection.put("#{path_prefix}/star").status == 204
         end
 
         # Unstar a gist
@@ -38,7 +39,7 @@ class Ghee
         # Returns true/false
         #
         def unstar
-          raise NotImplemented
+          connection.delete("#{path_prefix}/star").status == 204
         end
 
         # Returns whether gist is starred
@@ -46,7 +47,7 @@ class Ghee
         # Returns true/false
         #
         def starred?
-          raise NotImplemented
+          connection.get("#{path_prefix}/star").status == 204
         end
 
         # Get public gists
@@ -54,7 +55,7 @@ class Ghee
         # Returns json
         #
         def public
-          raise NotImplemented
+          connection.get("#{path_prefix}/public").body
         end
 
         # Get starred gists
@@ -62,7 +63,7 @@ class Ghee
         # Returns json
         #
         def starred
-          raise NotImplemented
+          connection.get("#{path_prefix}/starred").body
         end
 
       end
@@ -74,7 +75,9 @@ class Ghee
       # Returns json
       #
       def gists(id=nil, params={})
-        raise NotImplemented
+        params = id if id.is_a?Hash
+        path_prefix = (!id.is_a?(Hash) and id) ? "./gists/#{id}" : './gists'
+        Proxy.new(connection, path_prefix,params)
       end
     end
   end

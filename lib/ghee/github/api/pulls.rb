@@ -15,19 +15,20 @@ class Ghee
           include Ghee::CUD
 
           def commits
-            raise NotImplemented
+            connection.get("#{path_prefix}/commits").body
           end
-
+          
           def files
-            raise NotImplemented
+            connection.get("#{path_prefix}/files").body
           end
-
+          
           def merge?
-            raise NotImplemented
+            connection.get("#{path_prefix}/merge").status == 204
           end
-
+          
           def merge!(message=nil)
-            raise NotImplemented
+            params = message ? {:commit_message=>message} : {}
+            connection.put("#{path_prefix}/merge", params).body
           end
         end
       end
@@ -37,7 +38,9 @@ class Ghee
       #
       class Proxy < ::Ghee::ResourceProxy
         def pulls(number=nil, params={})
-          raise NotImplemented
+          params = number if number.is_a?Hash
+          prefix = (!number.is_a?(Hash) and number) ? "#{path_prefix}/pulls/#{number}" : "#{path_prefix}/pulls"
+          Ghee::API::Repos::Pulls::Proxy.new(connection, prefix, params)
         end
       end
     end

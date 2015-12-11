@@ -10,23 +10,27 @@ class Ghee
     #
     module Repos
 
-      module Forks
-        class Proxy < ::Ghee::ResourceProxy
-           def create(org=nil)
-             raise NotImplemented
-           end
-        end
-      end
-
       # Gists::Proxy inherits from Ghee::Proxy and
       # enables defining methods on the proxy object
       #
       class Proxy < ::Ghee::ResourceProxy
-        def forks(params={})
-          raise NotImplemented
-        end
+        attr_accessor :repo_name
       end
+
+      # Get repos
+      #
+      # name - String of the name of the repo
+      #
+      # Returns json
+      #
+      def repos(login, name = nil)
+        repo = name.nil? ? login : "#{login}/#{name}"
+        path_prefix = "./repos/#{repo}"
+        proxy = Proxy.new(connection, path_prefix)
+        proxy.repo_name = repo
+        proxy
+      end
+
     end
   end
 end
-

@@ -11,12 +11,17 @@ class Ghee
     module Repos
       module Commits
         class Proxy < ::Ghee::ResourceProxy
+          undef_method "patch"
+          undef_method "destroy"
+          undef_method "create"
 
           def statuses(id=nil, &block)
-            raise NotImplemented
+            prefix = build_prefix id, "statuses"
+            Ghee::API::Repos::Commits::Statuses::Proxy.new connection, prefix, id, &block
           end
           def status(&block)
-            raise NotImplemented
+            prefix = build_prefix nil, "status"
+            Ghee::API::Repos::Commits::Statuses::Proxy.new connection, prefix, id, &block
           end
         end
         module Statuses

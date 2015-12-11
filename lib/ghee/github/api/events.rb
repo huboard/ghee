@@ -17,9 +17,9 @@ class Ghee
       # Returns json
       #
       def events(params={})
-        raise NotImplemented
+        return Proxy.new(connection, "./events",params)
       end
-
+      
     end
   end
 end

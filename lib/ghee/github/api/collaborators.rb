@@ -10,37 +10,27 @@ class Ghee
     #
     module Repos
 
-      module Pulls
+      module Collaborators
         class Proxy < ::Ghee::ResourceProxy
-          include Ghee::CUD
-
-          def commits
-            raise NotImplemented
+          def add(member)
+            connection.put("#{path_prefix}/#{member}").status == 204
           end
 
-          def files
-            raise NotImplemented
-          end
-
-          def merge?
-            raise NotImplemented
-          end
-
-          def merge!(message=nil)
-            raise NotImplemented
+          def remove(member)
+            connection.delete("#{path_prefix}/#{member}").status == 204
           end
         end
       end
 
-      # Gists::Proxy inherits from Ghee::Proxy and
+      # Repos::Proxy inherits from Ghee::Proxy and
       # enables defining methods on the proxy object
       #
       class Proxy < ::Ghee::ResourceProxy
-        def pulls(number=nil, params={})
-          raise NotImplemented
+        def collaborators(user=nil, &block)
+          prefix = build_prefix user, "collaborators"
+          Collaborators::Proxy.new(connection, prefix, user, &block)
         end
       end
     end
   end
 end
-

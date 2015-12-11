@@ -26,7 +26,7 @@ class Ghee
           # returns boolean
           #
           def close
-            raise NotImplemented
+            connection.patch(path_prefix,:state => "closed").body["state"] == "closed"
           end
 
           # Returns closed milestones
@@ -34,7 +34,10 @@ class Ghee
           # Returns json
           #
           def closed
-            raise NotImplemented
+            response = connection.get path_prefix do |req|
+              req.params["state"] = "closed"
+            end
+            response.body
           end
 
         end
@@ -50,7 +53,9 @@ class Ghee
         # Returns json
         #
         def milestones(number=nil, params={})
-          raise NotImplemented
+          params = number if number.is_a?Hash
+          prefix = (!number.is_a?(Hash) and number) ? "#{path_prefix}/milestones/#{number}" : "#{path_prefix}/milestones"
+          Ghee::API::Repos::Milestones::Proxy.new(connection, prefix, params)
         end
       end
     end

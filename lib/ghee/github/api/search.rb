@@ -10,7 +10,8 @@ class Ghee
       module Issues
         class Proxy < ::Ghee::ResourceProxy
           def search(term, state = "open")
-            raise NotImplemented
+            url = "./legacy/issues/search/#{@repo.repo_name}/#{state}/#{term}"
+            Ghee::API::Search::Issues::Proxy.new(connection, url)
           end
         end
       end
@@ -26,7 +27,8 @@ class Ghee
       end
       class Proxy < ::Ghee::ResourceProxy
         def issues(repo, term, state = "open")
-          raise NotImplemented
+            url = "./legacy/issues/search/#{repo}/#{state}/#{term}"
+            Issues::Proxy.new(connection, url)
         end
       end
     end

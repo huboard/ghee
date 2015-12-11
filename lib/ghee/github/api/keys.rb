@@ -22,7 +22,8 @@ class Ghee
       class Proxy < ::Ghee::ResourceProxy
 
         def keys(id=nil)
-          raise NotImplemented
+          prefix = id ? "#{path_prefix}/keys/#{id}" : "#{path_prefix}/keys"
+          Ghee::API::Repos::Keys::Proxy.new connection, prefix
         end
       end
     end
@@ -43,7 +44,8 @@ class Ghee
       class Proxy < ::Ghee::ResourceProxy
 
         def keys(id=nil)
-          raise NotImplemented
+          prefix = id ? "#{path_prefix}/keys/#{id}" : "#{path_prefix}/keys"
+          Ghee::API::Users::Keys::Proxy.new connection, prefix
         end
       end
     end

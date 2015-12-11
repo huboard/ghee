@@ -14,12 +14,12 @@ class Ghee
       module Hooks
         class Proxy < ::Ghee::ResourceProxy
           include Ghee::CUD
-
-          # Test hook - This will trigger the hook with the
-          # latest push to the current repository.
-          #
+          
+          # Test hook - This will trigger the hook with the 
+          # latest push to the current repository. 
+          # 
           def test
-            raise NotImplemented
+              connection.post("#{path_prefix}/test").body
           end
 
 
@@ -35,7 +35,9 @@ class Ghee
         # Returns json
         #
         def hooks(number=nil, params={})
-          raise NotImplemented
+          params = number if number.is_a?Hash
+          prefix = (!number.is_a?(Hash) and number) ? "#{path_prefix}/hooks/#{number}" : "#{path_prefix}/hooks"
+          Ghee::API::Repos::Hooks::Proxy.new(connection, prefix, params)
         end
       end
     end

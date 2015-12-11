@@ -8,13 +8,13 @@ class Ghee
     module Membership
       class MembershipProxy < ::Ghee::ResourceProxy
         def admin?
-          raise NotImplemented
+          self['role'] == "admin"
         end
         def active?
-          raise NotImplemented
+          self['state'] == 'active'
         end
         def activate!
-          raise NotImplemented
+          connection.patch(path_prefix, {state: "active"}).body
         end
       end
     end
@@ -29,18 +29,19 @@ class Ghee
       #
       module Memberships
 
-        # Memberships::Proxy inherits from Ghee::Proxy and
+        # Memberships::Proxy inherits from Ghee::Proxy and 
         # enables defining methods on the proxy object
         #
         class Proxy < ::Ghee::ResourceProxy
           #Org membership for the user
           #
-          #State: string to limit scope to either active or
+          #State: string to limit scope to either active or 
           #pending
           #
           #Returns json
           def org(name, &block)
-            raise NotImplemented
+            prefix = "#{path_prefix}/#{name}"
+            Ghee::API::Membership::MembershipProxy.new(connection, prefix, nil, &block)
           end
 
         end
@@ -57,7 +58,7 @@ class Ghee
         # Returns json
         #
         def gists(params={})
-          raise NotImplemented
+          Ghee::API::Gists::Proxy.new(connection,"#{path_prefix}/gists", params)
         end
 
         # Repos for a user
@@ -65,10 +66,12 @@ class Ghee
         # Returns json
         #
         def repos(name=nil, params={})
-          raise NotImplemented
+          params = name if name.is_a?Hash
+          prefix = name.is_a?(String) ? "./repos/#{self["login"]}/#{name}" : "#{path_prefix}/repos" 
+          Ghee::API::Repos::Proxy.new(connection,prefix, params)
         end
 
-        # Returns list of the provided users organizations or
+        # Returns list of the provided users organizations or 
         # an organization by name
         #
         # org - String name of the organization (optional)
@@ -76,12 +79,15 @@ class Ghee
         # Returns json
         #
         def orgs(org=nil, params={})
-          raise NotImplemented
+          params = org if org.is_a?Hash
+          prefix = org.is_a?(String) ? "./orgs/#{org}" : "#{path_prefix}/orgs"
+          Ghee::API::Orgs::Proxy.new(connection, prefix, params)
         end
 
-        # Returns a Memberships Proxy
+        # Returns a Memberships Proxy 
         def memberships(params={state: "active"}, &block)
-          raise NotImplemented
+          prefix = "#{path_prefix}/memberships/orgs"
+          Ghee::API::Users::Memberships::Proxy.new(connection, prefix, params, &block)
         end
       end
 
@@ -90,7 +96,7 @@ class Ghee
       # Returns json
       #
       def user(&block)
-        raise NotImplemented
+        Proxy.new(connection, './user', nil, &block)
       end
 
       # Get a single user
@@ -100,7 +106,7 @@ class Ghee
       # Returns json
       #
       def users(user)
-        raise NotImplemented
+        Proxy.new(connection, "./users/#{user}")
       end
     end
   end

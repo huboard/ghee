@@ -8,19 +8,19 @@ class Ghee
     module Users
       class Proxy < ::Ghee::ResourceProxy
         def followers
-          raise NotImplemented
+          connection.get("#{path_prefix}/followers").body
         end
         def following
-          raise NotImplemented
+          connection.get("#{path_prefix}/following").body
         end
         def following?(user)
-          raise NotImplemented
+          connection.get("#{path_prefix}/following/#{user}").status == 204
         end
         def follow(user)
-          raise NotImplemented
+          connection.put("#{path_prefix}/following/#{user}").status == 204
         end
         def follow!(user)
-          raise NotImplemented
+          connection.delete("#{path_prefix}/following/#{user}").status == 204
         end
       end
     end
