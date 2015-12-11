@@ -14,7 +14,7 @@ end
 
 #require 'ghee/gitlab/api/authorizations'
 #require 'ghee/gitlab/api/gists'
-#require 'ghee/gitlab/api/users'
+require 'ghee/gitlab/api/users'
 #require 'ghee/gitlab/api/events'
 require 'ghee/gitlab/api/repos'
 #require 'ghee/gitlab/api/issues'
@@ -38,3 +38,4 @@ require 'ghee/gitlab/api/repos'
 #require 'ghee/gitlab/api/members'
 
 require 'ghee/gitlab/api/translators/repo_translator'
+require 'ghee/gitlab/api/translators/user_translator'

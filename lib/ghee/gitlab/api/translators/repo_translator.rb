@@ -1,15 +1,7 @@
 class Ghee
   module GitLab
     class RepoTranslator < Ghee::ApiTranslator
-      def translate_data(input)
-        if input.class == Array
-          input.map(&:translate_repo)
-        else
-          translate_repo(input)
-        end
-      end
-
-      def translate_repo(input)
+      def translate_hash(input)
         output = {}
         output['full_name'] = input['path_with_namespace']
         output['private'] = !input['public']
