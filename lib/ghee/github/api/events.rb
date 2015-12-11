@@ -17,9 +17,9 @@ class Ghee
       # Returns json
       #
       def events(params={})
-        return Proxy.new(connection, "./events",params)
+        return Proxy.new(connection, "./events", nil, params)
       end
-      
+
     end
   end
 end

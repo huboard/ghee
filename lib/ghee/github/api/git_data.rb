@@ -64,15 +64,15 @@ class Ghee
           def blobs(sha=nil, params={})
             params = sha if sha.is_a?Hash
             prefix = (!sha.is_a?(Hash) and sha) ? "#{path_prefix}/blobs/#{sha}" : "#{path_prefix}/blobs"
-            Ghee::API::Repos::Git::Blobs::Proxy.new(connection, prefix, params)
+            Ghee::API::Repos::Git::Blobs::Proxy.new(connection, prefix, nil, params)
           end
-          
+
           # Get a commit by the sha
           #
           def commits(sha=nil, params={})
             params = sha if sha.is_a?Hash
             prefix = (!sha.is_a?(Hash) and sha) ? "#{path_prefix}/commits/#{sha}" : "#{path_prefix}/commits"
-            Ghee::API::Repos::Git::Commits::Proxy.new(connection, prefix, params)
+            Ghee::API::Repos::Git::Commits::Proxy.new(connection, prefix, nil, params)
           end
 
           # Get refs for the repo
@@ -86,7 +86,7 @@ class Ghee
           #
           def trees(sha=nil,params={})
             prefix = sha ? "#{path_prefix}/trees/#{sha}" : "#{path_prefix}/trees"
-            Ghee::API::Repos::Git::Trees::Proxy.new(connection, prefix, params)
+            Ghee::API::Repos::Git::Trees::Proxy.new(connection, prefix, nil, params)
           end
 
           # Get a tag by a given sha

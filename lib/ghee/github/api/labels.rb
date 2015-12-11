@@ -29,7 +29,7 @@ class Ghee
         def labels(number=nil, params={})
           params = number if number.is_a?Hash
           prefix = (!number.is_a?(Hash) and number)  ? "#{path_prefix}/labels/#{number}" : "#{path_prefix}/labels"
-          Ghee::API::Repos::Labels::Proxy.new(connection, prefix, params)
+          Ghee::API::Repos::Labels::Proxy.new(connection, prefix, nil, params)
         end
       end
     end

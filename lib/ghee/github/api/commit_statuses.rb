@@ -17,11 +17,11 @@ class Ghee
 
           def statuses(id=nil, &block)
             prefix = build_prefix id, "statuses"
-            Ghee::API::Repos::Commits::Statuses::Proxy.new connection, prefix, id, &block
+            Ghee::API::Repos::Commits::Statuses::Proxy.new connection, prefix, nil, id, &block
           end
           def status(&block)
             prefix = build_prefix nil, "status"
-            Ghee::API::Repos::Commits::Statuses::Proxy.new connection, prefix, id, &block
+            Ghee::API::Repos::Commits::Statuses::Proxy.new connection, prefix, nil, id, &block
           end
         end
         module Statuses

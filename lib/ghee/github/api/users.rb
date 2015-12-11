@@ -29,13 +29,13 @@ class Ghee
       #
       module Memberships
 
-        # Memberships::Proxy inherits from Ghee::Proxy and 
+        # Memberships::Proxy inherits from Ghee::Proxy and
         # enables defining methods on the proxy object
         #
         class Proxy < ::Ghee::ResourceProxy
           #Org membership for the user
           #
-          #State: string to limit scope to either active or 
+          #State: string to limit scope to either active or
           #pending
           #
           #Returns json
@@ -58,7 +58,7 @@ class Ghee
         # Returns json
         #
         def gists(params={})
-          Ghee::API::Gists::Proxy.new(connection,"#{path_prefix}/gists", params)
+          Ghee::API::Gists::Proxy.new(connection,"#{path_prefix}/gists", nil, params)
         end
 
         # Repos for a user
@@ -67,11 +67,11 @@ class Ghee
         #
         def repos(name=nil, params={})
           params = name if name.is_a?Hash
-          prefix = name.is_a?(String) ? "./repos/#{self["login"]}/#{name}" : "#{path_prefix}/repos" 
-          Ghee::API::Repos::Proxy.new(connection,prefix, params)
+          prefix = name.is_a?(String) ? "./repos/#{self["login"]}/#{name}" : "#{path_prefix}/repos"
+          Ghee::API::Repos::Proxy.new(connection, prefix, nil, params)
         end
 
-        # Returns list of the provided users organizations or 
+        # Returns list of the provided users organizations or
         # an organization by name
         #
         # org - String name of the organization (optional)
@@ -81,13 +81,13 @@ class Ghee
         def orgs(org=nil, params={})
           params = org if org.is_a?Hash
           prefix = org.is_a?(String) ? "./orgs/#{org}" : "#{path_prefix}/orgs"
-          Ghee::API::Orgs::Proxy.new(connection, prefix, params)
+          Ghee::API::Orgs::Proxy.new(connection, prefix, nil, params)
         end
 
-        # Returns a Memberships Proxy 
+        # Returns a Memberships Proxy
         def memberships(params={state: "active"}, &block)
           prefix = "#{path_prefix}/memberships/orgs"
-          Ghee::API::Users::Memberships::Proxy.new(connection, prefix, params, &block)
+          Ghee::API::Users::Memberships::Proxy.new(connection, prefix, nil, params, &block)
         end
       end
 
@@ -96,7 +96,7 @@ class Ghee
       # Returns json
       #
       def user(&block)
-        Proxy.new(connection, './user', nil, &block)
+        Proxy.new(connection, './user', nil, nil, &block)
       end
 
       # Get a single user

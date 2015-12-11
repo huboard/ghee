@@ -22,7 +22,7 @@ class Ghee
 
         def comments(id = nil)
           prefix = id ? "#{path_prefix}/comments/#{id}" : "#{path_prefix}/comments"
-          return Ghee::API::Gists::Comments::Proxy.new connection, prefix
+          return Ghee::API::Gists::Comments::Proxy.new connection, nil, prefix
         end
 
 

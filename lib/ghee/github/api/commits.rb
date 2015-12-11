@@ -19,7 +19,7 @@ class Ghee
         end
         def commits(sha=nil, &block)
           prefix = build_prefix sha, "commits"
-          Ghee::API::Repos::Commits::Proxy.new(connection, prefix, sha, &block)
+          Ghee::API::Repos::Commits::Proxy.new(connection, prefix, nil, sha, &block)
         end
       end
 

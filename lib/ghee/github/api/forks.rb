@@ -24,7 +24,7 @@ class Ghee
       #
       class Proxy < ::Ghee::ResourceProxy
         def forks(params={})
-          Ghee::API::Repos::Forks::Proxy.new connection, "#{path_prefix}/forks", params
+          Ghee::API::Repos::Forks::Proxy.new connection, "#{path_prefix}/forks", nil, params
         end
       end
     end

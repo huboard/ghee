@@ -34,12 +34,12 @@ class Ghee
 
       class Proxy < ::Ghee::ResourceProxy
         def contents(path, &block)
-          proxy = Contents::Proxy.new connection, "#{path_prefix}/contents/#{path}", nil, &block
+          proxy = Contents::Proxy.new connection, "#{path_prefix}/contents/#{path}", nil, nil, &block
           proxy.path = path
           proxy
         end
         def readme(&block)
-          Contents::Proxy.new connection, "#{path_prefix}/readme", {}, &block
+          Contents::Proxy.new connection, "#{path_prefix}/readme", nil, {}, &block
         end
       end
     end

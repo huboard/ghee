@@ -26,7 +26,7 @@ class Ghee
       #
       module Issues
 
-        # API labels module handles all of the Github Issues 
+        # API labels module handles all of the Github Issues
         # API endpoints
         #
         module Labels
@@ -63,7 +63,7 @@ class Ghee
           end
         end
 
-        # API Comments module handles all of the Github Issues 
+        # API Comments module handles all of the Github Issues
         # API endpoints
         #
         module Comments
@@ -106,7 +106,7 @@ class Ghee
             response.body
           end
 
-          # Returns issue comments for an issue or all of the comments 
+          # Returns issue comments for an issue or all of the comments
           # for a repo
           def comments(id=nil)
             prefix = id ? "#{path_prefix}/comments/#{id}" : "#{path_prefix}/comments"
@@ -138,7 +138,7 @@ class Ghee
         #
         def issues(number=nil)
           prefix = (!number.is_a?(Hash) and number) ? "#{path_prefix}/issues/#{number}" : "#{path_prefix}/issues"
-          issue = Ghee::API::Repos::Issues::Proxy.new(connection, prefix, number)
+          issue = Ghee::API::Repos::Issues::Proxy.new(connection, prefix, nil, number)
           issue.repo = self
           issue
         end

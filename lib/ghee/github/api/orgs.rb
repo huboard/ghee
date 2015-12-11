@@ -25,7 +25,7 @@ class Ghee
         #
         module Members
 
-          # Members::Proxy inherits from Ghee::Proxy and 
+          # Members::Proxy inherits from Ghee::Proxy and
           # enables defining methods on the proxy object
           #
           class Proxy < ::Ghee::ResourceProxy
@@ -44,7 +44,7 @@ class Ghee
           end
         end
 
-        # Teams::Proxy inherits from Ghee::Proxy and 
+        # Teams::Proxy inherits from Ghee::Proxy and
         # enables defining methods on the proxy object
         #
         class Proxy < ::Ghee::ResourceProxy
@@ -52,7 +52,7 @@ class Ghee
 
           def members(name=nil, &block)
             prefix = name ? "#{path_prefix}/members/#{name}" : "#{path_prefix}/members"
-            Ghee::API::Orgs::Teams::Members::Proxy.new(connection, prefix, name, &block)
+            Ghee::API::Orgs::Teams::Members::Proxy.new(connection, prefix, nil, name, &block)
           end
 
         end
@@ -70,7 +70,7 @@ class Ghee
         #
         def teams(number=nil, &block)
           prefix = (!number.is_a?(Hash) and number) ? "./teams/#{number}" : "#{path_prefix}/teams"
-          Ghee::API::Orgs::Teams::Proxy.new(connection, prefix, number, &block)
+          Ghee::API::Orgs::Teams::Proxy.new(connection, prefix, nil, number, &block)
         end
 
         # Repos for a orgs
@@ -80,7 +80,7 @@ class Ghee
         def repos(name=nil, &block)
           params = name if name.is_a?Hash
           prefix = (!name.is_a?(Hash) and name) ? "./repos/#{self["login"]}/#{name}" : "#{path_prefix}/repos"
-          Ghee::API::Repos::Proxy.new(connection,prefix,name, &block)
+          Ghee::API::Repos::Proxy.new(connection,prefix, nil, name, &block)
         end
 
         # User Membership for an org
@@ -90,7 +90,7 @@ class Ghee
 
         def memberships(user, &block)
           prefix = "#{path_prefix}/memberships/#{user}"
-          Ghee::API::Orgs::Memberships::MembershipsProxy.new(connection, prefix, nil, &block)
+          Ghee::API::Orgs::Memberships::MembershipsProxy.new(connection, prefix, nil, nil, &block)
         end
       end
 
@@ -99,11 +99,11 @@ class Ghee
       # Returns json
       #
       def team(number, params={})
-        prefix = "./teams/#{number}" 
-        Ghee::API::Orgs::Teams::Proxy.new(connection, prefix, params)
+        prefix = "./teams/#{number}"
+        Ghee::API::Orgs::Teams::Proxy.new(connection, prefix, nil, params)
       end
 
-      # Returns list of the authenticated users organizations or 
+      # Returns list of the authenticated users organizations or
       # an organization by name
       #
       # org - String name of the organization (optional)

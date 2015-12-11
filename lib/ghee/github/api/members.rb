@@ -4,11 +4,11 @@ class Ghee
       class Proxy < ::Ghee::ResourceProxy
         def members(id=nil, &block)
           prefix = build_prefix id, "members"
-          Ghee::API::Orgs::Members::Proxy.new connection, prefix, id, &block
+          Ghee::API::Orgs::Members::Proxy.new connection, prefix, nil, id, &block
         end
         def public_members(id=nil, &block)
           prefix = build_prefix id, "public_members"
-          Ghee::API::Orgs::PublicMembers::Proxy.new connection, prefix, id, &block
+          Ghee::API::Orgs::PublicMembers::Proxy.new connection, prefix, nil, id, &block
         end
       end
       module PublicMembers

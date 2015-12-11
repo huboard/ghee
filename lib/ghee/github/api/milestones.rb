@@ -55,7 +55,7 @@ class Ghee
         def milestones(number=nil, params={})
           params = number if number.is_a?Hash
           prefix = (!number.is_a?(Hash) and number) ? "#{path_prefix}/milestones/#{number}" : "#{path_prefix}/milestones"
-          Ghee::API::Repos::Milestones::Proxy.new(connection, prefix, params)
+          Ghee::API::Repos::Milestones::Proxy.new(connection, prefix, nil, params)
         end
       end
     end
