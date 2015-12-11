@@ -107,7 +107,7 @@ class Ghee
 
     parse_link_header response.headers.delete("link")
 
-    return self      
+    return self
   end
 
   def all
@@ -132,7 +132,7 @@ class Ghee
         end
       end
     end
-    requests.inject([]) do |results, page| 
+    requests.inject([]) do |results, page|
       results.concat(page.body)
     end
   end
@@ -145,11 +145,11 @@ class Ghee
   end
 
   def build_prefix(first_argument, endpoint)
-    (!first_argument.is_a?(Hash) && !first_argument.nil?) ? 
+    (!first_argument.is_a?(Hash) && !first_argument.nil?) ?
       File.join(path_prefix, "/#{endpoint}/#{first_argument}") : File.join(path_prefix, "/#{endpoint}")
   end
 
-  private 
+  private
 
   def pagination_data(header)
     parse_link_header header
