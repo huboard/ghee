@@ -116,14 +116,13 @@ class Ghee
           # Returns all of the labels for repo
           #
           def labels
-            # Not supported yet: GitLab needs to retrieve by repo_path instead of issues/repo_path
-            raise NotImplemented
+            Ghee::API::Repos::Issues::Proxy.new(connection, path_prefix, ::Ghee::GitLab::IssueTranslator.new(:extract_labels))
           end
 
           # Returns issue events for a repo or issue number
           #
           def events(id=nil)
-            # Not supported yet: GitLab system notes do not have metadata
+            # Not supported yet: GitLab can't filter events by issue
             raise NotImplemented
           end
 

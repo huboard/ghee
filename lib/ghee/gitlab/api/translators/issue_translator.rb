@@ -2,9 +2,16 @@ class Ghee
   module GitLab
     class IssueTranslator < Ghee::ApiTranslator
       def translate_hash(input)
-        output = {}
-        store_passthrough(input, output)
-        store_remapped(input, output)
+        case context
+          when :extract_labels
+            label_translator = LabelsTranslator.new(:labels)
+            output = label_translator.translate_hash(input['labels'])
+          else
+            output = {}
+            store_passthrough(input, output)
+            store_remapped(input, output)
+        end
+
         output
       end
 
