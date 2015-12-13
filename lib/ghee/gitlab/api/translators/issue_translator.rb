@@ -23,7 +23,8 @@ class Ghee
       end
 
       def store_remapped(input, output)
-        output['id'] = input['iid']
+        output['id'] = input['id']
+        output['number'] = input['iid']
         output['user'] = {}
         output['user']['id'] = input['author']['id']
         output['user']['login'] = input['author']['username']
