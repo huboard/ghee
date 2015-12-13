@@ -35,6 +35,8 @@ class Ghee
           output['milestone'] = translator.translate_hash(input['milestone'])
         end
 
+        label_translator = LabelsTranslator.new(:labels)
+        output['labels'] = label_translator.translate_hash(input['labels'])
         output
       end
     end
