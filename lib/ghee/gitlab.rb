@@ -37,6 +37,7 @@ require 'ghee/gitlab/api/commits'
 #require 'ghee/gitlab/api/contents'
 #require 'ghee/gitlab/api/members'
 
+require 'ghee/gitlab/api/translators/access_levels'
 require 'ghee/gitlab/api/translators/assignee_translator'
 require 'ghee/gitlab/api/translators/commit_translator'
 require 'ghee/gitlab/api/translators/org_translator'
