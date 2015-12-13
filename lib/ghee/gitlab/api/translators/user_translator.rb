@@ -5,6 +5,7 @@ class Ghee
         new_user = {}
         new_user['id'] = data['id']
         new_user['login'] = data['username']
+        new_user['avatar_url'] = data['avatar_url']
         new_user['name'] = data['name']
         new_user['email'] = data['email'] if data['email']
         new_user

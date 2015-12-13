@@ -12,11 +12,12 @@ class Ghee
             connection.get("#{path_prefix}/#{member}").status == 204
           end
         end
-      end
-      class Proxy < ::Ghee::ResourceProxy
-        def assignees
-          prefix = "#{path_prefix}/assignees"
-          Ghee::API::GitLab::Repos::Assignees::Proxy.new(connection, prefix)
+
+        class Proxy < ::Ghee::ResourceProxy
+          def assignees
+            prefix = "#{path_prefix}/assignees"
+            Ghee::API::GitLab::Repos::Assignees::Proxy.new(connection, prefix, ::Ghee::GitLab::AssigneeTranslator.new(:assignees))
+          end
         end
       end
 

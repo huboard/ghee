@@ -10,6 +10,20 @@ class Ghee
     #
     module Repos
 
+      module Assignees
+        class Proxy < ::Ghee::ResourceProxy
+          def check?(member)
+            raise NotImplemented
+          end
+        end
+      end
+      class Proxy < ::Ghee::ResourceProxy
+        def assignees
+          prefix = "#{path_prefix}/members"
+          Ghee::API::Repos::Assignees::Proxy.new(connection, prefix, ::Ghee::GitLab::AssigneeTranslator.new(:assignees))
+        end
+      end
+
       # Gists::Proxy inherits from Ghee::Proxy and
       # enables defining methods on the proxy object
       #
