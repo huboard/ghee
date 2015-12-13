@@ -8,6 +8,7 @@ class Ghee
         new_user['avatar_url'] = data['avatar_url']
         new_user['name'] = data['name']
         new_user['email'] = data['email'] if data['email']
+        new_user['type'] = 'User'
         new_user
       end
     end
