@@ -4,6 +4,7 @@ class Ghee
       def translate_hash(input)
         output = {}
         output['id'] = input['id']
+        output['number'] = input['iid']
         output['title'] = input['title']
         output['due_on'] = input['due_date']
         output['created_at'] = input['created_at']
