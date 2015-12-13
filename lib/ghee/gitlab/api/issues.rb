@@ -133,8 +133,6 @@ class Ghee
       class Proxy < ::Ghee::ResourceProxy
         attr_accessor :issue_path
 
-        RemapDef = Struct.new(:in_key, :out_key)
-
         # Get issues
         #
         # Returns json
