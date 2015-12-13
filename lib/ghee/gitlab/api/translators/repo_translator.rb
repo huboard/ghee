@@ -8,7 +8,8 @@ class Ghee
         output['ssh_url'] = input['ssh_url_to_repo']
         output['html_url'] = input['web_url']
         output['has_issues'] = input['issues_enabled']
-        # XXX Need open_issues_count in GitLab!
+        # This is only available in GitLab 8.3
+        output['open_issues_count'] = input.fetch('issues_enabled', 0)
         output
       end
     end
