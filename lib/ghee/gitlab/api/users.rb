@@ -103,7 +103,7 @@ class Ghee
       #
       def users(user)
         # GitLab doesn't support retrieval by username yet (only by ID)
-        raise NotImplemented
+        Proxy.new(connection, "./users?username=#{user}", ::Ghee::GitLab::UserTranslator.new(:user))
       end
     end
   end
