@@ -74,11 +74,14 @@ class Ghee
         @block.call(req)if @block
       end
 
-      if @api_translator
-        @api_translator.translate_data(response.body)
-      else
-        response.body
-      end
+      translate_body(response.body)
+  end
+
+  def translate_body(body)
+    if @api_translator
+      @api_translator.translate_data(body)
+    else
+      body
     end
   end
 
@@ -100,9 +103,9 @@ class Ghee
     end
 
     if @subject.nil?
-      @subject = response.body
+      @subject = translate_body(response.body)
     else
-      @subject = @subject.concat response.body
+      @subject = @subject.concat translate_body(response.body)
     end
 
     parse_link_header response.headers.delete("link")
