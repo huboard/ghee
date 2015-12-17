@@ -6,8 +6,7 @@ class Ghee
       end
 
       def authorizations(number=nil)
-        prefix = number ? "./authorizations/#{number}" : "./authorizations"
-        Ghee::API::Authorizations::Proxy.new(connection, prefix)
+        raise NotImplemented
       end
     end
   end

@@ -5,6 +5,7 @@ require 'ghee/errors'
 require 'ghee/uri_escape'
 require 'ghee/state_methods'
 require 'ghee/resource_proxy'
+require 'ghee/api_translator'
 require 'ghee/api/authorizations'
 require 'ghee/api/gists'
 require 'ghee/api/users'
@@ -48,7 +49,7 @@ class Ghee
   def initialize(options = {}, &block)
     @options = options
     @block = block if block
-    return @connection = Ghee::Connection.new(options, &block) 
+    return @connection = Ghee::Connection.new(options, &block)
   end
 
   def in_parallel(adapter = :typhoeus, &block)
@@ -57,23 +58,5 @@ class Ghee
     ghee.connection.in_parallel do
       block.call ghee
     end
-  end
-
-  def self.basic_auth(user_name, password, api_url = nil)
-      options = { :basic_auth  => {:user_name => user_name, :password => password} }
-      options[:api_url] = api_url if api_url
-      Ghee.new options
-  end
-
-  def self.access_token(token, api_url = nil)
-    options = {  :access_token => token }
-    options[:api_url] = api_url if api_url
-    Ghee.new  options
-  end
-
-  def self.create_token(user_name, password, scopes, api_url = nil)
-    auth = Ghee.basic_auth(user_name, password, api_url).authorizations.create({
-      :scopes => scopes})
-    auth["token"]
   end
 end

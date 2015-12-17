@@ -16,30 +16,17 @@ class Ghee
         class Proxy < ::Ghee::ResourceProxy
           attr_accessor :path
           def create(message, content=nil)
-            if content.nil?
-              message.inject({}){|memo,(k,v)| memo[k.to_sym] = v; memo}
-              attributes = { path: path }.merge message
-              attributes[:content] = Base64.encode64 attributes[:content]
-            else
-              attributes = {
-                path: path,
-                message: message, 
-                content: Base64.encode64(content)
-              }
-            end
-            connection.put(path_prefix, attributes).body
+            raise NotImplemented
           end
         end
       end
 
       class Proxy < ::Ghee::ResourceProxy
         def contents(path, &block)
-          proxy = Contents::Proxy.new connection, "#{path_prefix}/contents/#{path}", nil, &block
-          proxy.path = path
-          proxy
+          raise NotImplemented
         end
         def readme(&block)
-          Contents::Proxy.new connection, "#{path_prefix}/readme", {}, &block
+          raise NotImplemented
         end
       end
     end

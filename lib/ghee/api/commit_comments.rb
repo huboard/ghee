@@ -12,15 +12,13 @@ class Ghee
       class Proxy < ::Ghee::ResourceProxy
 
         def comments(id=nil, &block)
-          prefix = build_prefix id, "comments"
-          Ghee::API::Repos::Commits::Comments::Proxy.new connection, prefix, id, &block
+          raise NotImplemented
         end
       end
       module Commits
         class Proxy < ::Ghee::ResourceProxy
           def comments(id=nil, &block)
-            prefix = build_prefix id, "comments"
-            Ghee::API::Repos::Commits::Comments::Proxy.new connection, prefix, id, &block
+            raise NotImplemented
           end
         end
         module Comments

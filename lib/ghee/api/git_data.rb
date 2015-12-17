@@ -18,8 +18,6 @@ class Ghee
         #
         module Blobs
           class Proxy < ::Ghee::ResourceProxy
-            undef_method "patch"
-            undef_method "destroy"
           end
         end
 
@@ -27,8 +25,6 @@ class Ghee
         #
         module Tags
           class Proxy < ::Ghee::ResourceProxy
-            undef_method "patch"
-            undef_method "destroy"
           end
         end
 
@@ -36,8 +32,6 @@ class Ghee
         #
         module Commits
           class Proxy < ::Ghee::ResourceProxy
-            undef_method "patch"
-            undef_method "destroy"
           end
         end
 
@@ -45,8 +39,6 @@ class Ghee
         #
         module Trees
           class Proxy < ::Ghee::ResourceProxy
-            undef_method "patch"
-            undef_method "destroy"
           end
         end
 
@@ -62,45 +54,38 @@ class Ghee
           # Get the blob by a provided sha
           #
           def blobs(sha=nil, params={})
-            params = sha if sha.is_a?Hash
-            prefix = (!sha.is_a?(Hash) and sha) ? "#{path_prefix}/blobs/#{sha}" : "#{path_prefix}/blobs"
-            Ghee::API::Repos::Git::Blobs::Proxy.new(connection, prefix, params)
+            raise NotImplemented
           end
-          
+
           # Get a commit by the sha
           #
           def commits(sha=nil, params={})
-            params = sha if sha.is_a?Hash
-            prefix = (!sha.is_a?(Hash) and sha) ? "#{path_prefix}/commits/#{sha}" : "#{path_prefix}/commits"
-            Ghee::API::Repos::Git::Commits::Proxy.new(connection, prefix, params)
+            raise NotImplemented
           end
 
           # Get refs for the repo
           #
           def refs(ref=nil)
-             prefix = ref ? "#{path_prefix}/refs/#{ref}" : "#{path_prefix}/refs"
-            Ghee::API::Repos::Git::Refs::Proxy.new(connection, prefix)
+            raise NotImplemented
           end
 
           # Get tree by a given sha
           #
           def trees(sha=nil,params={})
-            prefix = sha ? "#{path_prefix}/trees/#{sha}" : "#{path_prefix}/trees"
-            Ghee::API::Repos::Git::Trees::Proxy.new(connection, prefix, params)
+            raise NotImplemented
           end
 
           # Get a tag by a given sha
           #
           def tags(sha=nil)
-            prefix = sha ? "#{path_prefix}/tags/#{sha}" : "#{path_prefix}/tags"
-            Ghee::API::Repos::Git::Tags::Proxy.new(connection, prefix)
+            raise NotImplemented
           end
         end
       end
       class Proxy < :: Ghee::ResourceProxy
 
         def git
-          Ghee::API::Repos::Git::Proxy.new(connection, "#{path_prefix}/git")
+          raise NotImplemented
         end
       end
     end

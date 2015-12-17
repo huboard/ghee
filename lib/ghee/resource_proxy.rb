@@ -13,7 +13,7 @@ class Ghee
     include Ghee::CUD
 
     # Make connection and path_prefix readable
-    attr_reader :connection, :path_prefix, :params, :id
+    attr_reader :connection, :path_prefix, :api_translator, :params, :id
 
     # Expose pagination data
     attr_reader :current_page, :total, :pagination
@@ -30,12 +30,14 @@ class Ghee
   # connection - Ghee::Connection object
   # path_prefix - String
   #
-  def initialize(connection, path_prefix, params = {}, &block)
+  def initialize(connection, path_prefix, api_translator = nil, params = {}, &block)
     if !params.is_a?Hash
       @id = params
-      params = {} 
+      params = {}
     end
-    @connection, @path_prefix, @params = connection, URI.escape(path_prefix), params
+    @connection, @path_prefix, @params = connection, path_prefix, params
+    @api_translator = api_translator
+    @path_prefix = URI.escape(@path_prefix) if connection.enable_url_escape
     @block = block if block
     subject if block
   end
@@ -65,18 +67,30 @@ class Ghee
   # Returns json
   #
   def subject
-    @subject ||= connection.get(path_prefix) do |req| 
-      req.params.merge!params 
-      req.headers["Accept"] = accept_type if self.respond_to? :accept_type
-      @block.call(req)if @block
-    end.body
+    @subject ||= begin
+      response = connection.get(path_prefix) do |req|
+        req.params.merge!params
+        req.headers["Accept"] = accept_type if self.respond_to? :accept_type
+        @block.call(req)if @block
+      end
+
+      translate_body(response.body)
+    end
+  end
+
+  def translate_body(body)
+    if @api_translator
+      @api_translator.translate_data(body)
+    else
+      body
+    end
   end
 
   # Paginate is a helper method to handle
   # request pagination to the github api
   #
   # options - Hash containing pagination params
-  # eg; 
+  # eg;
   #     :per_page => 100, :page => 1
   #
   # Returns self
@@ -90,14 +104,14 @@ class Ghee
     end
 
     if @subject.nil?
-      @subject = response.body
+      @subject = translate_body(response.body)
     else
-      @subject = @subject.concat response.body
+      @subject = @subject.concat translate_body(response.body)
     end
 
     parse_link_header response.headers.delete("link")
 
-    return self      
+    return self
   end
 
   def all
@@ -122,7 +136,7 @@ class Ghee
         end
       end
     end
-    requests.inject([]) do |results, page| 
+    requests.inject([]) do |results, page|
       results.concat(page.body)
     end
   end
@@ -135,11 +149,11 @@ class Ghee
   end
 
   def build_prefix(first_argument, endpoint)
-    (!first_argument.is_a?(Hash) && !first_argument.nil?) ? 
+    (!first_argument.is_a?(Hash) && !first_argument.nil?) ?
       File.join(path_prefix, "/#{endpoint}/#{first_argument}") : File.join(path_prefix, "/#{endpoint}")
   end
 
-  private 
+  private
 
   def pagination_data(header)
     parse_link_header header

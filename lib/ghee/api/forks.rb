@@ -13,8 +13,7 @@ class Ghee
       module Forks
         class Proxy < ::Ghee::ResourceProxy
            def create(org=nil)
-             params = org ? {:org => org} : {}
-             connection.post(path_prefix, params).body
+             raise NotImplemented
            end
         end
       end
@@ -24,7 +23,7 @@ class Ghee
       #
       class Proxy < ::Ghee::ResourceProxy
         def forks(params={})
-          Ghee::API::Repos::Forks::Proxy.new connection, "#{path_prefix}/forks", params
+          raise NotImplemented
         end
       end
     end

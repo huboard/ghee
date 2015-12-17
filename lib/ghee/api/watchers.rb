@@ -14,25 +14,25 @@ class Ghee
       # enables defining methods on the proxy object
       #
       class Proxy < ::Ghee::ResourceProxy
-          
+
         def watchers
-          connection.get("#{path_prefix}/watchers").body
+          raise NotImplemented
         end
       end
     end
     module Users
       class Proxy < ::Ghee::ResourceProxy
         def watched
-          connection.get("#{path_prefix}/watched").body
+          raise NotImplemented
         end
         def watching?(user,repo)
-          connection.get("#{path_prefix}/watched/#{user}/#{repo}").status == 204
+          raise NotImplemented
         end
         def watch(user, repo)
-          connection.put("#{path_prefix}/watched/#{user}/#{repo}").status == 204
+          raise NotImplemented
         end
         def watch!(user, repo)
-          connection.delete("#{path_prefix}/watched/#{user}/#{repo}").status == 204
+          raise NotImplemented
         end
       end
     end

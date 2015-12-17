@@ -15,11 +15,10 @@ class Ghee
       #
       class Proxy < ::Ghee::ResourceProxy
         def compare(base, head)
-          connection.get("#{path_prefix}/compare/#{base}...#{head}").body
+          raise NotImplemented
         end
         def commits(sha=nil, &block)
-          prefix = build_prefix sha, "commits"
-          Ghee::API::Repos::Commits::Proxy.new(connection, prefix, sha, &block)
+          raise NotImplemented
         end
       end
 

@@ -13,11 +13,11 @@ class Ghee
       module Collaborators
         class Proxy < ::Ghee::ResourceProxy
           def add(member)
-            connection.put("#{path_prefix}/#{member}").status == 204
+            raise NotImplemented
           end
 
           def remove(member)
-            connection.delete("#{path_prefix}/#{member}").status == 204
+            raise NotImplemented
           end
         end
       end
@@ -27,8 +27,7 @@ class Ghee
       #
       class Proxy < ::Ghee::ResourceProxy
         def collaborators(user=nil, &block)
-          prefix = build_prefix user, "collaborators"
-          Collaborators::Proxy.new(connection, prefix, user, &block)
+          raise NotImplemented
         end
       end
     end
