@@ -75,6 +75,7 @@ class Ghee
       end
 
       translate_body(response.body)
+    end
   end
 
   def translate_body(body)
