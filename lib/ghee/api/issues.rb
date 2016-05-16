@@ -136,9 +136,9 @@ class Ghee
         #
         # Returns json
         #
-        def issues(number=nil)
+        def issues(number=nil, &block)
           prefix = (!number.is_a?(Hash) and number) ? "#{path_prefix}/issues/#{number}" : "#{path_prefix}/issues"
-          issue = Ghee::API::Repos::Issues::Proxy.new(connection, prefix, number)
+          issue = Ghee::API::Repos::Issues::Proxy.new(connection, prefix, number, &block)
           issue.repo = self
           issue
         end
