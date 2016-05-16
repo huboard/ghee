@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.version     = Ghee::VERSION
   s.authors     = ["Ryan Rauh","Jonathan Hoyt"]
   s.email       = ["rauh.ryan@gmail.com"]
-  s.homepage    = "http://github.com/rauhryan/ghee"
+  s.homepage    = "http://github.com/huboard/ghee"
   s.summary     = %q{Access Github in ruby.}
   s.description = %q{A complete, simple, and intuitive ruby API for all things Github.}
 
