@@ -87,7 +87,7 @@ class Ghee
     response = connection.get do |req|
       req.url path_prefix, :per_page => per_page, :page => current_page
       req.params.merge! params
-      block.call(req)
+      block.call(req) if block
     end
 
     if @subject.nil?
