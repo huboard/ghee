@@ -5,24 +5,24 @@ class Ghee
     #
     # return json
     #
-    def create(attributes)
-      connection.post(path_prefix,attributes).body
+    def create(attributes, &block)
+      connection.post(path_prefix,attributes, &block).body
     end
 
     # Patchs 
     #
     # return json
     #
-    def patch(attributes)
-      connection.patch(path_prefix, attributes).body
+    def patch(attributes, &block)
+      connection.patch(path_prefix, attributes, &block).body
     end
 
     # Destroys 
     #
     # return boolean
     #
-    def destroy
-      connection.delete(path_prefix).status == 204
+    def destroy(&block)
+      connection.delete(path_prefix, &block).status == 204
     end
   end
 

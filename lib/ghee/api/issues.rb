@@ -126,6 +126,21 @@ class Ghee
             Ghee::API::Repos::Issues::Events::Proxy.new(connection,prefix)
           end
 
+          def assignees(&block)
+              prefix = "#{path_prefix}/assignees"
+              Ghee::API::Repos::Issues::Assignees::Proxy.new(connection, prefix, &block)
+          end
+        end
+
+        module Assignees
+          class Proxy < ::Ghee::ResourceProxy
+            undef_method :patch
+            undef_method :destroy
+
+            def remove(params, &block)
+              connection.delete(path_prefix, params, &block).body
+            end
+          end
         end
       end
 
