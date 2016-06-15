@@ -127,18 +127,39 @@ class Ghee
           end
 
           def assignees(&block)
-              prefix = "#{path_prefix}/assignees"
-              Ghee::API::Repos::Issues::Assignees::Proxy.new(connection, prefix, &block)
+            prefix = "#{path_prefix}/assignees"
+            Ghee::API::Repos::Issues::Assignees::Proxy.new(connection, prefix, &block)
           end
         end
 
         module Assignees
           class Proxy < ::Ghee::ResourceProxy
-            undef_method :patch
-            undef_method :destroy
+            accept_header "application/vnd.github.cerberus-preview.full+json"
 
-            def remove(params, &block)
-              connection.delete(path_prefix, params, &block).body
+            undef_method :create
+            undef_method :destroy
+            undef_method :patch
+
+            def add(assignees, &block)
+              body = {
+                assignees: assignees
+              }
+              connection.post(path_prefix) do |req|
+                req.headers['Accept'] = "application/vnd.github.cerberus-preview.full+json"
+                req.body = body
+                block.call(req) if block
+              end.body
+            end
+
+            def remove(assignees, &block)
+              body = {
+                assignees: assignees
+              }
+              connection.delete(path_prefix) do |req|
+                req.headers['Accept'] = "application/vnd.github.cerberus-preview.full+json"
+                req.body = body
+                block.call(req) if block
+              end.body
             end
           end
         end
