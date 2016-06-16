@@ -5,8 +5,9 @@ env:
 language: ruby
 
 notifications:
-  email:
-    - support@huboard.com
+  slack:
+    on_success: always
+    on_failure: always
 
 script: bundle exec rake spec
 
