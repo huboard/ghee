@@ -35,7 +35,7 @@ class Ghee
 
       self.headers["Authorization"] = "token #{access_token}" if access_token
       self.basic_auth(basic_auth[:user_name], basic_auth[:password]) if basic_auth
-      self.headers["Accept"] = 'application/json'
+      self.headers["Accept"] = 'application/vnd.github.v3.full+json'
 
     end
   end

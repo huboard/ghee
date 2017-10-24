@@ -5,10 +5,47 @@ class Ghee
   #
   module API
 
+    module Membership
+      class MembershipProxy < ::Ghee::ResourceProxy
+        def admin?
+          self['role'] == "admin"
+        end
+        def active?
+          self['state'] == 'active'
+        end
+        def activate!
+          connection.patch(path_prefix, {state: "active"}).body
+        end
+      end
+    end
+
     # The Users module handles all of the Github User
     # API endpoints
     #
     module Users
+
+      #Users::Memberships modules handles a users memberships
+      #
+      #
+      module Memberships
+
+        # Memberships::Proxy inherits from Ghee::Proxy and 
+        # enables defining methods on the proxy object
+        #
+        class Proxy < ::Ghee::ResourceProxy
+          #Org membership for the user
+          #
+          #State: string to limit scope to either active or 
+          #pending
+          #
+          #Returns json
+          def org(name, &block)
+            prefix = "#{path_prefix}/#{name}"
+            Ghee::API::Membership::MembershipProxy.new(connection, prefix, nil, &block)
+          end
+
+        end
+      end
 
       # Users::Proxy inherits from Ghee::Proxy and
       # enables defining methods on the proxy object
@@ -47,15 +84,19 @@ class Ghee
           Ghee::API::Orgs::Proxy.new(connection, prefix, params)
         end
 
-       
+        # Returns a Memberships Proxy 
+        def memberships(params={state: "active"}, &block)
+          prefix = "#{path_prefix}/memberships/orgs"
+          Ghee::API::Users::Memberships::Proxy.new(connection, prefix, params, &block)
+        end
       end
 
       # Get authenticated user
       #
       # Returns json
       #
-      def user
-        Proxy.new(connection, './user')
+      def user(&block)
+        Proxy.new(connection, './user', nil, &block)
       end
 
       # Get a single user

@@ -49,6 +49,7 @@ describe Ghee::API::Orgs::Teams do
               members = subject.orgs.teams(member_team["id"]).members
               members.first["login"].should == GH_USER
               members.size.should > 0
+              subject.orgs.teams(member_team["id"]).members.check?(GH_USER).should be_true
             end
           end
           it "should remove a member" do
