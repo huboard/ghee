@@ -17,12 +17,12 @@ describe Ghee::Connection do
         end
       end
 
-      it "should return 204" do
-        response.status.should == 204
+      it "should return 200" do
+        response.status.should == 200
       end
 
       it "should parse the json response" do
-        response.body.should be_nil
+        response.body.should_not be_nil
       end
     end
   end
@@ -42,12 +42,12 @@ describe Ghee::Connection do
           subject.get('/')
         end
       end
-      it "should return 204" do
-        response.status.should == 204
+      it "should return 200" do
+        response.status.should == 200
       end
 
       it "should parse the json response" do
-        response.body.should be_nil
+        response.body.should_not be_nil
       end
     end
   end

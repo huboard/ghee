@@ -12,7 +12,6 @@ describe Ghee::API::Events do
     EventTypes.should include(event['type'])
     event['repo'].should be_instance_of(Hash)
     event['actor'].should be_instance_of(Hash)
-    event['org'].should be_instance_of(Hash)
     event['created_at'].should_not be_nil
   end
 

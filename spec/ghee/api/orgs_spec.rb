@@ -29,6 +29,15 @@ describe Ghee::API::Orgs do
       end
     end
 
+    describe "#memberships" do
+      it "should return a membership" do
+        VCR.use_cassette "orgs(login).memberships(user)" do
+          membership = subject.orgs(GH_ORG).memberships(GH_USER)
+          membership["state"].should == "active"
+        end
+      end
+    end
+
     describe "#repos" do
       it "should return a list of repos" do
         VCR.use_cassette "orgs(login).repos" do

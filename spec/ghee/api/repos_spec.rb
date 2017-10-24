@@ -22,7 +22,6 @@ describe Ghee::API::Repos do
       it "should return issues for repo" do
         VCR.use_cassette("repo(#{GH_USER},#{GH_REPO}).issues") do
           issues = subject.repos(GH_USER, GH_REPO).issues
-          puts issues.sort_by! { |r| r["title"]}.reverse
           issues.is_a?(Array).should be_true
           issues.size.should > 0
           issues.first["title"].should_not be_nil
@@ -65,7 +64,7 @@ describe Ghee::API::Repos do
 
         it "should patch a label" do
           VCR.use_cassette("repo(#{GH_USER},#{GH_REPO}).labels.patched") do
-            name = "patch label #{rand(100)}"
+            name = "patch label #{Guid::guid}"
             label = subject.repos(GH_USER, GH_REPO).labels.create(:color => "efefef", :name => name)
             label["color"].should == "efefef"
             label["url"].should include "labels/patch"
@@ -98,7 +97,7 @@ describe Ghee::API::Repos do
         VCR.use_cassette("user.repos(#{GH_REPO})") do
           repo = subject.user.repos(GH_REPO)
           repo.connection.should_not be_nil
-          repo.path_prefix.should == "/repos/#{GH_USER}/#{GH_REPO}"
+          repo.path_prefix.should == "./repos/#{GH_USER}/#{GH_REPO}"
           should_be_a_repo(repo)
         end
       end

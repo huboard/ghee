@@ -3,8 +3,7 @@ Ghee
 
 This is an unofficial ruby client for the [GitHub API](http://developer.github.com/v3/). The end goal is a complete, simple, and intuitive ruby API for all things Github.
 
-Usage
------
+# Usage
 
 Instantiate the client with basic auth:
 
@@ -16,10 +15,17 @@ Instantiate the client with auth token:
 
 Create an OAuth access token:
 
-    user_name, password, scopes = "rauhryan", "secret", "repos, user"
+    user_name, password, scopes = "rauhryan", "secret", ["user","repo"]
     token = Ghee.create_token(user_name, password, scopes)
 
-### Gists
+Create a client for github enterprise
+    
+    gh = Ghee.access_token("your_token","https://foo.com")
+    gh = Ghee.basic_auth("your_user", "your_pass", "https://foo.com")
+
+## Gists
+
+### Usage
 
 List a user's gists:
 
@@ -80,11 +86,199 @@ Delete a gist:
 
     gh.gists("1393990").destroy
 
-### Repos
+### Comments
+
+List comments for a gist:
+
+    gh.gists("1382919").comments
+
+Get a single gist comment:
+
+    gh.gists.comments("1231414")
+
+Create a single gist comment: 
+
+    gh.gists.comments("1231414").create({
+       :body => "new body"
+    })
+
+Patch a single gist comment: 
+
+    gh.gists.comments("1231414").patch({
+       :body => "new body"
+    })
+
+Delete a comment for a gist: 
+
+    gh.gists.comments("1231441").destroy
+
+
+
+## Repos                                
 
 Get a single repo:
 
     gh.repos("rauhryan", "ghee")
+
+### Pulls
+
+List pull requests on a repo (see [List pull requests](http://developer.github.com/v3/pulls/#list-pull-requests) )
+
+
+    gh.repos("rauhryan", "ghee").pulls
+
+    gh.repos("rauhryan", "ghee").pulls({
+      :state => "closed" # optional
+    })
+    
+Get a single pull request on a repo (see [Get a single pull request](http://developer.github.com/v3/pulls/#get-a-single-pull-request) )
+
+    gh.repos("rauhryan", "ghee").pulls(1097)
+    
+Create a pull request (see [Create a pull request](http://developer.github.com/v3/pulls/#create-a-pull-request) )
+
+    gh.repos("rauhryan", "ghee").pulls.create({
+        :title=>"take my awesome code!",
+        :body=>"This code is so awesome. Let me tell you why...",
+        :base=>"master",
+        :head=>"octocat:awesomebranch"
+    })
+    
+Update a pull request (see [Update a pull request](http://developer.github.com/v3/pulls/#update-a-pull-request) )
+
+    gh.repos("rauhryan", "ghee").pulls(1097).patch({:title=>"New title", :body=>"New body", :state=>"closed"})
+    
+List commits on a pull request (see [List commits a pull request](http://developer.github.com/v3/pulls/#list-commits-on-a-pull-request) )
+
+    gh.repos("rauhryan", "ghee").pulls(1097).commits
+    
+List files on a pull request (see [List files a pull request](http://developer.github.com/v3/pulls/#list-pull-requests-files) )
+
+    gh.repos("rauhryan", "ghee").pulls(1097).files
+
+Get if a pull request has been merged (see [Get if a pull request has been merged](http://developer.github.com/v3/pulls/#get-if-a-pull-request-has-been-merged) )
+
+    gh.repos("rauhryan", "ghee").pulls(1097).merged? #=> true
+
+Merge a pull request (see [Merge a pull request](http://developer.github.com/v3/pulls/#merge-a-pull-request-merge-buttontrade) )
+
+    gh.repos("rauhryan", "ghee").pulls(1097).merge!  
+    gh.repos("rauhryan", "ghee").pulls(1097).merge!("It's like hitting the Merge Button(TM)")
+
+### Commits
+
+List commits on a repo:
+
+    gh.repos("rauhryan", "ghee").commits
+
+    gh.repos("rauhryan", "ghee").commits({
+      :sha => "awesome_branch" # optional
+    })
+
+    gh.repos("rauhryan", "ghee").commits( {
+      :path => "/path/to/file" # only commits containing this path
+    })
+
+Get a single commit:
+
+    gh.repos("rauhryan", "ghee").commits("sha")
+
+List commit comments for a repo:
+
+    gh.repos("rauhryan", "ghee").comments
+
+List comments for a single commit:
+
+    gh.repos("rauhryan", "ghee").commits("sha").comments
+
+Create a commit comment:
+
+    gh.repos("rauhryan", "ghee").commits("sha").comments.create({
+      :body => "sweet codez yo!", #required
+      :commit_id => "sha", #required
+      :line => 123, #required
+      :path => "/path/to/file", #required
+      :position => 4 #required
+    })
+
+Get a single commit comment:
+
+    gh.repos("rauhryan", "ghee").comments(123)
+
+Update a commit comment:
+
+    gh.repos("rauhryan", "ghee").comments(123).patch(:body => "new text")
+
+Destroy a commit comment: 
+
+    gh.repos("rauhryan", "ghee").comments(123).destroy
+
+Compare two commits:
+
+    gh.repos("rauhryan", "ghee").compare("basesha","headsha")
+
+### Collaborators
+
+List a repos collaborators:
+
+    gh.repos("rauhryan", "ghee").collaborators
+    
+Get a single collaborator:
+
+    gh.repos("rauhryan", "ghee").collaborators("herp") # => false
+
+    gh.repos("rauhryan", "ghee").collaborators("jonmagic") # => true
+
+Add a collaborator:
+
+    gh.repos("rauhryan", "ghee").collaborators.add("herp") # => true
+    
+Remove a collaborator:
+
+    gh.repos("rauhryan", "ghee").collaborators.remove("herp") # => true
+
+### Forks
+
+List the hooks for a repo:
+
+    gh.repos("rauhryan", "ghee").forks
+
+    gh.repos("rauhryan", "ghee").forks(:sort => "newest") # => `newest`, `oldest`, `watchers`
+
+Create a fork:
+
+    gh.repos("rauhryan", "ghee").forks.create # => forks the repo to the authenticated user
+
+### Keys
+
+List the keys for a repo:
+
+    gh.repos("rauhryan", "ghee").keys
+  
+Get a single key for a repo:
+
+    gh.repos("rauhryan", "ghee").keys(123)
+
+Create a key for a repo: 
+  
+    gh.repos("rauhryan", "ghee").keys.create({
+      :title => "customer deploy key",
+      :key => "ssh-rsa AAA ..."
+    })
+
+Update a key for a repo: 
+  
+    gh.repos("rauhryan", "ghee").keys.patch({
+      :title => "customer deploy key",
+      :key => "ssh-rsa AAA ..."
+    })
+
+Destroy a key for a repo: 
+
+    gh.repos("rauhryan", "ghee").keys(123).destroy # => true
+
+
+### Hooks
 
 Get the hooks for a repo:
 
@@ -112,6 +306,50 @@ Destroy a hook for a repo:
 
     gh.repos("rauhryan", "ghee").hooks(1).destory
 
+### Downloads
+
+Get the downloads for a repo:
+
+    gh.repos("rauhryan", "ghee").downloads
+
+Get a single download for a repo:
+
+    gh.repos("rauhryan", "ghee").downloads(12)
+
+Create a download for a repo:
+
+    gh.repos("rauhryan", "ghee").downloads.create("/path/to/file","description")
+
+Destroy a download for a repo: 
+
+    gh.repos("rauhryan", "ghee").downloads(12).destroy
+
+### Watchers
+
+List watchers for a repo:
+
+    gh.repos("rauhryan", "ghee").watchers
+
+List repos being watched:
+
+    gh.user.watched
+    
+    gh.users("jonmagic").watched
+
+Check if you are watching a repo:
+
+    gh.user.watching? "rauhryan", "huboard"
+
+Watch a repo:
+
+    gh.user.watch "rauhryan", "huboard"
+
+Unwatch a repo: 
+
+    gh.user.watch! "rauhryan", "huboard"
+
+### Milestones
+
 Get the milestones for a repo:
 
     gh.repos("rauhryan", "ghee").milestones
@@ -136,6 +374,8 @@ Update a milestone for a repo: ([see docs for all possible params](http://develo
 Destroy a milestone for a repo:
 
     gh.repos("rauhryan", "ghee").milestones(1).destory
+
+### Issues
 
 Get the issues for a repo:
 
@@ -166,6 +406,8 @@ Get the closed issues for a repo:
 
     gh.repos("rauhryan", "ghee").issues(12).closed
 
+### Comments
+
 Get the comments for an issue:
 
     gh.repos("rauhryan", "ghee").issues(12).comments
@@ -187,7 +429,9 @@ Destroy a comment for an issue
 
     gh.repos("rauhryan", "ghee").issues.comments(482910).destroy
 
-### Orgs
+## Orgs
+
+### Usage
 
 Get a list of orgs for the current user:
 
@@ -201,11 +445,15 @@ Patch an organization:([see docs for all possible params](http://developer.githu
 
     gh.orgs("huboard").patch({ :company => "awesome company" })
 
+### Repos
+
 Get a list of repos for an org:
 
     gh.orgs("huboard").repos
 
 > Notes: see above for all the available api methods for repos
+
+### Teams
 
 Get a list of teams for an org:
 
@@ -227,6 +475,8 @@ Delete a team for an org:
 
     gh.orgs("huboard").teams(110234).delete
 
+### Members
+
 Get a list of members for a team:
 
     gh.orgs("huboard").teams(110234).members
@@ -239,7 +489,9 @@ Remove a member from a team:
 
     gh.orgs("huboard").teams(110234).members.remove("rauhryan")
 
-### Teams
+## Teams
+
+### Usage
 
 Get a single team:
 
@@ -257,6 +509,8 @@ Delete a team:
 
     gh.team(110234).delete
 
+### Members
+
 Get a list of members for a team:
 
     gh.team(110234).members
@@ -269,7 +523,9 @@ Remove a member from a team:
 
     gh.team(110234).members.remove("rauhryan")
 
-### Users
+## Users
+
+### Usage
 
 Get a single user:
 
@@ -287,6 +543,36 @@ Update authenticated user ([see docs for all possible params](http://developer.g
       :email => 'jonmagic@gmail.com',
       # …etc
     })
+
+### Keys
+
+List the keys for a user:
+
+    gh.user.keys
+  
+Get a single key for a user:
+
+    gh.user.keys(123)
+
+Create a key for a user: 
+  
+    gh.user.keys.create({
+      :title => "customer deploy key",
+      :key => "ssh-rsa AAA ..."
+    })
+
+Update a key for a user: 
+  
+    gh.user.keys.patch({
+      :title => "customer deploy key",
+      :key => "ssh-rsa AAA ..."
+    })
+
+Destroy a key for a user: 
+
+    gh.user.keys(123).destroy # => true
+
+### Repos
 
 Get a list of repos for the current user:
 
@@ -316,13 +602,151 @@ Get a list of orgs for a specific user:
 
 > Notes: see above for all the available api methods for orgs
 
-### Events
+### Followers
+
+Get the followers for a user:
+
+    gh.user.followers
+
+    gh.users("rauhryan").followers
+
+Get users following another user:
+
+    gh.users("rauhryan").following
+
+    gh.user.following
+
+Check if you are following a user:
+
+    gh.user.following? "rauhryan"
+
+Follow a user:
+
+    gh.user.follow "rauhryan"
+
+Unfollow a user:
+
+    gh.user.follow! "rauhryan"
+
+## Git Data
+
+### Blobs
+
+Get a blob:
+
+    gh.repos("rauhryan","huboard").git.blobs("sha")
+
+Create a blob:
+
+    gh.repos("rauhryan","huboard").git.blobs.create({
+      :content => "Contents of blob",
+      :encoding => "utf-8"
+    })
+
+
+### Commit
+
+Get a commit:
+
+    gh.repos("rauhryan","huboard").git.commits("sha")
+
+Create a commit:
+
+    gh.repos("rauhryan","huboard").git.commits.create({
+      :message => "message of commit",
+      :tree => "sha",
+      :parents => ["sha","sha"]
+    })
+
+### References
+
+Get a reference:
+
+    gh.repos("rauhryan","huboard").git.refs("heads/master")
+
+Get all references:
+
+    gh.repos("rauhryan","huboard").git.refs
+
+    gh.repos("rauhryan","huboard").git.refs("tags")
+
+    gh.repos("rauhryan","huboard").git.refs("heads")
+
+Create a reference:
+
+    gh.repos("rauhryan","huboard").git.refs.create({
+        :ref => "refs/heads/master",
+        :sha => "287efc2351325e215j235f25215el1"
+      })
+
+Update a reference:
+
+    gh.repos("rauhryan","huboard").git.refs("heads/master").patch({
+        :sha => "287efc2351325e215j235f25215el1",
+        :force => true
+      })
+
+Delete a reference:
+
+    gh.repos("rauhryan","huboard").git.refs("tags/v1.0").destroy
+    
+### Tags
+
+Get a tag:
+
+    gh.repos("rauhryan","huboard").git.tags("sha")
+
+Create a tag:
+
+    gh.repos("rauhryan","huboard").git.tags.create({
+        :tag => "v1.0",
+        :message => "tag message",
+        :object => "sha", #sha of the object you are tagging, usually a commit
+        :type => "commit", #the type of object you are tagging
+        :tagger => {
+           :name => "Ryan Rauh",
+           :email => "rauh.ryan@gmail.com",
+           :date => "2011-06-17T14:53:35-07:00"
+        }
+      })
+
+### Trees
+
+Get a tree:
+
+    gh.repos("rauhryan","huboard").git.trees("sha")
+
+Get a tree recursively:
+
+    gh.repos("rauhryan","huboard").git.trees("sha",{:recursive => 1})
+
+Create a tree:
+
+    gh.repos("rauhryan","huboard").git.trees.create({
+        :base_tree => "sha", #optional
+        :tree => [
+          {
+            :path => "/path/to/thing",
+            :mode => 100644,
+            :type => "blob",
+            :sha => "sha"
+            # :content => "" # can use this instead of sha
+          }
+        ]
+    })
+    
+
+## Events
+
+### Usage
 
 List public events:
 
     gh.events
 
-### Pagination
+## Pagination
+
+### Usage
 
 Ghee fully supports pagination for anything that returns a list, for
 example repo issues.
@@ -338,7 +762,9 @@ Ghee also provides a convienence method for all the pages
 
     gh.repos("rauhryan","huboard").issues.all #=> return all the pages
 
-### Filtering parameters
+## Filtering parameters
+
+### Usage
 
 Many of the api calls allow you to pass in additional paramters to
 filter and sort your data, for example issues provide
@@ -372,10 +798,20 @@ In order for VCR to make and cache the actual calls to the Github API you will n
 
 This file is ignored by git (see .gitignore) so you can commit any changes you make to the gem without having to worry about your user/token/pass/org being released into the wild.
 
+Before  you run the api test suite:
+
+    Fork [Ghee-Test](https://github.com/rauhryan/ghee_test)
+    Set the settings.yml repo key to ghee_test
+    On ghee_test:
+     - Enable issue tracking on (your username)/ghee
+     - Create a Public Gist and Star it
+     - Create an issue with the title "Seeded"
+     - Create a comment on a commit line
+
 Now run the test suite:
 
     bundle
-    bundle exec rake
+    bundle exec rake api
 
 CONTRIBUTE
 ----------

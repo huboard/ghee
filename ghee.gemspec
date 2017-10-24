@@ -6,8 +6,8 @@ Gem::Specification.new do |s|
   s.name        = "ghee"
   s.version     = Ghee::VERSION
   s.authors     = ["Ryan Rauh","Jonathan Hoyt"]
-  s.email       = ["rauh.ryan@gmail.com"]
-  s.homepage    = "http://github.com/rauhryan/ghee"
+  s.email       = ["support@huboard.com"]
+  s.homepage    = "https://github.com/huboard/ghee"
   s.summary     = %q{Access Github in ruby.}
   s.description = %q{A complete, simple, and intuitive ruby API for all things Github.}
 
@@ -18,15 +18,20 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
-  s.add_runtime_dependency 'faraday'
-  s.add_runtime_dependency 'faraday_middleware'
-  s.add_runtime_dependency 'multi_json'
-  s.add_runtime_dependency 'yajl-ruby'
+  s.add_dependency 'faraday', '~> 0.9'
+  s.add_dependency 'faraday_middleware', '~> 0.9'
+  s.add_dependency 'hashie', '~> 3.3.2'
+  s.add_dependency 'multi_json', '~> 1.3'
+  s.add_dependency 'highline', '~> 1.6.15'
+  s.add_dependency 'typhoeus', '~> 0.7.0'
+  
   s.add_development_dependency 'rake'
-  s.add_development_dependency 'json'
-  s.add_development_dependency 'rspec', '~>2.0'
+  s.add_development_dependency 'json_pure'
+  s.add_development_dependency 'rspec', '~>2.9.0'
   s.add_development_dependency 'webmock'
   s.add_development_dependency 'vcr'
   s.add_development_dependency 'ZenTest'
   s.add_development_dependency 'autotest-growl'
+  s.add_development_dependency 'uuidtools'
+  s.add_development_dependency 'pry-byebug'
 end

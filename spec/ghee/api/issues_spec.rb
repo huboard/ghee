@@ -1,19 +1,37 @@
 require 'spec_helper'
 
-describe Ghee::API::Issues do
+describe Ghee::API::Repos::Issues do
   subject { Ghee.new(GH_AUTH) }
 
   def should_be_an_issue(issue)
-    issue["user"]["login"].should_not be_nil
+    issue["user"].should_not be_nil
     issue["comments"].should_not be_nil
   end
 
   describe "#repos(login,name)#issues" do
     it "should return repos issues" do
+      VCR.use_cassette("repos(\"#{GH_USER}/#{GH_REPO}\").issues") do
+        issues = subject.repos("#{GH_USER}/#{GH_REPO}").issues
+        issues.size.should > 0
+        should_be_an_issue(issues.first)
+      end
+    end
+    it "should accept only one argument" do
       VCR.use_cassette("repos(#{GH_USER},#{GH_REPO}).issues") do
         issues = subject.repos(GH_USER, GH_REPO).issues
         issues.size.should > 0
         should_be_an_issue(issues.first)
+      end
+    end
+
+    describe "#repos#issues#search" do
+      it "should return open issues by default" do 
+        VCR.use_cassette("repos(#{GH_USER},#{GH_REPO}).issues.search#default") do
+          issues = subject.repos(GH_USER, GH_REPO).issues.search("Seeded")
+          issues['issues'].size.should > 0
+          should_be_an_issue(issues['issues'].first)
+        end
+
       end
     end
 
@@ -72,6 +90,20 @@ describe Ghee::API::Issues do
           end
         end
 
+        describe "#events" do 
+          it "should return all the events for a given issue" do 
+            VCR.use_cassette "#repo#issues(id)#events" do
+              events = subject.repos(GH_USER,GH_REPO).issues(test_issue["number"]).events
+              events.size.should > 0
+            end
+          end
+          it "should return all the events for the repo" do 
+            VCR.use_cassette "#repo#issues#events" do
+              events = subject.repos(GH_USER,GH_REPO).issues.events
+              events.size.should > 0
+            end
+          end
+        end
         describe "#comments" do
           context "issue with comments " do
             before :all do
