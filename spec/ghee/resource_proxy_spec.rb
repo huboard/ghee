@@ -65,6 +65,29 @@ describe "Pagination" do
     end
   end
 
+  describe "#all with block" do
+    before(:each) do
+      @connection = mock('connection')
+      @request = OpenStruct.new()
+      @request.stub(:url)
+      @request.stub(:params).and_return(Hash.new)
+
+      @block = Proc.new {}
+      @connection.stub!(:get)
+        .and_yield(@request)
+        .and_return(IncrementPager.new 1)
+    end
+
+    subject do 
+      Ghee::ResourceProxy.new(@connection, '/foo')
+    end
+
+    it "Passes the request down to the block" do 
+      @block.should_receive(:call).with(@request)
+      subject.all(&@block)
+    end
+  end
+
 
   describe "past first page" do 
 

@@ -81,12 +81,13 @@ class Ghee
   #
   # Returns self
   #
-  def paginate(options)
+  def paginate(options, &block)
     @current_page = options.fetch(:page) {raise ArgumentError, ":page parameter required"}
     per_page = options.delete(:per_page) || 30
     response = connection.get do |req|
       req.url path_prefix, :per_page => per_page, :page => current_page
       req.params.merge! params
+      block.call(req) if block
     end
 
     if @subject.nil?
@@ -100,12 +101,12 @@ class Ghee
     return self      
   end
 
-  def all
+  def all(&block)
     return self if pagination && next_page.nil?
 
-    self.paginate :per_page => 100, :page => next_page || 1
+    self.paginate :per_page => 100, :page => next_page || 1, &block
 
-    self.all
+    self.all(&block)
   end
 
   def all_parallel
