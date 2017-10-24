@@ -13,7 +13,7 @@ class Ghee
       module Forks
         class Proxy < ::Ghee::ResourceProxy
            def create(org=nil)
-             params = org ? {:org => org} : {}
+             params = org.nil? ? {} : (org.is_a?(Hash) ? org : { organization: org })
              connection.post(path_prefix, params).body
            end
         end
